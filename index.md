@@ -1,4 +1,4 @@
-## Welcome to GitHub Pages
+## Hello, world
 
 
 ```c
@@ -6,7 +6,11 @@
 
 int main()
 {
-	printf("Hello, world\n");
+	printf("Welcome to my blog\n");
+	printf("by brant-ruan\n");
+	printf("Just hack[ing]\n");
+	printf(":)\n");
+
 	return 0;
 }
 

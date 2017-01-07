@@ -24,7 +24,7 @@ int main()
 
     <li>
 
-      <a href="{{ post.url }}">{{ post.date }} | {{ post.title }}</a>
+      <a href="{{ post.url }}">{{ post.date | date_to_string }} &gt;&gt; {{ post.title }}</a>
 
     </li>
 

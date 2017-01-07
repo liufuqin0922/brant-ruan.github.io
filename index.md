@@ -1,5 +1,3 @@
-## Hello, world
-
 <ul>
 
   {% for post in site.posts %}

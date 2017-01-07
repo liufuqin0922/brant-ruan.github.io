@@ -1,7 +1,4 @@
 <ul>
-    <li>
-      <a href="{{ site.url/Daily }}">
-    </li>
 
   {% for post in site.posts %}
 

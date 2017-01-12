@@ -1,6 +1,6 @@
 <ul>
 
-  {% for post in site.Poem %}
+  {% for post in site.categories.Poem %}
 
     <li>
 

@@ -1,10 +1,10 @@
 <ul>
 
-  {% for post in site.categories.Sec %}
+  {% for post in site.posts %}
 
     <li>
 
-      <a href="{{ post.url }}">{{ post.date | date_to_string }} &gt;&gt; {{ post.title }}</a>
+      <a href="{{ post.url }}">root # {{ post.title }}</a>
 
     </li>
 

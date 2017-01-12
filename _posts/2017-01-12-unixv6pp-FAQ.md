@@ -17,13 +17,13 @@ A:
 
 ---
 
-**Q: The Index of page directory entry for page table of kernel is 768#. Why is 768?**
+**Q: The index of page directory entry for page table of kernel is 768#. Why is 768?**
 
 A: 768 * 4M / 1024 = 3G. In Unix v6++, kernel's address space is [3G, 3G+4M-1].
 
 ---
 
-**Q: Why does Unix V6++ use PE as the format of executable file, not ELF?**
+**Q: Why does Unix v6++ use PE as the format of executable file, not ELF?**
 
 A:
 

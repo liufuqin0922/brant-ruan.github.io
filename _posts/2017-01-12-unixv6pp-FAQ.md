@@ -1,6 +1,6 @@
 ---
 title: Unix v6++ FAQ
-category: OS
+category: CS
 ---
 
 ## Unix v6++ FAQ

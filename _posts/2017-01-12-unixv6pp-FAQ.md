@@ -38,3 +38,7 @@ A:
 **Q: what does the Makefile do?**
 
 A:
+
+---
+
+**Q: Can you tell me more about the local variable area**

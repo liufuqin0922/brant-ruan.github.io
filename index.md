@@ -4,7 +4,7 @@
 
     <li>
 
-      <a href="{{ post.url }}">root # {{ post.title }}</a>
+      <a href="{{ post.url }}">{{ post.title }}</a>
 
     </li>
 

@@ -1,9 +1,9 @@
 ---
-title: 打印店病毒分析 - Mydocument.exe
+title: 打印店病毒分析 - MyDocument.exe
 category: Sec
 ---
 
-## 打印店病毒分析 - Mydocument.exe
+## 打印店病毒分析 - MyDocument.exe
 
 样本仅供学习研究使用：
 
@@ -50,7 +50,7 @@ IDA初步分析程序为Windows 32位程序，EP注明UPX，似乎有UPX加壳�
 
 main 函数如下：
 
-{% highlight c linenos %}
+{% highlight c %}
   sub_401150();
   GetCurrentDirectoryA(0x104u, &Buffer);
   wsprintfA(&RootPathName, aCCC, Buffer, v13, v14);
@@ -100,7 +100,7 @@ main 函数如下：
 
 首先执行`sub_401150`，判断当前日期是否在2011年4月1日到2011年5月2日之间，如果不是则什么也不做；如果是，则调用`sub_4010A0`，后重启计算机。`sub_4010A0`比较可恶，它从C到K尝试盘符，并调用`sub_401000`企图把每个存在的磁盘塞满（占用大约78GB空间）。
 
-{% highlight c linenos %}
+{% highlight c %}
 int sub_401150()
 {
   int result;
@@ -231,7 +231,7 @@ signed int __cdecl sub_401000(char a1, int a2)
 
 又回到`sub_401580`的循环开始处。
 
-{% highlight c linenos %}
+{% highlight c %}
 
 LSTATUS __cdecl sub_4011E0(LPCSTR lpData)
 {
@@ -358,7 +358,7 @@ HANDLE __cdecl sub_4013A0(int a1)
 
 注意，刚刚判断`C:\Program Files\Internet Explorer\WINLOGON.exe`是否存在时如果不存在最后是直接进入监控死循环的；如果存在，则跳过上面那些，它又调用`sub_4012C0`来判断`C:\Program Files\Internet Explorer\WINLOGON.exe`是否存在，这次如果存在，则说明当前系统已被感染（至少病毒这么想），它仅仅打开`MyDocument`目录，把正常文件展示给用户；如果这次不存在，则什么也不做，退出程序（这里重复判断体现了病毒的狡猾：如果因为某种原因，上次判断之后C盘下的病毒复制品被删除了，病毒将不给用户展示正常文件夹，用户以为出错，一般来说会再次双击运行这个病毒，于是又会走一次流程......）。
 
-### 思路归纳
+### 总结
 
 根据时间来看，很可能是11年愚人节前夕推出的病毒。
 

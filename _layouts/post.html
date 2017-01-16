@@ -1,0 +1,49 @@
+<!DOCTYPE html>
+<html>
+  <head>
+    <meta charset='utf-8'>
+    <meta http-equiv="X-UA-Compatible" content="chrome=1">
+    <meta name="description" content="br's blog">
+
+    <link rel="stylesheet" type="text/css" media="screen" href="{{ '/assets/css/style.css?v=' | append: site.github.build_revision | relative_url }}" />
+    <title>glob s'rb</title>
+  </head>
+
+  <body>
+
+    <!-- HEADER -->
+    <div id="header_wrap" class="outer">
+        <header class="inner">
+          <h1 id="project_title">00100011F</h1>
+        </header>
+    </div>
+
+    <!-- MAIN CONTENT -->
+    <div id="main_content_wrap" class="outer">
+      <section id="main_content" class="inner">
+        {{ content }}
+      </section>
+    </div>
+    
+    <!-- COMMENT POWERED BY GITHUB ISSUE -->
+    <div id="comments">
+      <h2>Comments</h2>
+      <div id="header">
+        You can leave a comment at <a href="https://github.com/brant-ruan/brant-ruan.github.io/issues/{{ post.commentIssueId }}">this post's issue page on GitHub</a> with your Github account :)
+      </div>
+    </div>
+    
+    <!-- FOOTER  -->
+    <div id="footer_wrap" class="outer">
+      <footer class="inner">
+        {% if site.github.is_project_page %}
+        <p class="copyright">{{ site.title | default: site.github.repository_name }} maintained by <a href="{{ site.github.owner_url }}">{{ site.github.owner_name }}</a></p>
+        {% endif %}
+        <p>flesruoy wonK</p>
+      </footer>
+    </div>
+
+
+
+  </body>
+</html>

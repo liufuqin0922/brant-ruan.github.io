@@ -93,3 +93,19 @@
   {% endfor %}
 
 </ul>
+
+<h2>Other</h2>
+
+<ul>
+
+  {% for post in site.categories.Other %}
+
+    <li>
+
+      <a href="{{ post.url }}">{{ post.title }}</a>
+
+    </li>
+
+  {% endfor %}
+
+</ul>

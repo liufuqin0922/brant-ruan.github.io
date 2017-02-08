@@ -1,5 +1,9 @@
-好吧。也是很久以前就想玩的东西。  
-原因嘛，因为GDB之类的调试器真的很神奇咯。
+---
+title: Have Fun with Ptrace
+category: Linux
+---
+
+## Have Fun with Ptrace
 
 ---
 

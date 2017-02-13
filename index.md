@@ -62,11 +62,11 @@
 
 </ul>
 
-<h2>Poem</h2>
+<h2>Essay</h2>
 
 <ul>
 
-  {% for post in site.categories.Poem %}
+  {% for post in site.categories.Essay %}
 
     <li>
 
@@ -78,11 +78,11 @@
 
 </ul>
 
-<h2>Essay</h2>
+<h2>Poem</h2>
 
 <ul>
 
-  {% for post in site.categories.Essay %}
+  {% for post in site.categories.Poem %}
 
     <li>
 

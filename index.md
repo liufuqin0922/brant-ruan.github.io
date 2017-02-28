@@ -62,6 +62,22 @@
 
 </ul>
 
+<h2>Tools</h2>
+
+<ul>
+
+  {% for post in site.categories.Tools %}
+
+    <li>
+
+      <a href="{{ post.url }}">{{ post.title }}</a>
+
+    </li>
+
+  {% endfor %}
+
+</ul>
+
 <h2>Essay</h2>
 
 <ul>

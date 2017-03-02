@@ -143,6 +143,49 @@ String doubleString = Double.toString(d);
 
 **数字的格式化**
 
+5.0 开始，通过`java.util`中的`Formatter`类格式化。便利的是，已经可以通过调用静态的`String.format()`就可以格式化了：
+
+```
+public class TestFormats{
+	public static void main(String[] args){
+		String s = String.format("%,d", 1000000000);
+		System.out.println(s);
+	}
+}
+```
+
+上面很像 C 语言中的格式化字符串，逗号是表示数字以逗号来分开。
+
+**关于时间**
+
+```
+import java.util.Date;
+...
+// date and time
+String.format("%tc", new Date());
+// time
+String.format("%tr", new Date());
+```
+
+要取得当前日期用`Date`，其余功能可以从`java.util.Calendar`上找。`Calendar`是个抽象类，所以不能取得它的实例。我们使用`getInstance()`返回一个它的子类的实例（一般是`java.utl.GregorianCalendar`）。
+
+```
+// obtain an object
+Calendar cal = Calendar.getInstance();
+cal.set(2004, 1, 7, 15, 40);
+// millisecond
+long day1 = c.getTimeInMillis();
+// add an hour
+day1 += 1000 * 60 * 60;
+c.setTimeInMillis(day1);
+```
+
+更多可参考 Java API 手册。
+
+**static import**
+
+这是 5.0 的新功能。让你少打几个字。个人不推荐使用。
+
 
 ### 2017-03-01
 

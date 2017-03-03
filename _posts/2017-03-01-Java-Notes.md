@@ -5,6 +5,73 @@ category: CS
 
 ## Java Notes
 
+### 2017-03-03
+
+**异常处理**
+
+如果某个方法的声明语句中包含`throws`语句，它就会在某些条件下抛出异常。所有异常都是`Exception`或者其子类的对象。除了`RuntimeException`和它的子类外，编译器会要求：
+
+1. 如果你有抛出异常，一定要用`throw`来声明；
+2. 如果你调用会抛出异常的方法，你必须通过`try/catch`或再次抛出异常来通过编译。
+
+{% highlight java %}
+// e.g. throw
+public void takeRisk() throws BadException{
+	if(abandonAllHope){
+		throw new BadException();
+	}
+}
+{% endhighlight %}
+
+{% highlight java %}
+// e.g. try/catch/finally
+import javax.sound.midi.*;
+public class MusicTest1{
+	public void play(){
+		try{
+			Sequencer sequencer = MidiSystem.getSequencer();
+			System.out.println("Successfully got a sequencer");
+		}
+		catch(MidiUnavaiableException ex){
+			System.out.println("Bummer");
+		}
+		finish{
+			System.out.println("finish");
+		}
+	}
+	public static void main(String[] args){
+		MusicTest1 mt = new MusicTest1();
+		mt.play();
+	}
+}
+{% endhighlight %}
+
+`finally`块存放无论是不是有异常都要执行的程序。如果`try`或`catch`中有`return`指令，则在`return`前会先执行`finally`块内指令再`return`。
+
+处理多重异常时最好分开单独`catch`，有多个`catch`块时要从小排到大（如果这些异常类之间有继承关系的话）。
+
+不想处理异常的话你可以把它再次抛给你的调用方，但最终总要有程序处理，否则就是`Java虚拟机`的结束。
+
+{% highlight java %}
+public class Washer{
+	Laundry laundry = new Laundry();
+	public void foo() throws ClothingException{
+		laundry.doLaundry();
+	}
+	public static void main(String[] args) throws ClothingException{
+		Washer a = new Washer();
+		a.foo();
+	}
+}
+{% endhighlight %}
+
+最后：
+
+- catch 与 finally 不能没有 try
+- try 与 catch 之间不能有程序
+- try 一定要有 catch 或 finally
+- 只带有 finally 的 try 必须生命异常
+
 ### 2017-03-02
 
 **继承与构造函数**
@@ -58,7 +125,7 @@ class Mini extends Car{
 
 **静态变量**
 
-被某个类的所有实例共享的量。静态变量在该类任何对象创建之前或它的任何静态方法执行之前就完成初始化。静态变量通过类名来存取。静态方法可以存取静态变量。
+被某个类的所有实例共享的量。**静态变量在该类任何对象创建之前或它的任何静态方法执行之前就完成初始化。**静态变量通过类名来存取。静态方法可以存取静态变量。
 
 **final**
 
@@ -185,7 +252,6 @@ c.setTimeInMillis(day1);
 **static import**
 
 这是 5.0 的新功能。让你少打几个字。个人不推荐使用。
-
 
 ### 2017-03-01
 

@@ -5,6 +5,211 @@ category: CS
 
 ## Java Notes
 
+### 2017-03-05
+
+**GUI**
+
+一切从`window`开始，`JFrame`是一个代表它的对象，各种`widget`添加在上面。`widget`通常在`javax.swing`包中。最常用的如`JButton`/`JRadioButton`/`JCheckBox`/`JLabel`/`JList`/`JScrollPane`/`JSlider`/`JTextArea`/`JTextField`/`JTable`等。
+
+{% highlight java %}
+import javax.swing.*;
+
+public class SimpleGui1{
+	public static void main(String[] args){
+		// create frame
+		JFrame frame = new JFrame();
+		// create widget
+		JButton button = new JButtion("click me");
+		// to kill program when window turned off
+		frame.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
+		// add widget to frame
+		frame.getContentPane().add(button);
+		// set size of frame
+		frame.setSize(300, 300);
+		// make frame visible
+		frame.setVisible(true);
+	}
+}
+{% endhighlight %}
+
+接着，我们希望在用户按下按钮时做出相应动作。此时，`button`是事件源，我们要实现监听接口。这样，在相关事件源发生相关事件时，我们相关的处理方法就会被调用。
+
+如下，取得`button`的`ActionEvent`我们需要：
+
+- 实现`ActionListener`接口
+- 向`button`注册（告诉它你要监听事件）
+- 定义事件的处理方法（也就是把接口的方法实现）
+
+{% highlight java %}
+import javax.swing.*;
+import java.awt.event.*;
+
+public class SimpleGui1B implements ActionListener{
+	JButton button;
+	public static void main(String[] args){
+		SimpleGui1B gui = new SimpleGui1B();
+		gui.go();
+	}
+	public void go(){
+		JFrame frame = new JFrame();
+		button = new JButton("click me");
+		// sign up
+		button.addActionListener(this);
+		frame.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
+		frame.getContentPane().add(button);
+		frame.setSize(300, 300);
+		frame.setVisible(true);
+	}
+	public void actionPerformed(ActionEvent event){
+		button.setText("I've been clicked!");
+	}
+}
+{% endhighlight %}
+
+**通过查询 Java API 手册可以得知某个对象是哪些事件的来源。可以看以`add`开头，`Listener`结尾且取用`listener`接口参数的方法。比如上面的`button.addActionListener(this)`，就说明按钮是`Action`事件的来源。**
+
+在 GUI 上添加东西的三个方法：
+
+- 在`frame`上放置`widget`
+
+```
+frame.getContentPane().add(myButton);
+```
+
+- 在`widget`上绘制 2D 图形
+
+```
+graphics.fileOval(70, 70, 100, 100);
+```
+
+- 在`widget`上绘制 JPEG 图
+
+```
+Image image = new ImageIcon("FILEPATH".getImage());
+graphics.drawImage(image, 10, 10, this);
+```
+
+**自己创建绘图组件**
+
+在屏幕上放自己的图形，最好的方式是自己创建出有绘图功能的`widget`。把`widget`放在`frame`上，很简单。如下，创建`JPanel`的子类，并覆盖掉它的`paintComponent()`，所有的绘图程序代码都放在这个方法里面。这个方法不是你自己调用的，它的参数是跟实际屏幕有关的`Graphics`对象，你无法取得这个对象，它必须由系统交给你。然而，你可以通过调用`repaint()`来要求系统重新绘制显示装置，之后会它会调用你的`paintComponent()`。
+
+{% highlight java %}
+// draw circle with random colors on black background
+import java.awt.*;
+import javax.swing.*;
+
+class MyDrawPanel extends JPanel{
+	public void paintComponent(Graphics g){
+		g.fillRect(0, 0, this.getWidth(), this.getHeight());
+
+		int red = (int)(Math.random() * 255);
+		int green = (int)(Math.random() * 255);
+		int blue = (int)(Math.random() * 255);
+
+		Color randomColor = new Color(red, green, blue);
+		g.setColor(randomColor);
+		g.fillOval(70, 70, 100, 100);
+	}
+}
+{% endhighlight %}
+
+上面例子中参数`g`引用的实际上是`Grahpics2D`类的实例，由于多态，这样是可以的。但另一方面，这个引用也会限制你只能调用属于`Graphics`类的方法。我们可以把它转换为`Graphics2D`来使用新方法（下面的功能是画渐变色圆）：
+
+{% highlight java %}
+public void paintComponent(Graphics g){
+	Graphics2D g2d = (Graphics2D)g;
+	GradientPaint gradient = new GradientPaint(70, 70, Color.blue, 150, 150, Color.orange);
+	g2d.setPaint(gradient);
+	g2d.fillOval(70, 70, 100, 100);
+}
+{% endhighlight %}
+
+讨论一下`frame`的布局：  
+一个`frame`默认有 5 个区域来安置`widget`。
+
+|north|north|north|
+|:-:|:-:|:-:|
+|west|center|east|
+|south|south|south|
+
+下面的代码会画一个按钮和一个圆圈，按下按钮就会改变圆圈的颜色：
+
+{% highlight java %}
+import javax.swing.*;
+import java.awt.*;
+import java.awt.event.*;
+
+public class SimpleGui3C implements ActionListener{
+	JFrame frame;
+	public static void main(String[] args){
+		SimpleGui3C gui = new SimpleGui3C();
+		gui.go();
+	}
+	public void go(){
+		JButton button = new JButton("change colors");
+		button.addActionListener(this);
+		frame = new JFrame();
+		frame.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
+		MyDrawPanel drawPanel = new MyDrawPanel();
+		frame.getContentPane().add(BorderLayout.SOUTH, button);
+		frame.getContentPane().add(BorderLayout.CENTER, drawPanel);
+		frame.setSize(300, 300);
+		frame.setVisible(true);
+	}
+}
+{% endhighlight %}
+
+现在我们尝试使用两个按钮，一个同上面的相同，用于控制圆圈的颜色；新增一个`label`，用一个新增的按钮来控制这个`label`文字的改变。我们目前只有一个`SimpleGui3C`实现了一个监听器，但现在需要两个监听器对两个按钮进行监听。根据需求，我们引入**内部类**。顾名思义，内部类就是指一个类嵌套在另一个类内部。内部的类可以自由调用或存取它的外部类的方法或变量。一般我们在外部类的方法中实现内部类的实例化（即`new`一个内部类对象），当然你也可以通过`Outer.Inner`的方法从外部类以外的程序代码来创建内部类实例，但这并不常用。
+
+借助内部类，实现一个类内部多个监听器：
+
+{% highlight java %}
+public class TwoButtons{
+	JFrame frame;
+	JLabel label;
+	public static void main(String[] args){
+		TwoButtons gui = new TwoButtons();
+		gui.go();
+	}
+	public void go(){
+		frame = new JFrame();
+		frame.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
+		
+		JButton labelButton = new JButton("Change Label");
+		labelButton.addActionListener(new LabelListener());
+		
+		JButton colorButton = new JButton("Change Circle");
+		colorButton.addActionListener(new ColorListener());
+		
+		label = new JLabel("I'm a label");
+		MyDrawPanel drawPanel = new MyDrawPanel();
+		
+		frame.getContentPane().add(BorderLayout.SOUTH, colorButton);
+		frame.getContentPane().add(BorderLayout.CENTER, drawPanel);
+		frame.getContentPane().add(BorderLayout.EAST, labelButton);
+		frame.getContentPane().add(BorderLayout.WEST, label;
+		frame.setSize(300, 300);
+		frame.setVisible(true);
+	}
+	
+	class LabelListener implements ActionListener{
+		public void actionPerformed(ActionEvent event){
+			label.setText("Ouch!");
+		}
+	}
+	class ColorListener implements ActionListener{
+		public void actionPerformed(ActionEvent event){
+			frame.repaint();
+		}
+	}
+}
+{% endhighlight %}
+
+```
+// sleep for 1 second
+Thread.sleep(1000) 
+```
+
 ### 2017-03-03
 
 **异常处理**

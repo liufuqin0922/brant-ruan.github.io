@@ -27,7 +27,32 @@ category: CS
 
 同`FlowLayout`，它让组件使用默认大小，并按照加入顺序排列，但BoxLayout通常以垂直方向排列组件。它不会自动换行，你需要插入某种类似换行的机制来强制换行。
 
+`BorderLayout`类在`java.awt`包中。
 
+下面的例子中，`BorderLayout`处理`button`尺寸的方式如下：
+
+```
+frame.getContentPane().add(BorderLayout.EAST, button);
+```
+
+[1] 询问按钮它的理想尺寸。
+[2] 按钮在东边，所以管理器认可按钮的宽度，但高度要和它依附的组件一样；如果按钮在北边，则默认认可按钮的高度。在东边时，按钮使用更大的字体会把自己撑宽。
+[3] 对于中间区域来说，它会在南北扣除预设高度，东西扣除预设宽度后看剩下什么。
+
+把面板的布局管理器从默认的`FlowLayout`改为`BoxLayout`:
+
+```
+panel.setLayout(new BoxLayout(panel, BoxLayout.Y_AXIS));
+```
+
+下列`Swing`组件不再具体说明，使用时参考文档即可（或许你不怎么会用代码来构图）：
+
+- JTextField
+- JTextArea
+- JCheckBox
+- JList
+
+在这个部分 *Head First Java* 有一个 BeatBox 的 GUI 作品，书上的代码见[此处]({{ site.url }}/resources/code/BeatBox.java)。
 
 ### 2017-03-05
 

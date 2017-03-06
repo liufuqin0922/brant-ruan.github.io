@@ -7,6 +7,54 @@ category: CS
 
 ### 2017-03-06
 
+**保存对象**
+
+对象是可以被序列化也可以被展开的。储存对象的状态有很多选择，后面将讨论两种方法：
+
+- serialization 序列化
+
+即，将被序列化的对象写入文件中，然后可以让你的程序从文件中读取序列化的对象，并把它们展开。条件是只有你自己写的程序会用到这些数据。
+
+- 写入一个纯文本文件
+
+用其他程序可以解析的特殊字符写到文件中。比如写成用`tab`字符分隔的形式。如果要让类能够被序列化，就要实现`Serializable`接口（但是这个接口又没有任何方法需要被实现，属于标记用接口）。
+
+对象序列化的例子：
+
+{% highlight java %}
+import java.io.*;
+public class Box implements Serializable{
+	private int width;
+	private int height;
+	
+	public void setWidth(int w){
+		width = w;
+	}
+	public void setHeight(int h){
+		height = h;
+	}
+	public static void main(String[] args){
+		Box myBox = new Box();
+		myBox.setWidth(50);
+		myBox.setHeight(20);
+		
+		try{
+			FileOutputStream fs = new FileOutputStream("foo.ser");
+			ObjectOutputStream os = new ObjectOutputStream(fs);
+			os.writeObject(myBox);
+			os.close();
+		}
+		catch(Exception ex){
+			ex.printStackTrace();
+		}
+	}
+}
+{% endhighlight %}
+
+当对象被序列化时，它引用的实例变量也会被序列化，且所有被引用的对象也会被序列化。
+
+### 2017-03-06
+
 **Swing**
 
 所有组件都继承于`javax.swing.JComponent`。`Swing`中几乎所有组件都能够安置其他组件。但一般我们会把按钮等组件放在框架或面板上而不是反过来。

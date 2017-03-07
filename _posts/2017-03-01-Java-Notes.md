@@ -5,9 +5,9 @@ category: CS
 
 ## Java Notes
 
-### 2017-03-06
+### 2017-03-07
 
-**保存对象**
+#### 保存对象
 
 对象是可以被序列化也可以被展开的。储存对象的状态有很多选择，后面将讨论两种方法：
 
@@ -19,7 +19,7 @@ category: CS
 
 用其他程序可以解析的特殊字符写到文件中。比如写成用`tab`字符分隔的形式。如果要让类能够被序列化，就要实现`Serializable`接口（但是这个接口又没有任何方法需要被实现，属于标记用接口）。
 
-对象序列化的例子：
+##### 对象序列化与反序列化
 
 {% highlight java %}
 import java.io.*;
@@ -51,11 +51,66 @@ public class Box implements Serializable{
 }
 {% endhighlight %}
 
-当对象被序列化时，它引用的实例变量也会被序列化，且所有被引用的对象也会被序列化。
+当对象被序列化时，它引用的实例变量也会被序列化，且所有被引用的对象也会被序列化。序列化是全有或者全无的，整个对象版图都必须正确地序列化，不然就得全部失败。例如，`Pond`类有一个对`Duck`类的引用，但`Duck`没有实现`Serializable`接口，那么`Pond`也不能序列化。
+
+如果某示例变量不能或者不应该被序列化，就该把它标记为`transient`（瞬时）的。这时如果你序列化对象，被标记的引用实例变量就会返回`null`。
+
+如果两个对象都有引用实例变量指向相同的对象，那么那个对象只会被存储一次。
+
+Deserialization 解序列化：
+
+{% highlight java %}
+// 1
+FileInputStream fileStream = new FileInputStream("MyGame.ser");
+// 2
+ObjectInputStream os = new ObjectInputStream(fileStream);
+// 3
+Object one = os.readObject();
+Object twp = os.readObject();
+Object three = os.readObject();
+// 4
+GameCharacter elf = (GameCharacter)one;
+GameCharacter troll = (GameCharacter)two;
+GameCharacter magician = (GameCharacter)three;
+// 5
+os.close();
+{% endhighlight %}
+
+正常情况下，新的对象的构造函数不会执行。但是如果该对象在继承树上有一个不可序列化的祖先类，那么从该不可序列化的祖先类往上的所有类的构造函数都会执行。
+
+静态变量不会被序列化，因为它们属于类而不是单个对象。
+
+**Java Deserialization Vulneribility**
+
+【留坑】
+
+http://www.tuicool.com/articles/ZvMbIne  
+http://www.freebuf.com/vuls/90840.html
+
+##### 写入文本文件
+
+注意输入输出相关的操作都要包含在`try/catch`块中。
+
+{% highlight java %}
+import java.io.*;
+
+class WriteAFile{
+	public static void main(String[] args){
+		try{
+			FileWriter writer = new FileWriter("Foo.txt");
+			writer.write("Hello foo!");
+			writer.close();
+		}
+		catch(IOException ex){
+			ex.printStackTrace();
+		}
+	}
+}
+{% endhighlight %}
 
 ### 2017-03-06
 
-**Swing**
+#### Swing
 
 所有组件都继承于`javax.swing.JComponent`。`Swing`中几乎所有组件都能够安置其他组件。但一般我们会把按钮等组件放在框架或面板上而不是反过来。
 
@@ -104,7 +159,7 @@ panel.setLayout(new BoxLayout(panel, BoxLayout.Y_AXIS));
 
 ### 2017-03-05
 
-**GUI**
+#### GUI
 
 一切从`window`开始，`JFrame`是一个代表它的对象，各种`widget`添加在上面。`widget`通常在`javax.swing`包中。最常用的如`JButton`/`JRadioButton`/`JCheckBox`/`JLabel`/`JList`/`JScrollPane`/`JSlider`/`JTextArea`/`JTextField`/`JTable`等。
 
@@ -309,7 +364,7 @@ Thread.sleep(1000)
 
 ### 2017-03-03
 
-**异常处理**
+#### 异常处理
 
 如果某个方法的声明语句中包含`throws`语句，它就会在某些条件下抛出异常。所有异常都是`Exception`或者其子类的对象。除了`RuntimeException`和它的子类外，编译器会要求：
 
@@ -376,7 +431,7 @@ public class Washer{
 
 ### 2017-03-02
 
-**继承与构造函数**
+#### 继承与构造函数
 
 每个父类都有一个构造函数，每个构造函数都会在子类对象创建时期执行。在子类构造函数中调用父类构造函数，即`Constructor Chaining`。子类向上递归调用父类构造函数，一层一层直到`Object`。
 
@@ -454,7 +509,7 @@ class Foo{
 |Math.min()|
 |Math.max()|
 
-**primitive 主数据类型的包装**
+#### primitive 主数据类型的包装
 
 在 5.0 版本之前，你无法直接把`primitive`主数据类型放进`ArrayList`或`HashMap`中，需要包装成类：
 
@@ -510,7 +565,7 @@ String doubleString = "" + d;
 String doubleString = Double.toString(d);
 ```
 
-**数字的格式化**
+#### 数字的格式化
 
 5.0 开始，通过`java.util`中的`Formatter`类格式化。便利的是，已经可以通过调用静态的`String.format()`就可以格式化了：
 
@@ -614,7 +669,7 @@ if(o instanceof Dog){
 }
 ```
 
-**接口 - interface**
+#### 接口 - interface
 
 如果类 B/C/D/E 都继承自类 A，我们希望给 B/C 两个类加上一种方法，却不希望给 D/E 加上这个方法（换句话说， B/C 具有某种特性是 D/E 没有的）。所以，我们不能把这个方法放入类 A 中。然而， Java 中规定子类只能继承一个父类，所以也不能让 B/C 继承自另一个父类。这时候，我们使用接口，以此来继承`超过一个以上`的资源。
 
@@ -701,7 +756,7 @@ Animal myDog = new Lion();
 
 ### 2017-02-26
 
-封装 - Encapsulation
+#### 封装 - Encapsulation
 
 不要暴露出实例变量，要让外部通过`Getter`方法来获取它，通过`Setter`方法来修改它：
 

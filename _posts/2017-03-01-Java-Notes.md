@@ -155,7 +155,7 @@ System.out.println(dir.getAbsolutePath());
 boolean isDeleted = f.delete();
 ```
 
-另外，使用缓冲区比不适用缓冲区更好（更有效率）：
+另外，使用缓冲区比不使用缓冲区更好（更有效率）：
 
 {% highlight java %}
 private void saveFile(File file){

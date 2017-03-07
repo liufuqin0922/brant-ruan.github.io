@@ -108,6 +108,115 @@ class WriteAFile{
 }
 {% endhighlight %}
 
+下面通过一个`e-Flashcard`的程序来学习文本文件的处理，同时学习`GUI`中从目录中选择文件的方法，具体代码见[此处]({{ site.url }}/resources/code/QuizCard.tar.gz)，这里仅仅列出值得学习的地方:
+
+- GUI`Menu`的添加方法
+- GUI调用存盘和打开文件的对话框
+
+**java.io.File 类**
+
+`File`类代表磁盘上的文件，但并非文件的内容。可以把它想象成文件的路径，而非文件本身。`File`并没有读写文件的方法，但它有一个很有用的功能，即它提供一种比使用字符串文件名来表示文件更安全的方式。
+
+你可以对`File`对象做一些事情：
+
+- 创建代表现存盘文件的对象
+
+```
+File f = new File("MyCode.txt");
+```
+
+- 建立新目录
+
+```
+File dir = new File("Chapter7");
+dir.mkdir();
+```
+
+- 列出目录下内容
+
+```
+if(dir.isDirectory()){
+	String[] dirContents = dir.list();
+	for(int i = 0; i < dirContents.length; i++){
+		System.out.println(dirContents[i]);
+	}
+}
+```
+
+- 取得文件或目录的绝对路径
+
+```
+System.out.println(dir.getAbsolutePath());
+```
+
+- 删除文件或目录
+
+```
+boolean isDeleted = f.delete();
+```
+
+另外，使用缓冲区比不适用缓冲区更好（更有效率）：
+
+{% highlight java %}
+private void saveFile(File file){
+	try{
+		BufferedWriter writer = new BufferedWriter(new FileWriter(file));
+		writer.write(card.getQuestion());
+		writer.write(card.getAnswer());
+		writer.close();
+	}
+	catch(IOException ex){
+		...
+	}
+}
+{% endhighlight %}
+
+这样只有在缓冲区满时才会写入磁盘，你也可以调用`writer.flush()`强制写入。
+
+##### 读取文本文件
+
+{% highlight java %}
+import java.io.*;
+
+class ReadAFile{
+	public static void main(String[] args){
+		try{
+			File myFile = new File("MyText.txt");
+			FileReader fileReader = new FileReader(myFile);
+			BufferedReader reader = new BufferedReader(fileReader);
+			String line = null;
+			while((line = reader.readLin()) != null){
+				System.out.println(line);
+			}
+			reader.close();
+		}
+		catch(Exception ex){
+			ex.printStackTrace();
+		}
+	}
+}
+{% endhighlight %}
+
+`String`的`split()`可以把字符串拆开。  
+用到`String`文件名的串流大部分可以用`File`对象来替代`String`。  
+使用`BufferedReader`配合`FileReader`以及`BufferedWriter`配合`FileWriter`都会很有效率。
+
+**serialVersionUID**
+
+对象被序列化时，该对象都会带有一个该类的版本识别ID。在反序列化时， Java 会对比它与虚拟机上的ID，如果不同，则还原操作会失败。但是你可以控制这件事情，即把`serialVersionUID`放在类中，让类在演化的过程中还维持相同的ID。方法是对类使用`serialver`工具获得它的ID，然后放到类中：
+
+```
+// e.g.
+// in Command line
+serialver Dog
+// then
+public class Dog{
+	static final long serialVersionUID = ....;
+}
+```
+
+这章对上一章的`BeatBox`程序做了升级，添加了存储节奏和还原节奏的功能，原理就是对象的序列化和反序列化，代码见[此处]({{ site.url }}/resources/code/BeatBoxSaveOnly.java)。
+
 ### 2017-03-06
 
 #### Swing

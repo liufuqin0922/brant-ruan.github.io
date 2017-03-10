@@ -5,6 +5,99 @@ category: CS
 
 ## Java Notes
 
+### 2017-03-08
+
+#### 网络编程
+
+我们要用到`java.net.Socket`。
+
+使用`BufferedReader`从`Socket`上读取数据，使用`PrintWriter`向`Socket`上写数据。数据流如下：
+
+```
+Client <- BufferedReader <- InputStreamReader <- Socket <- Server
+Client -> PrintWriter -> Socket -> Server
+```
+
+`InputStreamReader`是低层串流与高层串流之间的桥梁，`PrintWriter`是字符数据与字节之间的转换桥梁。
+
+下面是一个简单的“建议小程序”。客户端连接到服务端获取每日建议并打印：
+
+{% highlight java %}
+// Client
+import java.io.*;
+import java.net.*;
+
+public class DailyAdviceClient{
+	public void go(){
+		try{
+			Socket s = new Socket("127.0.0.1", 4242);
+
+			InputStreamReader streamReader = new InputStreamReader(s.getInputStream());
+			BufferedReader reader = new BufferedReader(streamReader);
+
+			String advice = reader.readLine();
+			System.out.println("Today you should: " + advice);
+
+			reader.close();
+		}
+		catch(IOException ex){
+			ex.printStackTrace();
+		}
+	}
+
+	public static void main(String[] args){
+		DailyAdviceClient client = new DailyAdviceClient();
+		client.go();
+	}
+}
+{% endhighlight %}
+
+{% highlight java %}
+// Server
+import java.io.*;
+import java.net.*;
+
+public class DailyAdviceServer{
+	String[] adviceList = {"Take smaller bites",
+		"Go for the tight jeans. No they do NOT make you look fat.", 
+		"One word: inappropriate", "Just for today, be honest. Tell your boss what you *really* think",
+		"You might want to rethink that haircut."};
+	
+	public void go(){
+		try{
+			ServerSocket serverSock = new ServerSocket(4242);
+			while(true){
+				Socket sock = serverSock.accept();
+
+				PrintWriter writer = new PrintWriter(sock.getOutputStream());
+				String advice = getAdvice();
+				writer.println(advice);
+				writer.close();
+				System.out.println(advice);
+			}
+		}
+		catch(IOException ex){
+			ex.printStackTrace();
+		}
+	}
+
+	private String getAdvice(){
+		int random = (int)(Math.random() * adviceList.length);
+		return adviceList[random];
+	}
+
+	public static void main(String[] args){
+		DailyAdviceServer server = new DailyAdviceServer();
+		server.go();
+	}
+}
+{% endhighlight %}
+
+这与我们的第一个 C 语言版服务端一样，同一时间只能够为一个用户服务。
+
+下面是一个简单聊天客户端的示例： [SimpleChatClientA]({{ site.url }}/resources/code/SimpleChatClientA.java) 。
+
+
 ### 2017-03-07
 
 #### 保存对象

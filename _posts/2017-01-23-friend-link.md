@@ -6,6 +6,10 @@ title: Friend Links
 
 ## Friend Links
 
+### NON-SEC
+
+- [renqiuyu's blog](https://renqiuyu.github.io)
+
 ### Sec
 - [o0xmuhe](http://o0xmuhe.me/)
 - [V1ct0r](http://v1ct0r.com/)
@@ -48,6 +52,3 @@ title: Friend Links
 - [littlehann](http://www.cnblogs.com/littlehann)
 - [sploitfun](https://sploitfun.wordpress.com/)
 - [RPISEC](https://rpis.ec/)
-
-### Other
-

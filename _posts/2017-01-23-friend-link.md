@@ -9,6 +9,7 @@ title: Friend Links
 ### NON-SEC
 
 - [renqiuyu's blog](https://renqiuyu.github.io)
+- [pualus's blog](https://pualus.github.io/)
 
 ### Sec
 - [o0xmuhe](http://o0xmuhe.me/)

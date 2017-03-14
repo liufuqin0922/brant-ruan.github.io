@@ -46,6 +46,22 @@
 
 </ul>
 
+<h2>CTF</h2>
+
+<ul>
+
+  {% for post in site.categories.CTF %}
+
+    <li>
+
+      <a href="{{ post.url }}">{{ post.title }}</a>
+
+    </li>
+
+  {% endfor %}
+
+</ul>
+
 <h2>CS</h2>
 
 <ul>

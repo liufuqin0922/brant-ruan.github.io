@@ -5,13 +5,6 @@ title: Daily
 
 ## Daily
 
-2017-03-17
-
-天下武功，唯快不破。  
-No bb, show me your code.  
-所以，就一个字，干。  
-Get things done.
-
 2017-03-13
 
 Why not have a TRY?
@@ -322,6 +315,8 @@ NoSQL = Not Only SQL
 
 2016-10-26
 
+今天发现一个很厉害的博客：http://www.cnblogs.com/littlehann
+
 任重而道远，  
 低调学习
 
@@ -419,6 +414,12 @@ Good sample to learn.
 ---
 
 2016-09-10
+
+Linux下VirtualBox 安装增强功能简介：  
+> Linux下的VirtualBox与Windows下的有一些差别。我的宿主机是Ubuntu 14.04，虚拟机是Win7。方法是点击左上角Devices -> CD/DVD Devices -> Choose a virtual CD/DVD disk file。到VirtualBox安装目录下找类似于VBoxGuestAdditions.iso的东西，装到虚拟光驱上。之后在Win7中打开刚刚的iso，找到VBoxWindowsAdditions运行安装即可。
+
+VirtualBox no host-only network adapter 解决：  
+> 在VirtualBox 管理界面左上角File -> Preferences -> Network -> Host-only Networks 点添加按钮。
 
 今日大致搭建好了Cuckoo Sandbox分析平台，但是第一个样本的分析结果不是很理想。还有许多东西待完善。加油。
 

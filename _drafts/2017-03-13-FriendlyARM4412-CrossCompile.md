@@ -216,7 +216,7 @@ sudo ./sd_fusing.sh /dev/sdb
 
 #### 串口调试
 
-我们使用 Linux 下的串口通信工具`minicom`来进行串口调试。
+我们使用 Linux 下的串口通信工具`minicom`来进行串口调试。（关于`minicom`的用法自行搜索吧，很简单的）
 
 ```
 # install minicom
@@ -361,7 +361,44 @@ fatformat mmc 0:1
 
 开机后，过一会儿如果你不碰触屏，它就会变花屏，并且无法控制。同学测试发现如果使用`superboot`代替`uboot`作为`bootloader`则不会出现这个问题，前面也不必在编译时去掉`trustzone`。所以，后面讲一下使用`superboot`吧。
 
+花屏时的症状：
+
+![error-screen]({{ site.url }}/resources/pictures/error-screen.png)
+
+**有一个思路，找到显示屏的驱动，在编译 Linux 内核时加入对该驱动的调试信息输出，也许能够找到问题所在，留坑先。**
+
 ### 使用 superboot 作为 bootloader 编译及烧录测试
+
+鉴于前边所述的花屏问题，这里进行`superboot`引导测试。
+
+#### 烧写`superboot`
+
+参照`Tiny4412用户手册.pdf`，后续工作都在 Window 7 上进行。
+
+把 SD 卡通过读卡器插到电脑上。  
+使用光盘中提供的工具`SD-Flasher`，右键以管理员模式运行。打开后选择`Tiny4412`。  
+选择`ReLayout`分割 SD 卡。完成后点击`Scan`发现 SD 卡已经变成`Available`。  
+在界面上方选择要烧写的`superboot.bin`（来自光盘资源），注意不要放在中文路径下。  
+点击`Fuse`。  
+
+#### 烧写系统
+
+在上一步已经做好的基础上，在 SD 卡中相继建立`images/Android`目录，从光盘中拷贝`FriendlyARM.ini`放入`images`下，将刚刚的`superboot.bin`放在`images`下，将我们编译好的`zImage`/`system.img`/`ramdisk-u.img`放入`images/Android`下（注意，这是新版的`superboot`，需要依赖内核的`trustzone`，所以之前编译内核时不能把该选项去掉）。之后再把`Android-userdata-4g.img`/`userdata-8g.img`/`userdata-16g.img`/`userdata.img`放入`images/Android`下。编辑`FriendlyARM.ini`，将除了`Android 5`外的其他引导删掉（因为我们这里只有`Android 5`）。
+
+到此，SD 卡上至少有下列文件：
+
+- images\Superboot4412.bin
+- images\Android\zImage
+- images\Android\ramdisk-u.img
+- images\Android\system.img
+- image\Android\userdata.img
+- images\FriendlyARM.ini
+
+之后吧 SD 卡取下，插到开发板上，拨动开关选择`SDBOOT`，加电。之后会进行烧写。成功后屏幕上有相应提示。这时把开关拨动到另一头，重新打开开发板，能够正常进入`Android`系统。
+
+最终效果如下：
+
+![bingo]({{ site.url }}/resources/pictures/bingo.jpg)
 
 ### 结语
 

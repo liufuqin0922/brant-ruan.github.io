@@ -5,6 +5,127 @@ category: CS
 
 ## Java Notes
 
+### 2017-03-21
+
+【学习不可半途而废，就像长跑，需要专注与坚持】
+
+下面我们要写出一个“可发送，可接收”的客户端。问题在于，怎么接收服务器发送的信息？轮询？注意目前只有一个线程！
+
+`Thread`是 Java 中用来标识线程的类，要建立线程就得创建`Thread`。每个 Java 应用程序会启动一个主线程——将`main()`放在执行空间的开始处。
+
+常用方法：
+
+|Thread|
+|:-:|
+|void join()|
+|void start()|
+|static void sleep()|
+
+如何启动新的线程？
+
+- 建立`Runnable`对象作为线程的任务
+- 建立`Thread`对象并赋值`Runnable`任务
+- 启动`Thread`
+
+`Runnable`是一个接口。线程的任务可以被定义在任何实现`Runnable`接口的类上，该类需要实现接口的`run()`方法，且类型必须是`public void`，`run()`方法将作为线程任务的入口。一旦`start()`，线程就处于`可执行`/`执行中`/`阻塞中`的交替中。每个线程都有独立的执行空间。
+
+例子：
+
+{% highlight java %}
+public class MyRunnable implements Runnable{
+	public void run(){
+		go();
+	}
+	public void go(){
+		doMore();
+	}
+	public void doMore(){
+		System.out.println("top on the stack");
+	}
+}
+class ThreadTester{
+	public static void main(String[] args){
+		Runnable threadJob = new MyRunnable();
+		Thread myThread = new Thread(threadJob);
+		myThread.start(); // means the thread is OK
+		System.out.println("back in main");
+	}
+}
+{% endhighlight %}
+
+**程序设计新手会在单一的机器上测试多线程程序，并假设其他机器的调度器都有相同行为。**
+
+另外一种创建线程的方法：不使用`Runnable`，而是用`Thread`的子类覆盖掉`run()`方法，并调用`Thread`的无参构造函数来创建出新线程。但这通常不是个好主意（另一种设计理念）。
+
+一旦线程的`run()`完成后，线程就不能再重新启动。
+
+`Thread.sleep(2000)`可以让线程小睡。它可能抛出`InterruptedException`，所以要放在`try/catch`块中。
+
+线程可以有名字。我们可以用名字来区别线程：
+
+{% highlight java %}
+public class RunThreads implements Runnable{
+	public static void main(String[] args){
+		RunThreads runner = new RunThreads();
+		Thread alpha = new Thread(runner);
+		Thread beta = new Thread(runner);
+		alpha.setName("Alpha thread");
+		beta.setName("Beta thread");
+		alpha.start();
+		beta.start();
+	}
+	public void run(){
+		for(int i = 0; i < 25; i++){
+			String threadName = Thread.currentThread().getName();
+			System.out.println(threadName + " is running");
+		}
+	}
+}
+{% endhighlight %}
+
+下面讨论多线程并发的通病：`race condition`（Linux 内核因为竞争条件爆了不少高危提权漏洞，呃，你知道筛子长什么样吗？）
+
+对于临界资源的使用，其操作必须是原子操作，满足不同线程之间的互斥关系，否则会因为竞争条件导致结果与期望不一致。我们只需要给方法加上`synchronized`标识，它每次就只能位于单一线程的执行空间内。每个对象都有一个锁，大部分时间都没有锁上。锁不是配在方法上，而是配在对象上。线程只有获得钥匙，才能够进入对象的方法。一个对象可能有多个同步化方法，但是只有一个锁。一旦一个线程进入某个同步化方法，其他线程都无法再进入该对象的任何同步化方法。
+
+[这里]({{ site.url }}/resources/code/RyanAndMonicaJob.java)有一个竞争条件的形象化例子：两个人共享一个银行账户，都是先检查账户余额，再睡觉，睡一觉起来去取钱，两个人生活节奏不同导致一个人检查发现账户余额可用时一觉起来去取钱时发现钱没了。
+
+如果仅仅是某个方法内部的某些操作需要原子化，我们可以使用下面的：
+
+```
+public void go(){
+	doOthers();
+	synchronized(this){
+		i = balance;
+		balance = i + 1;
+	}
+}
+```
+
+**然而，同步可能导致死锁！**
+
+好了。利用多线程，我们可以写出能够同时接受信息/发出信息的[客户端]({{ site.url }}/resources/code/SimpleChatClient.java)，服务端参考[之前的]({{ site.url }}/resources/code/VerySimpleChatServer.java)就可以,其实客户端也就是在之前的基础上添加了几行代码：
+
+{% highlight java %}
+// go() 中
+Thread readerThread = new Thread(new IncomingReader());
+readerThread.start();
+// 在 SimpleCharClient 中新增一个内部类
+public class IncomingReader implements Runnable{
+	public void run(){
+		String message;
+		try{
+			while((message = reader.readLine()) != null){
+				System.out.println("read " + message);
+				incoming.append(message + "\n");
+			}
+		}
+		catch(Excetion ex){
+			ex.printStackTrace();
+		}
+	}
+}
+{% endhighlight %}
+
 ### 2017-03-08
 
 #### 网络编程
@@ -95,8 +216,7 @@ public class DailyAdviceServer{
 
 这与我们的第一个 C 语言版服务端一样，同一时间只能够为一个用户服务。
 
-下面是一个简单聊天客户端的示例： [SimpleChatClientA]({{ site.url }}/resources/code/SimpleChatClientA.java) 。
-
+下面是一个简单聊天客户端的示例： [SimpleChatClientA]({{ site.url }}/resources/code/SimpleChatClientA.java)，服务端在[这里]({{ site.url }}/resources/code/VerySimpleChatServer.java)。
 
 ### 2017-03-07
 
@@ -629,7 +749,7 @@ public class Washer{
 - catch 与 finally 不能没有 try
 - try 与 catch 之间不能有程序
 - try 一定要有 catch 或 finally
-- 只带有 finally 的 try 必须生命异常
+- 只带有 finally 的 try 必须声明异常
 
 ### 2017-03-02
 

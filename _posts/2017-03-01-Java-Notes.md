@@ -5,9 +5,121 @@ category: CS
 
 ## Java Notes
 
+### 2017-03-22
+
+#### 分布式计算
+
+### 2017-03-21
+
+#### 发布程序
+
+跳过一章，先到这里。
+
+##### 本机部署
+
+首先，要养成良好的开发习惯，开发时建立如下目录：
+
+```
+-myProject
+  -source
+  -classes
+```
+
+在`source`中存放源码，编译时指定输出：`javac -d ../classes *.java`。
+要执行程序，就进入`classes`目录执行`java MyApp`。
+
+进入正题。
+
+###### Executable Jar
+
+`JAR`就是`Java ARchive`的意思，它是一个`pkzip`格式的文件，交付时只用交付一个`JAR`就好。我们提到全大写的`JAR`意思是说集合起来的文件，全小写的`jar`是用来整理文件用的工具。`JAR`文件可执行，程序可以在类文件保存在`JAR`的情况下执行。秘诀在于`manifest`带有`JAR`的信息，来告诉`Java虚拟机`那个类带有`main()`方法。
+
+下面我们来创建可执行的`JAR`：
+
+首先要确定所有类文件都在`classes`目录下；  
+接着在该目录下创建`manifest.txt`描述哪个类中带有`main()`方法：
+
+```
+Main-Class: MyApp
+
+```
+
+如上，第一行后面要有换行；  
+最后使用`jar`来创建：
+
+```
+jar -cvmf manifest.txt app1.jar *.class
+```
+
+执行`JAR`：
+
+```
+java -jar ./app1.jar
+```
+
+下面的命令分别可以列出`JAR`中的文件组织架构/解压文件：
+
+```
+jar -tf ./app1.jar
+jar -xf ./app1.jar
+```
+
+**把类包进包里**
+
+写出可重复使用的类时，你会把它们放到内部的函数库给其他程序员使用。为了防止命名冲突，也为了规范和整齐，你应该把类文件放在`package`中。
+
+为了防止`package`也命名冲突，我们可以采用`Sun`建议的命名规则：加上你的域名，并且反向使用域名。例如我有一个类是`Chart`，我的域名是`brant_ruan.com`。那么我的包名就可以是`com.brant_ruan.Chart`，我需要在每个属于这个包的`.java`文件第一行写上
+
+```
+package com.brant_ruan;
+```
+
+注意，你需要在`source`目录下建立对应的文件夹`mkdir -p ./com/brant_ruan`并且把`Chart.class`文件放进去。之后在`source`目录下使用命令`javac -d ../classes com/brant_ruan/Chart.java`。你不必在`../classes`目录下也建立相同的目录架构，因为`javac`的`-d`选项会自动帮你完成这件事。
+
+如果你要直接执行类文件，则需要进入`classes`目录下，`java com.brant_ruan.Chart`。
+
+为了创建可执行`JAR`，你需要在`classes`目录下的`manifest.txt`中写入：
+
+`Main-Class: com.brant_ruan.Chart`
+
+然后`jar -cvmf manifest.txt app1.jar com`。
+
+你的`manifest`文件内容信息会被写入`JAR`中的`META-INF/MANIFEST.MF`中。`META-INF`代表`META INFormation`。
+
+###### 半本机半远程 Java Web Start
+
+JWS -- Java Web Start
+
+用户首次通过点网页上的链接来启动 JWS ，之后一旦程序下载后，它就能独立于浏览器之外执行。当然，客户端要有`Java`和`JWS`环境。
+
+工作方式：
+
+- 客户点击某个链接
+
+```
+<a href="MyApp.jnlp">Click</a>
+```
+
+- 服务器收到请求发出`.jnlp`给浏览器（它是个描述`JAR`的`XML`文件）
+- 浏览器启动`JWS`，`JWS`的`helper app`读取`.jnlp`，向服务器请求`MyApp.jar`
+- 服务器发送`.jar`文件
+- `JWS`取得`JAR`并调用指定的`main()`来启动程序
+
+创建/部署`JWS`的步骤：
+
+- 将程序制成`JAR`
+- 编写`.jnlp`
+- 把`JAR`和`.jnlp`放到服务器目录下
+- 对服务器设定新的`MIME`类型`application/x-java-jnlp-file`
+- 设定超链接到`.jnlp`文件
+
+`JWS`与`applet`的不同：`applet`无法独立于浏览器之外，是网页的一部分。
+
 ### 2017-03-21
 
 【学习不可半途而废，就像长跑，需要专注与坚持】
+
+#### 多线程并发
 
 下面我们要写出一个“可发送，可接收”的客户端。问题在于，怎么接收服务器发送的信息？轮询？注意目前只有一个线程！
 

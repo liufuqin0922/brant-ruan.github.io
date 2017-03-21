@@ -103,7 +103,9 @@ public void go(){
 
 **然而，同步可能导致死锁！**
 
-好了。利用多线程，我们可以写出能够同时接受信息/发出信息的[客户端]({{ site.url }}/resources/code/SimpleChatClient.java)，服务端参考[之前的]({{ site.url }}/resources/code/VerySimpleChatServer.java)就可以,其实客户端也就是在之前的基础上添加了几行代码：
+另外，类本身也有锁。这意味着，如果某个类有被同步化过的静态方法且它会操作这个类的静态变量，那么线程也需要取得类的锁才可以进入该方法。
+
+好了。利用多线程，我们可以写出能够同时接受信息/发出信息的[客户端]({{ site.url }}/resources/code/SimpleChatClient.java)，服务端使用[之前的]({{ site.url }}/resources/code/VerySimpleChatServer.java)就可以,其实客户端也就是在之前的基础上添加了几行代码：
 
 {% highlight java %}
 // go() 中
@@ -123,6 +125,29 @@ public class IncomingReader implements Runnable{
 			ex.printStackTrace();
 		}
 	}
+}
+{% endhighlight %}
+
+上面提到的服务端程序也使用了多线程。主线程在一个`while`循环中`accept`并分配子线程去做接收信息和广播某个客户端消息的工作。
+
+注：Java 中`args[0]`指的是你传入的第一个参数，与 C 不同。
+
+P.S. 有一个 *Head First Java* 上的`BeatBox`最终版，很有意思，可以多人共享自己制作的节奏：
+
+- [客户端]({{ site.url }}/resources/code/BeatBoxFinal.java)
+- [服务端]({{ site.url }}/resources/code/MusicServer.java)
+
+另外，书中习题有一段有意思的代码，它将构造函数私有化，并自己创建一个静态对象，其他类只能够通过它提供的方法获得这个对象。这样保证了整个程序中只能有一份实例：
+
+{% highlight java %}
+class Accum{
+	private static Accum a = new Accum();
+	private int counter = 0;
+	private Accum(){} // private construct function
+	public static Accum getAccum(){
+		return a;
+	}
+	...
 }
 {% endhighlight %}
 

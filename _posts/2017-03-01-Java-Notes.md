@@ -5,9 +5,163 @@ category: CS
 
 ## Java Notes
 
-### 2017-03-22
+### 2017-03-25
 
-#### 分布式计算
+#### 匿名内部类
+
+
+
+### 2017-03-25
+
+#### 集合与泛型
+
+`Java Collections Framework`能够支持绝大多数你会用到的数据结构。
+
+**排序**
+
+首先，`ArrayList`没有自带排序功能。然而，它并非唯一的集合，下面几个也比较常用：
+
+|Name|Function|
+|:-:|:-:|
+|TreeSet|保持有序状态并防止重复|
+|HashMap|可用成对的name/value来存取|
+|LinkedList|针对经常插入/删除中间元素设计的高效集合|
+|HashSet|防止重复的集合，快速寻找所要元素|
+|LinkedHashMap|类似HashMap，可记录元素插入顺序|
+
+在不需要元素保持有序时，尽量不要用`TreeSet`，开销挺大。
+
+`Collections`类有一个`sort`方法，它的参数是`List`类，而`ArrayList`实现了`List`的接口，所以你可以传入`ArrayList`去排序。
+
+下面是一个解析文件中的歌名并排序输出的例子：
+
+```
+ArrayList<String> songList = new ArrayList<String>();
+... // 向 songList 中添加一些歌曲
+Collections.sort(songList); // 排序
+```
+
+现在，假设开发人员使用`Song`对象代替了直接作为歌名的`String`，这样可以有更多信息被输出。`Song`对象如下：
+
+{% highlight java %}
+class Song{
+	String title;
+	String artist;
+	String rating;
+	String bpm;
+	Song(String t, String a, String r, String b){
+		title = t;
+		artist = a;
+		rating = r;
+		bpm = b;
+	}
+	public String getTitle(){
+		return title;
+	}
+	public String getArtist(){
+		return artist;
+	}
+	public String getRating(){
+		return rating;
+	}
+	public String getBpm(){
+		return bpm;
+	}
+	public String toString(){
+		return title;
+	}
+}
+{% endhighlight %}
+
+注意上面的`Song`重写了`toString()`方法，因为`System.out.println(anObject)`时会调用对象的`toString()`。
+
+我们需要把`ArrayList<String>`改为`ArrayList<Song>`，然而仅仅这样编译是不报错的，因为`Collections.sort()`不知道按什么来排序。
+
+参考 API 文档，我们发现，`sort()`的定义是`sort(List<T> list)`，这是什么鬼......
+
+好吧，`<>`这叫做`泛型（generic）`，从`Java 5.0`开始加入。泛型意味着更好的安全性，几乎所有你会以泛型写的程序都与处理集合有关，防止你把`Dog`加入到一群`Cat`中。
+
+在泛型之前，编译器无法得知你加入集合中的东西是什么，因为它们处理的都是`Object`类型，你可以把任何东西放进`ArrayList`中，出来就变成了`Object`。
+
+一旦使用泛型：`ArrayList<Fish>`，你就只能把`Fish`以引用形式放进去，不能放进`Cat`，而且提取出来的也是`Fish`的引用。
+
+有三个事情是你需要知道的：
+
+- 创建被泛型化类的实例时要指定它容许的对象
+- 声明与指定泛型类型的变量（多态遇到泛型会怎么样？）
+
+我们看一下`ArrayList`的定义：
+
+```
+public class ArrayList<E>
+extends AbstractList<E>
+implements List<E> ... {
+	public boolean add(E o)
+}
+```
+
+`E`代表你声明的真正类型。
+
+- 声明（与调用）取用泛型类型的方法（遇到多态会怎么样？）
+
+在方法中的类型参数有几种不同运用方式：
+
+1 使用定义在类声明的类型参数：
+
+```
+public class ArrayList<E> extends AbstractList<E>{
+	public boolean add(E o)
+}
+```
+
+上面的方法只能使用`E`作为类型，因为它已经被定义成类的一部分。
+
+2 使用未定义在类声明的类型参数。
+
+```
+public <T extends Animal> void takeThing(ArrayList<T> list)
+```
+
+这意味着`T`可以是`Animal`，也可以是任何一种`Animal`。
+
+我们再回过头看报错的`sort()`方法。看一下`sort()`方法的定义：
+
+```
+public static <T extends Comparable<? super T>> void sort(List<T> list)
+```
+
+它只接受`Comparable`对象的`list`，而我们的`Song`很明显不是`Comparable`的子型，所以不可以。然而，`String`也没有继承`Comparable`，仅仅是实现了它（`Comparable`是一个接口）。事实上，`<T extends Comparable>`意思是`T`要么实现了`Comparable`接口，要么是它的子类。
+
+因此，解决方案是，我们的`Song`类要实现`Comparable`接口。而它只有一个方法需要被实现：
+
+```
+// java.lang.Comparable
+public interface Comparable<T>{
+	int compareTo(T o);
+}
+```
+
+这个`compareTo(T o)`是这样要求的：
+
+```
+Returns:
+a negative integer, zero, or a positive integer as this object is less than, equal to, or greater than the specified object.
+```
+
+所以很简单了，修改一下`Song`类的定义：
+
+{% highlight java %}
+class Song implements Comparable<Song>{
+	...
+	public int compareTo(Song s){
+		return title.compareTo(s.getTitle());
+	}
+}
+{% endhighlight %}
+
+完美解决。
+
+
 
 ### 2017-03-21
 

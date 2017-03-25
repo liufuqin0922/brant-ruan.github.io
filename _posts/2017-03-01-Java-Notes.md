@@ -9,7 +9,27 @@ category: CS
 
 #### 匿名内部类
 
+参考[java中的匿名内部类总结](http://www.cnblogs.com/nerxious/archive/2013/01/25/2876489.html)。
 
+主要应用场景：对于有些抽象类或者接口，我们想要实现并调用它的方法，但是只用一次就不再用了，如果专门写一个子类去继承/实现这个类，然后再重写方法有些麻烦，我们可以直接使用匿名内部类。顾名思义，没有名字，所以也只能使用一次。举例如下：
+
+{% highlight java %}
+abstract class Person {
+    public abstract void eat();
+}
+public class Demo {
+    public static void main(String[] args) {
+        Person p = new Person() {
+            public void eat() {
+                System.out.println("eat something");
+            }
+        };
+        p.eat();
+    }
+}
+{% endhighlight %}
+
+注意上面`new Person()`后直接起大括号实现`eat()`方法了，对于接口也可以这么玩的。
 
 ### 2017-03-25
 
@@ -328,7 +348,7 @@ public void takeAnimals(ArrayList<? extends Animal> animals){
 
 上面的`extends`同事代表`继承`和`实现`。
 
-为了保障安全，编译器允许你操作几何元素，但不允许你新增集合元素。
+为了保障安全，编译器允许你操作集合元素，但不允许你新增集合元素。
 
 我们之前在对于`sort()`关于泛型的讨论时提到了另一种写法：
 

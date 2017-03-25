@@ -161,7 +161,190 @@ class Song implements Comparable<Song>{
 
 完美解决。
 
+现在客户又加需求啦（客户总是有需求。。。）他希望除了依照歌名来排序外，还要有依照歌星名来排序的功能。然而，我们只能实现一个`compareTo()`方法，当然，我们可以通过传入额外的判断条件来改变`compareTo()`的行为，但是这样很不好。
 
+事实上，还有另一个重载版的`sort()`方法：
+
+```
+public static <T> void sort(List<T> list, Comparator<? super T> c)
+```
+
+这个和`C++`中的排序函数很像，就是让你自己传进去一个东西用来排序，这里传入的是一个`Comparator`：
+
+```
+// java.util.Comparator
+public interface Comparator<T>{
+	int compare(T o1, T o2);
+}
+```
+
+这个`sort()`方法不再取用元素内置的`compareTo()`方法排序。也就是说，你的`Song`类不必实现`Comparable`接口。
+
+假设我们的主类是`Jukebox`，我们实现一个`ArtistCompare`内部类作为`Comparator`，`Song`类参考上面的代码，大体结构如下：
+
+{% highlight java %}
+public class Jukebox{
+	ArrayList<Song> songList = new ArrayList<Song>();
+	public static void main(String[] args){
+		new Jukebox().go()；
+	}
+	class ArtistCompare implements Comparator<Song>{
+		public int compare(Song one, Song two){
+			return one.getArtist().compareTo(two.getArtist());
+		}
+	}
+	...
+	public void go(){
+		getSongs();
+		ArtistCompare artistCompare = new ArtistCompare();
+		Collections.sort(songList, artistCompare);
+	}
+}
+{% endhighlight %}
+
+**下面要考察元素重复问题**
+
+场景是刚刚的点歌系统，有人点了多次同一首歌，所以歌曲文件记录中有重复，我们要去重并排序。
+
+重新回到最开始：`Collection` API 手册中主要有三个接口`List`/`Set`/`Map`。`List`是知道索引位置的集合，帮助排序；`Set`注重不重复；`Map`用`key`来搜索，即字典。
+
+下面两张图展示了 Java 集合之间的关系，其中`interface`之间都是继承关系，具体类与`interface`之间都是实现关系：
+
+![HeadFirstJava-collection]({{ site.url }}/resources/pictures/HeadFirstJava-Collection.png)
+
+![HeadFirstJava-Map]({{ site.url }}/resources/pictures/HeadFirstJava-Map.png)
+
+我们把点歌系统中的`ArrayList`用`HashSet`取代（在上面代码中加入`HashSet`）：
+
+{% highlight java %}
+HashSet<Song> songSet = new HashSet<Song>();
+songSet.addAll(songList);
+System.out.println(songSet);
+{% endhighlight %}
+
+依然有重复，而且顺序又乱了。这里我们讨论一个问题：对象怎样才算相等（重复）？于是引出了“引用相等性”和“对象相等性”。
+
+**引用相等性** 这个很好说明，也就是两个引用指向同一个对象，对两个引用调用`hashCode()`将得到同一个结果。可以用`==`来判断是否相等。
+
+**对象相等性** 指两个对象的意义是相同的，但很明显，它们在内存中是两个。如果你希望把两个不同的`Song`视为相等，那么需要覆盖它们从`Object`继承下来的`equals()`和`hashCode()`方法，使得它俩都返回`true`，即如下：
+
+```
+if(foo.equals(bar) && foo.hashCode() == bar.hashCode()){}
+```
+
+`HashSet`就是用对象的`hashCode()`来检查重复的。如果不同，则当做新对象加入，如果相同，接着调用`equals()`来进一步检查。如果`add()`方法返回`false`，那么说明新对象与集合中某项目被认为是重复的。
+
+所以我们给`Song`重写两个方法：
+
+{% highlight java %}
+public boolean equals(Object aSong){
+	Song s= (Song)aSong;
+	return this.getTitle().equals(s.getTitle());
+}
+public int hashCode(){
+	return title.hashCode();
+}
+{% endhighlight %}
+
+OK.解决掉重复问题了。
+
+注意，具有相同的`hashcode`的两个对象不一定相等，但是两个对象相等则它们的`hashcode`一定相同（存在`hash碰撞`问题）。如果`equals()`被覆盖过，那么`hashCode()`也必须被覆盖。`equals()`默认行为是`==`比较。
+
+**TreeSet** 它在防止重复方面和`HashSet`相同，但却可以保持有序。用法与上面的`HashSet`代码一样。要注意的是，由于`TreeSet`具有默认排序功能，所以要么你需要在被添加元素上实现`Comparable`并实现`compareTo()`方法，要么你需要实现一个`Comparator`并把它的一个对象作为参数传给重载版的构造函数：`TreeSet<Book>(bCompare)`。
+
+下面，我们来玩一玩`Map`。有时候`Map`才是最好的选择。
+
+`Map`中的值可以重复，关键字不行。
+
+举例：
+
+{% highlight java %}
+public class TestMap{
+    public static void main(String[] args){
+        HashMap<String, Integer> scores = new HashMap<String, Integer>();
+        scores.put("Kathy", 42);
+        scores.put("Bert", 343);
+        System.out.println(scores);
+        System.out.println(scores.get("Bert"));
+    }   
+}
+{% endhighlight %}
+
+**再次回到泛型**
+
+我们知道如果方法的参数是`Animal`的数组，那么也可以传入`Animal`子类型，如`Dog`的数组，如下：
+
+{% highlight java %}
+public void go(){
+	Animal[] animals = {new Dog(), new Cat(), new Dog()};
+	Dog[] dogs = {new Dog(), new Dog()};
+	takeAnimals(animals);
+	takeAnimals(dogs);
+}
+public void takeAnimals(Animal[] animals){
+	for(Animal a: animals){
+		a.eat();
+	}
+}
+{% endhighlight %}
+
+但是如果换成`ArrayList`：
+
+{% highlight java %}
+public void go(){
+	ArrayList<Animal> animals = new ArrayList<Animal>();
+	animals.add(new Dog());
+	animals.add(new Cat());
+	takeAnimals(animals);
+}
+public void takeAnimals(ArrayList<Animals> animals){
+	for(Animal a: animals){
+		a.eat();
+	}
+}
+{% endhighlight %}
+
+这样是可以的。但如果我们在`go()`中加入下面的语句：
+
+```
+ArrayList<Dog> dogs = new ArrayList<Dog>();
+dogs.add(new Dog());
+takeAnimals(dogs);
+```
+
+这样编译时会出错。因为如果你在`takeAnimals`中做了`animals.add(new Cat());`这样岂不是就是把猫扔到狗群里了？所以出现`ArrayList<Animal>`的地方传入`ArrayList<Dog>`不行。事实上，对于数组来说也存在这个问题，但是数组的类型是在运行时检查的，而集合的类型检查在编译期。（也就是说，如果你对数组这样做，在运行期间会报错）
+
+**然而我们说，路往往不止一条（卡塞尔学院录取路明非时候貌似也是这么说的）。**
+
+有个叫做`万用字符（wildcard）`的东西，可以用来创建接收`Animal`子型参数的方法：
+
+{% highlight java %}
+public void takeAnimals(ArrayList<? extends Animal> animals){
+	for(Animal a: animals){
+		a.eat();
+	}
+}
+{% endhighlight %}
+
+上面的`extends`同事代表`继承`和`实现`。
+
+为了保障安全，编译器允许你操作几何元素，但不允许你新增集合元素。
+
+我们之前在对于`sort()`关于泛型的讨论时提到了另一种写法：
+
+```
+public <T extends Animal> void takeThing(ArrayList<T> list)
+```
+
+这与
+
+```
+public void takeThing(ArrayList<? extends Animal> list)
+```
+
+是等价的。
+
+如果某个方法需要多个泛型的参数，那么第一个方法写起来显然省力一些。
 
 ### 2017-03-21
 

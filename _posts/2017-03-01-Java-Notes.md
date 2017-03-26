@@ -5,6 +5,260 @@ category: CS
 
 ## Java Notes
 
+### 2017-03-26
+
+#### Head First 附录B 十大遗珠之憾
+
+##### 位操作
+
+与`C++`基本相同。
+
+##### 不变性
+
+{% highlight java %}
+String s = "0";
+for(int x = 1; x < 10; x++){
+	s = s + x;
+}
+{% endhighlight %}
+
+`String`是不变的。这意味着上面的代码使得最终有 10 个字符串存储在`String Pool`中，而最后`s`指向`0123456789`。`String Pool`不受垃圾收集器管理，所以你浪费了前九个的空间。如果要执行一堆`String`操作，那么后面会提到的`StringBuilder`这个类更合适。
+
+另外，包装类也具有不变性。
+
+##### 断言
+
+断言在 Java 中的功能如同在其他语言中一样。如果执行时 Java 虚拟机没有打开断言，那么`assert`命令会被忽略，但如果打开，它就可以帮助你`debug`。
+
+在你认为一定为`true`的地方加上命令即可，如：
+
+```
+assert(height > 0);
+```
+
+执行时打开断言：
+
+```
+java -ea TestDriveGame
+```
+
+##### 块区域
+
+也就是套在诸如`for``while``if`等逻辑块内部的区域，它们的变量作用范围仅限于当前块。
+
+##### 链接的调用
+
+就是一个简写方法，略了。
+
+##### 静态内部类/匿名内部类
+
+略。
+
+##### 存取权限和存取修饰符
+
+**存取权限**
+
+- public
+
+任何代码都可以存取的事物。
+
+- protected
+
+基本同`default`，但也能允许不在相同包内的子类继承受保护部分。
+
+- default
+
+只有同一包中的默认事物能够存取。
+
+- private
+
+只有同一类中的程序代码才能存取，它是对类设置权限而不是对对象，所以一个`Dog`对象可以看到别的`Dog`的私有部分，但`Cat`就不行。
+
+##### StringBuffer/StringBuilder
+
+自行搜索吧～
+
+##### 多维数组
+
+比 C 中简单多了。
+
+只是要注意，`4 x 2`这个二维数组看起来是有 8 个元素的方阵，其实是由 5 个数组连接成的。一个是二维数组对象，另外四个是一维数组对象！
+
+##### 枚举
+
+````
+public enum Members{JERRY, BOBBY, PHIL};
+public Members selectedBandMember;
+if(selectedBandMember == Members.JERRY){
+}
+```
+
+至此，*HeadFirst Java* 初学结束。接下来就是 **Code**...**Code**...
+
+```
+:)
+```
+
+### 2017-03-26
+
+#### 远程部署的 RMI(Remote Method Invocation)
+
+##### RMI 介绍
+
+到目前为止，我们看到的方法调用都是运行在同一个 Java 虚拟机上的对象之间进行的，也就是说，这些对象处在一个堆上。那么怎样做远程过程调用？
+
+我们采用层次化的思想来考虑这个问题：机 A 要调用 机 B 上的方法，那么 A 上的具体调用方就是`Client`， B 上的执行方就是`Server`。为了向`Client`和`Server`隐藏网络通信的细节，再分别给`Client`和`Server`加上一层`Client Proxy`和`Server Proxy`。流程如下：
+
+```
+Client -> Client Proxy -> Server Proxy -> Server
+											|
+Client <- Client Proxy <- Server Proxy <- Server
+```
+
+`RMI`提供的就是`Proxy`。使用`RMI`时你要决定通信协议是`JRMP`还是`IIOP`，前者是`RMI`原生协议，后者是为了`CORBA`，也就是一个通用的对象请求体系而设立的，通常比前者麻烦。我们这里使用`JRMP`协议。
+
+在`RMI`中，客户端的`Proxy`称为`Stub`，服务端的`Proxy`称为`Skeleton`。
+
+**创建远程服务（`Server`）**
+
+- 创建`Remote`接口
+
+远程接口定义了客户端可以远程调用的方法。它是一个作为服务的多态化类。`stub`和服务都会实现这个接口。
+
+{% highlight java %}
+// MyRemote.java
+import java.rmi.*;
+public interface MyRemote extends Remote{
+	public String sayHello() throws RemoteException;
+}
+{% endhighlight %}
+
+客户端会调用有实现你的接口的`stub`，而这个`stub`处理`网络`和`I/O`操作，所以我们要求客户端注意到远程调用的风险，并准备处理`RemoteException`异常。
+
+另外，要注意远程方法的参数和返回值必须是`primitive`或者`Serializable`的，因为对象是经过序列化后通过网络传送的。因此如果是自定义的类型，注意要实现`Serializable`。（我们上面用的返回值是`String`就满足条件）
+
+- 实现远程接口
+
+这个是真正执行的类。它将实现`Remote`接口上的方法，客户端真正调用的即是它的方法。
+
+{% highlight java %}
+// MyRemoteImpl.java
+import java.rmi.server.*;
+public class MyRemoteImpl extends UnicastRemoteObject implements MyRemote{
+	public String sayHello(){
+		return "Hello, world";
+	}
+	public MyRemoteImpl () throws RemoteException{}
+	public static void main(String[] args){
+		try{
+			MyRemote service = new MyRemoteImpl();
+			Naming.rebind("RemoteHello", service);
+		}
+		catch(Exception ex){
+			ex.printStackTrace();
+		}
+	}
+}
+{% endhighlight %}
+
+如上，你的对象需要继承`UnicastRemoteObject`以成为远程服务对象。另外，由于`UnicastRemoteObject`它的构造函数会抛出`RemoteException`，所以你要重新写一个能够抛出这个异常的构造函数。
+
+到此，你已经完成了一个服务端的类，需要初始化并加入到`RMI registry`中，这就是上面`main()`中的操作。
+
+注意，你要先`javac MyRemoteImpl`编译一下才能够进行下面的操作。另外，此时先不要用`java MyRemoteImpl`启动服务，因为还没有注册，要到后面启动`RMI registry`后再启动服务。
+
+- 用`rmic`产生`stub`和`skeleton`
+
+```
+rmic MyRemoteImpl
+```
+
+这时会生成一个`MyRemoteImpl_Stub.class`和一个`MyRemoteImpl_Skeleton.class`。但是后一个不一定会被生成，可以通过选项调整（我这里默认就是不生成`Skeleton`）。
+
+注意`rmic`必须能够找到你的类，所以如果你使用了`package`，你需要给出类的完整名称。
+
+- 启动`RMI registry`
+
+这个是一个类似于`DNS`的东西，在命令行下输入`rmiregistry`启动。注意，你要从可以存取到这个类的目录来启动。
+
+- 启动远程服务
+
+```
+java MyRemoteImpl
+```
+
+我们这里把`main()`也写在这个类里了，所以从这里启动。你完全可以在其他类中启动服务。
+
+**客户端调用远程服务**
+
+客户端就简单多了，先上代码，再谈细节和应该注意的几个问题。
+
+{% highlight java %}
+import java.rmi.*;
+public class MyRemoteClient{
+	public static void main(String[] args){
+		new MyRemoteClient().go();
+	}
+	public void go(){
+		try{
+			MyRemote service = (MyRemote)Nameing.lookup("rmi://127.0.0.1/RemoteHello");
+			String s = service.sayHello();
+			System.out.println(s);
+		}
+		catch(Exception ex){
+			ex.printStakcTrace();
+		}
+	}
+}
+{% endhighlight %}
+
+客户端必须取得`stub`对象，因为客户端必须调用它的方法。这依赖于`Naming.lookup()`，就像`DNS`查询一样。另外，查询结果是`Object`类型，所以客户端要自己把它转换成`MyRemote`类型，所以客户端要拥有`MyRemote.class`，而且，`RMI`会自动把收到的`stub`对象反序列化，所以客户端也要有`MyRemoteImpl_Stub.class`，否则它不知道怎么反序列化。
+
+让客户端拥有`stub`类文件最直接的办法就是把它交给用户。但还有更酷的方式：`动态类下载（dynamic class downloading）`，先【留坑】。
+
+综上，要使用`RMI`，要确保服务端有以下文件：
+
+- MyRemoteImpl.class
+- MyRemoteImpl_Stub.class
+- MyRemoteImpl_Skel.class （rmi 1.2 已经不用生成它了）
+- MyRemote.class
+
+要保证客户端有以下文件：
+
+- Client.class
+- MyRemoteImpl_Stub.class
+- MyRemote.class
+
+另外，使用`RMI`常犯三个错误：
+
+- 没有在启动服务前启动`rmiregistry`
+- 没有把参数和返回类型做成可序列化
+- 没有把`stub`交给客户端
+
+`stub`是`桩`的意思，`skeleton`是骨架的意思。客户端调用远程方法时，实际上是调用`代理`（`桩`）的方法。所有远程方法都要生命`RemoteException`。
+
+`RMI`是我学习到的第一个`RPC`框架。
+
+##### servlet
+
+下面讲一讲`servlet`。
+
+`servlet`是放在 Web 服务器上运行的 Java 程序。它相当于`CGI`。`servlet`也可以使用`RMI`。
+
+```
+Web Browser -> Web Server -> servlet
+								|
+Web Browser <- Web Server <- servlet
+```
+
+`J2EE`(`Java 2 Platform, Enterprise Edition`)混合了`servlet`和`EJB`，其中前者是后者的用户。`servlet`通过`RMI`与`EJB`通信。
+
+`JSP`代表`Java Server Pages`，最终会被 Web 服务器转换成`servlet`。
+
+`servlet`和`JSP`不是 Java 的一部分，所以我们不再深入讨论了。
+
+最后，我们提一下`Jini`，它也使用`RMI`，但多了`自适应探索`和`自恢复网络`功能。
+
 ### 2017-03-25
 
 #### 匿名内部类

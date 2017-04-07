@@ -12,6 +12,9 @@ title: Friend Links
 - [pualus's blog](https://pualus.github.io/)
 
 ### Sec
+
+- [angelboy](http://angelboy.logdown.com/)
+- [angelboy(New blog)](http://blog.angelboy.tw/)
 - [o0xmuhe](http://o0xmuhe.me/)
 - [V1ct0r](http://v1ct0r.com/)
 - [AppLeU0](http://appleu0.sinaapp.com/)

@@ -24,19 +24,12 @@ I will descript the filesystem in **4 parts**:
 
 Files below are related:
 
-|File Name|
-|:-:|
-|include/FileSystem.h|
-|fs/FileSystem.cpp|
-|include/INode.h|
-|fs/INode.cpp|
-|include/OpenFileManager.h|
-|fs/OpenFileManager.cpp|
-|include/File.h|
-|fs/File.cpp|
-|include/FileManager.h|
-|fs/FileManager.cpp|
-|include/User.h|
+|File Name|File Name|File Name|
+|:-:|:-:|:-:|
+|include/FileSystem.h|include/INode.h|include/OpenFileManager.h|
+|fs/FileSystem.cpp|fs/INode.cpp|fs/OpenFileManager.cpp|
+|include/File.h|include/FileManager.h|include/User.h|
+|fs/File.cpp|fs/FileManager.cpp|||
 
 **Now, let's be a Pirate :)**
 

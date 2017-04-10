@@ -29,7 +29,7 @@ Files below are related:
 |include/FileSystem.h|include/INode.h|include/OpenFileManager.h|
 |fs/FileSystem.cpp|fs/INode.cpp|fs/OpenFileManager.cpp|
 |include/File.h|include/FileManager.h|include/User.h|
-|fs/File.cpp|fs/FileManager.cpp|||
+|fs/File.cpp|fs/FileManager.cpp||
 
 **Now, let's be a Pirate :)**
 
@@ -116,7 +116,7 @@ In *Unix v6pp*, Constructor function and Destructor function are both empty.
 
 Now let's talk about variables in this class.
 
-First, I will explain variables easy to learn:
+First, these variables are easy to learn:
 
 - `padding` enables `SuperBlock` to occupy 2 * 512 bytes (2 sections)
 - `s_iszie` stores the number of sections used for `DiskInode`s
@@ -308,7 +308,83 @@ void FileSystem::Free(short dev, int blkno)
 
 #### File Structure
 
-In Unix, everything is a file. So In this sub-part we just talk about the conception of **File** on the layer of `DiskInode-DataBlock` model, without the specific file meanings and structures.
+In Unix, everything is a file. So In this sub-part we just talk about the conception of **File** on the layer of `DiskInode-DataBlock` model, without the specific file meanings and structures.  
+In this model, one file is organised as meta-data and file-data:
+
+![File_DiskInode_DataBlock]({{ site.url }}/resources/pictures/File_DiskInode_DataBlock.png)
+
+Meta data helps to manage the data blocks. So let's see the definition of `DiskInode` class:
+
+{% highlight c%}
+// include/INode.h
+class DiskInode
+{
+public:
+	DiskInode();
+	~DiskInode(); // nothing to do
+public:
+	unsigned int d_mode;
+	int		d_nlink;
+	short	d_uid;
+	short	d_gid;
+	int		d_size;
+	int		d_addr[10];
+	int		d_atime;
+	int		d_mtime;
+};
+{% endhighlight %}
+
+{% highlight c %}
+// fs/Inode.cpp
+DiskInode::DiskInode()
+{
+	this->d_mode = 0;
+	this->d_nlink = 0;
+	this->d_uid = -1;
+	this->d_gid = -1;
+	this->d_size = 0;
+	for(int i = 0; i < 10; i++){
+		this->d_addr[i] = 0;
+	}
+	this->d_atime = 0;
+	this->d_mtime = 0;
+}
+{% endhighlight %}
+
+`DiskInode::DiskInode()` is to initialize variables in the class. This is Necessary. When one `DiskInode` is in the stack,  not all entries will be updated. So when `sync` is operated you should set variables not updated to default values instead of values remaining on the stack before this `DiskInode` is loaded.
+
+`d_mode` records states of one file, lower 16 bits used:
+
+|Mask Code|Name|Description|
+|:-:|:-:|:-:|
+|0000 0000 0000 0001|IEXEC (o)|other exec|
+|0000 0000 0000 0010|IWRITE (o)|other write|
+|0000 0000 0000 0100|IREAD (o)|other read|
+|0000 0000 0000 1000|IEXEC (g)|group exec|
+|0000 0000 0001 0000|IWRITE (g)|group write|
+|0000 0000 0010 0000|IREAD (g)|group read|
+|0000 0000 0100 0000|IEXEC (u)|user exec|
+|0000 0000 1000 0000|IWRITE (u)|user write|
+|0000 0001 0000 0000|IREAD (u)|user read|
+|0000 0010 0000 0000|ISVTX|on Swap|
+|0000 0100 0000 0000|ISGID|SGID file|
+|0000 1000 0000 0000|ISUID|SUID file|
+|0001 0000 0000 0000|ILARG|large or gigantic file|
+|0110 0000 0000 0000|IFMT|file type|
+|1000 0000 0000 0000|IALLOC|file used|
+
+Definitions above can be found in `INode` class, We will talk about which in *0x02 part*.
+
+More about `IFMT`:
+
+```
+00 - Common data file
+01 - Character device file
+10 - Directory file
+11 - Block device file
+```
+
+
 
 ### 0x02 Structure of files opened in the memory
 

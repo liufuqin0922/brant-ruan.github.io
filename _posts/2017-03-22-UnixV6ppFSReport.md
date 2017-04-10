@@ -142,72 +142,79 @@ The management of free `DiskInode`s and free section blocks is interesting. For 
 
 ##### Allocate
 
+Firstly, `sb = this->GetFS(dev);` to fetch the `SuperBlock` of current device and make sure `s_ilock` is unlocked (or wait for it is unlocked):
+
 {% highlight c %}
-Inode* FileSystem::IAlloc(short dev)
-{
-	SuperBlock* sb;
-	Buf* pBuf;
-	Inode* pNode;
-	User& u = Kernel::Instance().GetUser();
-	int ino;
-	sb = this->GetFS(dev);
-	while(sb->s_ilock){
-		u.u_procp->Sleep((unsigned long)&sb->s_ilock, ProcessManager::PINOD);
-	}
-	if(sb->s_ninode <= 0){
-		sb->s_ilock++;
-		ino = -1;
-		for(int i = 0; i < sb->s_isize; i++){
-			pBuf = this->m_BufferManager->Bread(dev, FileSystem::INODE_ZONE_START_SECTOR + i);
-			int* p = (int *)pBuf->b_addr;
-			for(int j = 0; j < FileSystem::INODE_NUMBER_PER_SECTOR; j++){
-				ino++;
-				int mode = *( p + j * sizeof(DiskInode)/sizeof(int) );
-				if(mode != 0){
-					continue;
-				}
-				if( g_InodeTable.IsLoaded(dev, ino) == -1 ){
-					sb->s_inode[sb->s_ninode++] = ino;
-					if(sb->s_ninode >= 100)
-					{
-						break;
-					}
-				}
-			}
-			this->m_BufferManager->Brelse(pBuf);
-			if(sb->s_ninode >= 100){
-				break;
-			}
-		}
-		sb->s_ilock = 0;
-		Kernel::Instance().GetProcessManager().WakeUpAll((unsigned long)&sb->s_ilock);
-		if(sb->s_ninode <= 0){
-			Diagnose::Write("No Space On %d !\n", dev);
-			u.u_error = User::ENOSPC;
-			return NULL;
-		}
-	}
-	while(true){
-		ino = sb->s_inode[--sb->s_ninode];
-		pNode = g_InodeTable.IGet(dev, ino);
-		if(NULL == pNode){
-			return NULL;
-		}
-		if(0 == pNode->i_mode){
-			pNode->Clean();
-			sb->s_fmod = 1;
-			return pNode;
-		}
-		else{
-			g_InodeTable.IPut(pNode);
-			continue;
-		}
-	}
-	return NULL;	/* GCC likes it! */
+sb = this->GetFS(dev);
+while(sb->s_ilock){
+	u.u_procp->Sleep((unsigned long)&sb->s_ilock, ProcessManager::PINOD);
 }
 {% endhighlight %}
 
+If `s_inode[100]` is empty, then lock `s_ilock` and search for free `DiskInode`s and record them into `s_inode[]` until `s_ninode` is 100 or no free `DiskInode` remains. If `IALLOC` of one `DiskInode` is disabled, system will then check whether that has been loaded into memory. Only these two conditions are met can one `DiskInode` prove to be free and be added into `s_inode[]`:
+
+{% highlight c %}
+if(sb->s_ninode <= 0){
+    sb->s_ilock++;
+    ino = -1;
+    for(int i = 0; i < sb->s_isize; i++){
+        pBuf = this->m_BufferManager->Bread(dev, FileSystem::INODE_ZONE_START_SECTOR + i);
+        int* p = (int *)pBuf->b_addr;
+        for(int j = 0; j < FileSystem::INODE_NUMBER_PER_SECTOR; j++){
+            ino++;
+            int mode = *( p + j * sizeof(DiskInode)/sizeof(int) );
+            if(mode != 0){
+                continue;
+            }
+            if( g_InodeTable.IsLoaded(dev, ino) == -1 ){
+                sb->s_inode[sb->s_ninode++] = ino;
+                if(sb->s_ninode >= 100)
+                {
+                    break;
+                }
+            }
+        }
+        this->m_BufferManager->Brelse(pBuf);
+        if(sb->s_ninode >= 100){
+            break;
+        }
+    }
+    sb->s_ilock = 0;
+    Kernel::Instance().GetProcessManager().WakeUpAll((unsigned long)&sb->s_ilock);
+    if(sb->s_ninode <= 0){
+        Diagnose::Write("No Space On %d !\n", dev);
+        u.u_error = User::ENOSPC;
+        return NULL;
+    }
+}
+{% endhighlight %}
+
+If system reaches here, there must remain free `DiskInode` in `s_inode[]`. Load all the `DiskInode`s in `s_inode[]` into memory until `INodeTable` is full:
+
+{% highlight c %}
+while(true){
+    ino = sb->s_inode[--sb->s_ninode];
+    pNode = g_InodeTable.IGet(dev, ino);
+    if(NULL == pNode){
+        return NULL;
+    }
+    if(0 == pNode->i_mode){
+        pNode->Clean();
+        sb->s_fmod = 1;
+        return pNode;
+    }
+    else{
+        g_InodeTable.IPut(pNode);
+        continue;
+    }
+}
+{% endhighlight %}
+
+Attention! When system modifies `SuperBlock` in the memory, it should enable `s_fmod`.
+
 ##### Free
+
+This function is easy to understand. When `s_ilock` is unlocked and `s_ninode` is less than 100, then record `DiskInode` indexed by `number` in `s_inode`, or just return.
 
 {% highlight c%}
 void FileSystem::IFree(short dev, int number)
@@ -227,83 +234,88 @@ void FileSystem::IFree(short dev, int number)
 
 #### Management of Free Data Blocks
 
+*Unix v6pp* uses grouping chained index table to manage free data blocks. Picture below simply shows the structure:
+
+![unixv6pp-group-chained-index-table]({{ site.url }}/resources/pictures/unixv6pp-group-chained-index-table.png)
+
 `FileSystem::Alloc(short dev)` and `FileSystem::Free(short dev, int blkno)` are used to manage free data blocks:
 
 ##### Allocate
 
-{% highlight c %}
-Buf* FileSystem::Alloc(short dev)
-{
-	int blkno;
-	SuperBlock* sb;
-	Buf* pBuf;
-	User& u = Kernel::Instance().GetUser();
-	sb = this->GetFS(dev);
-	while(sb->s_flock){
-		u.u_procp->Sleep((unsigned long)&sb->s_flock, ProcessManager::PINOD);
-	}
-	blkno = sb->s_free[--sb->s_nfree];
-	if(0 == blkno ){
-		sb->s_nfree = 0;
-		Diagnose::Write("No Space On %d !\n", dev);
-		u.u_error = User::ENOSPC;
-		return NULL;
-	}
-	if( this->BadBlock(sb, dev, blkno) ){
-		return NULL;
-	}
-	if(sb->s_nfree <= 0){
-		sb->s_flock++;
-		pBuf = this->m_BufferManager->Bread(dev, blkno);
-		int* p = (int *)pBuf->b_addr;
-		sb->s_nfree = *p++;
-		Utility::DWordCopy(p, sb->s_free, 100);
-		this->m_BufferManager->Brelse(pBuf);
-		sb->s_flock = 0;
-		Kernel::Instance().GetProcessManager().WakeUpAll((unsigned long)&sb->s_flock);
-	}
-	pBuf = this->m_BufferManager->GetBlk(dev, blkno);
-	this->m_BufferManager->ClrBuf(pBuf);
-	sb->s_fmod = 1;
+When `s_flock` is unlocked, use `blkno` to fetch one free data block. If `blkno` is 0, there is no more free data block, then return. If `blkno` is invalid (checked by `BadBlock()`), then return. 
 
-	return pBuf;
+{% highlight c %}
+sb = this->GetFS(dev);
+while(sb->s_flock){
+    u.u_procp->Sleep((unsigned long)&sb->s_flock, ProcessManager::PINOD);
 }
+blkno = sb->s_free[--sb->s_nfree];
+if(0 == blkno ){
+    sb->s_nfree = 0;
+    Diagnose::Write("No Space On %d !\n", dev);
+    u.u_error = User::ENOSPC;
+    return NULL;
+}
+if( this->BadBlock(sb, dev, blkno) ){
+    return NULL;
+}
+{% endhighlight %}
+
+After `blkno` fetches one, if `s_nfree` is 0, then copy first 404 bytes (`s_nfree` + `s_free[100]`) from data block with the index of `SuperBlock->s_free[0]` to `SuperBlock->s_nfree` and `SuperBlock->s_free[100]`, that is, take down the indirect index table of the next group (e.g. group 4 in the picture above):
+
+{% highlight c %}
+if(sb->s_nfree <= 0){
+    sb->s_flock++;
+    pBuf = this->m_BufferManager->Bread(dev, blkno);
+    int* p = (int *)pBuf->b_addr;
+    sb->s_nfree = *p++;
+    Utility::DWordCopy(p, sb->s_free, 100);
+    this->m_BufferManager->Brelse(pBuf);
+    sb->s_flock = 0;
+    Kernel::Instance().GetProcessManager().WakeUpAll((unsigned long)&sb->s_flock);
+}
+pBuf = this->m_BufferManager->GetBlk(dev, blkno);
+this->m_BufferManager->ClrBuf(pBuf);
+sb->s_fmod = 1;
+
+return pBuf;
 {% endhighlight %}
 
 ##### Free
 
+Firstly wait until `s_flock` is unlocked and blkno is valid:
+
 {% highlight c %}
-void FileSystem::Free(short dev, int blkno)
-{
-	SuperBlock* sb;
-	Buf* pBuf;
-	User& u = Kernel::Instance().GetUser();
-	sb = this->GetFS(dev);
-	sb->s_fmod = 1;
-	while(sb->s_flock){
-		u.u_procp->Sleep((unsigned long)&sb->s_flock, ProcessManager::PINOD);
-	}
-	if(this->BadBlock(sb, dev, blkno)){
-		return;
-	}
-	if(sb->s_nfree <= 0){
-		sb->s_nfree = 1;
-		sb->s_free[0] = 0;
-	}
-	if(sb->s_nfree >= 100){
-		sb->s_flock++;
-		pBuf = this->m_BufferManager->GetBlk(dev, blkno);
-		int* p = (int *)pBuf->b_addr;
-		*p++ = sb->s_nfree;
-		Utility::DWordCopy(sb->s_free, p, 100);
-		sb->s_nfree = 0;
-		this->m_BufferManager->Bwrite(pBuf);
-		sb->s_flock = 0;
-		Kernel::Instance().GetProcessManager().WakeUpAll((unsigned long)&sb->s_flock);
-	}
-	sb->s_free[sb->s_nfree++] = blkno;
-	sb->s_fmod = 1;
+sb = this->GetFS(dev);
+sb->s_fmod = 1;
+while(sb->s_flock){
+    u.u_procp->Sleep((unsigned long)&sb->s_flock, ProcessManager::PINOD);
 }
+if(this->BadBlock(sb, dev, blkno)){
+    return;
+}
+{% endhighlight %}
+
+If `blkno` is going to be the first free data block, use `s_free[0]` to mark end and use `s_free[1]` to point to this `blkno` data block; else, copy `SuperBlock->s_nfree` and `SuperBlock->s_free[100]` (404 bytes) to `blkno` data block, then use `SuperBlock->s_free[0]` to point to `blkno` data block and set `SuperBlock->s_nfree` to 1:
+
+{% highlight c %}
+if(sb->s_nfree <= 0){
+    sb->s_nfree = 1;
+    sb->s_free[0] = 0;
+}
+if(sb->s_nfree >= 100){
+    sb->s_flock++;
+    pBuf = this->m_BufferManager->GetBlk(dev, blkno);
+    int* p = (int *)pBuf->b_addr;
+    *p++ = sb->s_nfree;
+    Utility::DWordCopy(sb->s_free, p, 100);
+    sb->s_nfree = 0;
+    this->m_BufferManager->Bwrite(pBuf);
+    sb->s_flock = 0;
+    Kernel::Instance().GetProcessManager().WakeUpAll((unsigned long)&sb->s_flock);
+}
+sb->s_free[sb->s_nfree++] = blkno;
+sb->s_fmod = 1;
 {% endhighlight %}
 
 #### File Structure
@@ -409,7 +421,7 @@ Now we can calculate and sum these data:
 
 (unit: byte)
 
-Now we can talk about `d_addr[10]`. This array stores index of data block related.
+Now we can talk about `d_addr[10]`. This array stores index of data blocks related.
 
 If one is a small file, this array will be:
 

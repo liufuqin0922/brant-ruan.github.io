@@ -1,9 +1,9 @@
 ---
-title: Unix v6-plus-plus Filesystem Analysis
+title: Unix v6-plus-plus Filesystem Analysis | Part 1
 category: CS
 ---
 
-## Unix v6-plus-plus Filesystem Analysis
+## Unix v6-plus-plus Filesystem Analysis | Part 1
 
 ### 0x00 Preface
 
@@ -38,12 +38,10 @@ Files below are related:
 In this part, our goal is to explain how the files are organized on the disc.  
 Files below are related:
 
-|File Name|
-|:-:|
-|include/FileSystem.h|
-|fs/FileSystem.cpp|
-|include/INode.h|
-|fs/INode.cpp|
+|File Name|File Name|
+|:-:|:-:|
+|include/FileSystem.h|include/INode.h|
+|fs/FileSystem.cpp|fs/INode.cpp|
 
 #### Macro-Architecture
 
@@ -440,14 +438,3 @@ If one is a huge file, this array will be:
 Note that 2 level indirect index blocks appear.
 
 `d_size` determines whether one is a small, large or huge file.
-
-### 0x02 Structure of files opened in the memory
-
-### 0x03 Structure of file directory
-
-### 0x04 File operating interfaces
-
-### 0x05 Summary
-
-### 0x06 Reference
-

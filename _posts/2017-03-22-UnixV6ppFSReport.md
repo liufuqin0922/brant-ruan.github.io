@@ -353,7 +353,7 @@ DiskInode::DiskInode()
 
 `DiskInode::DiskInode()` is to initialize variables in the class. This is Necessary. When one `DiskInode` is in the stack,  not all entries will be updated. So when `sync` is operated you should set variables not updated to default values instead of values remaining on the stack before this `DiskInode` is loaded.
 
-`d_mode` records states of one file, lower 16 bits used:
+- `d_mode` records states of one file, lower 16 bits used:
 
 |Mask Code|Name|Description|
 |:-:|:-:|:-:|
@@ -369,7 +369,7 @@ DiskInode::DiskInode()
 |0000 0010 0000 0000|ISVTX|on Swap|
 |0000 0100 0000 0000|ISGID|SGID file|
 |0000 1000 0000 0000|ISUID|SUID file|
-|0001 0000 0000 0000|ILARG|large or gigantic file|
+|0001 0000 0000 0000|ILARG|large or huge file|
 |0110 0000 0000 0000|IFMT|file type|
 |1000 0000 0000 0000|IALLOC|file used|
 
@@ -384,7 +384,50 @@ More about `IFMT`:
 11 - Block device file
 ```
 
+- `d_nlink` counts the number of different path names for one file in the whole directory tree (That is, hard link)
+- `d_uid` stores the owner's ID
+- `d_gid` stores the owner group's ID
+- `d_atime` stores the last access time
+- `d_mtime` stores the last modified time
+- `d_size` stores the size of one file (unit: byte)
 
+From `INode` class we find some constants:
+
+```
+static const int BLOCK_SIZE = 512;
+static const int ADDRESS_PER_INDEX_BLOCK = BLOCK_SIZE / sizeof(int);
+static const int SMALL_FILE_BLOCK = 6;
+static const int LARGE_FILE_BLOCK = 128 * 2 + 6;
+static const int HUGE_FILE_BLOCK = 128 * 128 * 2 + 128 * 2 + 6;
+```
+
+Now we can calculate and sum these data:
+
+|Small File|Large File|Huge File|
+|:-:|:-:|:-:|
+|[0, 6\*512]|(6\*512, 6\*512+128\*2]|(6\*512+128\*2, 6\*512+128\*2+128\*128\*2]|
+
+(unit: byte)
+
+Now we can talk about `d_addr[10]`. This array stores index of data block related.
+
+If one is a small file, this array will be:
+
+![unixv6pp-small-file]({{ site.url }}/resources/pictures/unixv6pp-small-file.png)
+
+If one is a large file, this array will be:
+
+![unixv6pp-large-file]({{ site.url }}/resources/pictures/unixv6pp-large-file.png)
+
+Note that 1 level indirect index blocks appear.
+
+If one is a huge file, this array will be:
+
+![unixv6pp-huge-file]({{ site.url }}/resources/pictures/unixv6pp-huge-file.png)
+
+Note that 2 level indirect index blocks appear.
+
+`d_size` determines whether one is a small, large or huge file.
 
 ### 0x02 Structure of files opened in the memory
 

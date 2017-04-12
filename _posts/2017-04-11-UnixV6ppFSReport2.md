@@ -32,11 +32,11 @@ Firstly, we'd better have an integral comprehension:
 
 ![unixv6pp-open-files-structure]({{ site.url }}/resources/pictures/unixv6pp-open-files-structure.png)
 
-You may note that all these structures have nothing to do with **filename**. That is because the filename is stored in directory files and we will talk about that in *Part 3*.
+You may note that all these structures have nothing to do with **filename**. That is because the filename is stored in directory files and we will talk about that in *[Part 3](https://brant-ruan.github.io/cs/2017/04/11/UnixV6ppFSReport3.html)*.
 
 The index of entries in `OpenFiles` is the famous `fd` (file descriptor).
 
-It will be comprehensible if we talk about this topic step by step from `SystemCall::Sys_Open()` because we can show a dynamic process. This API is famous and clear, and we will dive into something else interesting :)
+It will be comprehensible if we talk about this topic **step by step** because we can show a dynamic process.
 
 #### From DiskInode to INode
 
@@ -48,12 +48,12 @@ First, let's study the `INode` class, whose variables are very similar to those 
 
 |INode|DiskInode|INode|DiskInode|INode|DiskInode|
 |:-:|:-:|:-:|:-:|:-:|:-:|
-|i_mode|d_mode|rablock|||d_atime|
-|i_nlink|d_nlink|i_flag|||d_mtime|
-|i_uid|d_uid|i_count||||
-|i_gid|d_gid|i_dev||||
-|i_size|d_size|i_number||||
-|i_addr[10]|d_addr[10]|i_lastr||||
+|i_mode|d_mode|rablock|/|/|d_atime|
+|i_nlink|d_nlink|i_flag|/|/|d_mtime|
+|i_uid|d_uid|i_count|/|||
+|i_gid|d_gid|i_dev|/|||
+|i_size|d_size|i_number|/|||
+|i_addr[10]|d_addr[10]|i_lastr|/|||
 
 The duplicate variables won't be explained. We focus on the new in `INode`:
 
@@ -81,14 +81,21 @@ Attention! Relationship between one `INode` and one `DiskInode` is one-to-one.
 `INode` class provides some important methods:
 
 {% highlight c %}
-
+int Bmap(int lbn);
+void ReadI();
+void WriteI();
 {% endhighlight %}
+
+`Bmap` is to translate logic data block into physical data block, and other methods rely on it.
+
 
 Now you have learnt most of `INode` class. Let's continue to see how one `DiskInode` is mapped to one `INode`.
 
 #### Between OpenFileTable and InodeTable
 
 ![unixv6pp-Inode2File]({{ site.url }}/resources/pictures/unixv6pp-Inode2File.png)
+
+Here we begin with the system call `SystemCall::Sys_Open()`. This API is famous and clear, and we will dive into something else interesting :)
 
 In `SystemCall::Sys_Open()`:
 

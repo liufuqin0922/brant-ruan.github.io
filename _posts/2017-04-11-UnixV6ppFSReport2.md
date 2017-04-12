@@ -26,5 +26,9 @@ We only need to know that `OpenFiles` and `IOParameter` are in this class, becau
 
 From *[Part 1](https://brant-ruan.github.io/cs/2017/03/22/UnixV6ppFSReport.html)*, we have learnt how files are stored on the disk. That is very very good.
 
+#### Integral Comprehension
 
+Firstly, we'd better have a integral comprehension:
+
+![unixv6pp-open-files-structure]({{ site.url }}/resources/pictures/unixv6pp-open-files-structure.png)
 

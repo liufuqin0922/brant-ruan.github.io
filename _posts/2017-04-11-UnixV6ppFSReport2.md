@@ -86,8 +86,62 @@ void ReadI();
 void WriteI();
 {% endhighlight %}
 
-`Bmap` is to translate logic data block into physical data block, and other methods rely on it.
+**Bmap**
 
+`Bmap` is to translate logic block number (lbn) into physical block number (phyBlkno), on which other methods rely. Exactly, `lbn` is the index of one entry in `i_addr[0] ~ i_addr[5]` for small files, `i_addr[0] ~ i_addr[5] + extra 1 level indirect index block` for large files or `i_addr[0] ~ i_addr[5] + extra 1 level indirect index block + 2 level indirect index block` for huge files. `phyBlkno` is the value of such an entry.
+
+The structure of `Bmap` is very clear (in pseudocode):
+
+```
+if lbn >= HUGE_FILE_BLOCK, return (lbn invalid)
+if lbn < 6 (small file)
+	phyBlkno = i_addr[lbn] (fetch directly)
+    if phyBlkno is 0 then allocate
+        if allocate successfully
+        	phyBlkno = pFirstBuf->b_blkno (fetch number)
+            i_addr[lbn] = phyBlkno (map)
+            rablock = this->i_addr[lbn + 1] (read-ahead)
+        else (fail to allocate)
+	        rablock = this->i_addr[lbn + 1]
+    return phyBlkno
+else (large/huge file)
+	use lbn to calculate index1 in i_addr[]
+    phyBlkno = this->i_addr[index1] (fetch it)
+    if phyBlkno is 0 then allocate 1 level indirect index block
+    	if failed then return
+        i_addr[index1] = pFirstBuf->b_blkno (map)
+    read the 1 level indirect index block and point by iTable
+    if this is a huge file
+    	use lbn to calculate index2 in 1 level indirect index block
+        phyBlkno = iTable[index2]
+        if phyBlkno is 0 then allocate 2 level block
+        read the 2 level block and point by iTable
+    phyBlkno = iTable[index] (if 0 then allocate)
+    deal with read-ahead
+    return phyBlkno
+```
+
+**ReadI**
+
+This method is to read file data.
+
+```
+if u_IOParam.m_Count is 0 then return (nothing rest)
+if inode is char device then invoke Read() of CharDevice and return
+while (no error and u_IOParam.m_Count is not 0)
+	fetch dev and use Bmap to get bn
+    pBuf = bufMgr.Bread(dev, bn)
+    IOMove(start, u.u_IOParam.m_Base, nbytes) (copy to user)
+    update u.u_IOParam
+```
+
+**WriteI**
+
+This method is to read data to file.
+
+```
+
+```
 
 Now you have learnt most of `INode` class. Let's continue to see how one `DiskInode` is mapped to one `INode`.
 

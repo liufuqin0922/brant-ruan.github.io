@@ -290,7 +290,7 @@ return NULL
 
 We can dive into `OpenFiles::SetF(int fd, File* pFile)`:
 
-{% highligh c %}
+{% highlight c %}
 	if(fd < 0 || fd >= OpenFiles::NOFILES){
 		return;
 	this->ProcessOpenFileTable[fd] = pFile;

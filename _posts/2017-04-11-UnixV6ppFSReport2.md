@@ -266,20 +266,62 @@ pFile->f_inode = pInode;
 
 **Note that `pFile->f_inode = pInode` connects `Inode` with `File`.**
 
-Here we are also interested in `OpenFileTable`. In *Unix v6pp* `m_File[NFILE]` in it has 100 `File` objects.
-
 #### Between ProcessOpenFileTable and OpenFileTable
 
 ![unixv6pp-File2FileStar]({{ site.url }}/resources/pictures/unixv6pp-File2FileStar.png)
 
-`File* FAlloc()` is to allocate one free `File`:
+Here we are interested in `OpenFileTable`. In *Unix v6pp*, `m_File[NFILE]` in it has 100 `File` objects.
+
+`File* FAlloc()` is to allocate one free `File` in `m_File[]`.
 
 ```
 fd = u.u_ofiles.AllocFreeSlot() (find one free File* in Process)
 if fd < 0 return NULL (Process is unable to open more file)
 for(int i = 0; i < OpenFileTable::NFILE; i++)
-	if(this->m_File[i].f_count == 0)
-
+	if(this->m_File[i].f_count == 0) (free to use)
+    	u.u_ofiles.SetF(fd, &this->m_File[i])
+        this->m_File[i].f_count++
+        this->m_File[i].f_offset = 0
+        return (&this->m_File[i])
+return NULL
 ```
 
-`void CloseF(File* pFile)` is to decrease `f_count` or free one `File`:
+**Note that `u.u_ofiles.SetF(fd, &this->m_File[i])` connects `File*` in `OpenFiles` with `File` in `OpenFileTable`.**
+
+We can dive into `OpenFiles::SetF(int fd, File* pFile)`:
+
+{% highligh c %}
+	if(fd < 0 || fd >= OpenFiles::NOFILES){
+		return;
+	this->ProcessOpenFileTable[fd] = pFile;
+{% endhighlight %}
+
+All the relationship in the integral picture has been talked about. At last, we will explore `OpenFileTable::CloseF(File *pFile)`, which is to decrease `f_count` or free one `File`:
+
+{% highlight c %}
+if(pFile->f_flag & File::FPIPE){
+    pNode = pFile->f_inode;
+    pNode->i_mode &= ~(Inode::IREAD | Inode::IWRITE);
+    procMgr.WakeUpAll((unsigned long)(pNode + 1));
+    procMgr.WakeUpAll((unsigned long)(pNode + 2));
+}
+{% endhighlight %}
+
+Code above is to deal with `pipe` which we Currently do not analyse.
+
+{% highlight c %}
+if(pFile->f_count <= 1)
+   	pFile->f_inode->CloseI(pFile->f_flag & File::FWRITE);
+	g_InodeTable.IPut(pFile->f_inode);
+}
+{% endhighlight %}
+
+if `f_count` <= 1 then current process is the last process referencing this `File`. For special block device or char device invoke `CloseI`. For common file, just invoke `IPut` which we have talked about before.
+
+Finally, 
+
+{% highlight c %}
+pFile->f_count--;
+{% endhighlight %}
+
+In `File` there is a `f_count` and in `Inode` there is a `i_count`. This idea is graceful.

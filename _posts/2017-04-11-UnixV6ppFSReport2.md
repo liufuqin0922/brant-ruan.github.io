@@ -42,9 +42,9 @@ It will be comprehensible if we talk about this topic **step by step** because w
 
 ![unixv6pp-DiskInode2Inode]({{ site.url }}/resources/pictures/unixv6pp-DiskInode2Inode.png)
 
-The picture above means that we will map one `DiskInode` on the disk to one `INode` in the memory.
+The picture above means that we will map one `DiskInode` on the disk to one `Inode` in the memory.
 
-First, let's study the `INode` class, whose variables are very similar to those in `DiskInode` class:
+First, let's study the `Inode` class, whose variables are very similar to those in `DiskInode` class:
 
 |INode|DiskInode|INode|DiskInode|INode|DiskInode|
 |:-:|:-:|:-:|:-:|:-:|:-:|
@@ -55,7 +55,7 @@ First, let's study the `INode` class, whose variables are very similar to those 
 |i_size|d_size|i_number|/|||
 |i_addr[10]|d_addr[10]|i_lastr|/|||
 
-The duplicate variables won't be explained. We focus on the new in `INode`:
+The duplicate variables won't be explained. We focus on the new in `Inode`:
 
 - `i_dev` stores ID of the device from which one `DiskInode` comes
 - `i_number` stores ID of one `DiskInode` on a disk
@@ -74,11 +74,11 @@ The duplicate variables won't be explained. We focus on the new in `INode`:
 - `i_lastr` stores logic ID of the last block read to judge whether to do read-ahead operation
 - `rablock` stores physical ID of the next block for read-ahead
 
-`INode` does not care about `d_atime` and `d_mtime`.
+`Inode` does not care about `d_atime` and `d_mtime`.
 
-Attention! Relationship between one `INode` and one `DiskInode` is one-to-one.
+Attention! Relationship between one `Inode` and one `DiskInode` is one-to-one.
 
-`INode` class provides some important methods:
+`Inode` class provides some important methods:
 
 {% highlight c %}
 int Bmap(int lbn);
@@ -132,18 +132,98 @@ while (no error and u_IOParam.m_Count is not 0)
 	fetch dev and use Bmap to get bn
     pBuf = bufMgr.Bread(dev, bn)
     IOMove(start, u.u_IOParam.m_Base, nbytes) (copy to user)
-    update u.u_IOParam
+    update u_IOParam
 ```
 
 **WriteI**
 
-This method is to read data to file.
+This method is to write data to file.
 
 ```
-
+if inode is char device then invoke Write() of CharDevice and return
+if u_IOParam.m_Count is 0 then return (nothing rest)
+while (no error and u_IOParam.m_Count is not 0)
+	fetch dev and use Bmap to get bn
+    if data to write is 512 bytes, then allocate buffer
+    else firstly read out already existed data
+    calculate where to write: start = pBuf->b_addr + offset
+    IOMove(u.u_IOParam.m_Base, start, nbytes) (copy)
+    update u_IOParam variables
+    if one data block is full then rsync write (Bawrite)
+    else delay and write (Bdwrite)
+    update i_size (file's size)
 ```
 
-Now you have learnt most of `INode` class. Let's continue to see how one `DiskInode` is mapped to one `INode`.
+Now you have learnt most of `Inode` class. Let's continue to see how one `DiskInode` is mapped to one `Inode`.
+
+This process is mainly operated by `Inode* IGet(short dev, int inumber)` in `InodeTable`. In *Unix v6pp*, `InodeTable` has an inode array `m_Inode[NINODE]` (`NINODE` = 100). `IGet()` is to map `DiskInode` to one `Inode`. In addition, `IPut()` is to decrease `i_count` or free one `Inode`.
+
+`Inode* InodeTable::IGet(short dev, int inumber)`:
+
+```
+while
+    First use IsLoaded(dev, inumber) to check whether already mapped
+    if already mapped,
+        pInode = &(this->m_Inode[index]) (try to fetch it)
+        if inode locked, then want it and sleep
+        if sub-fs is mounted at this inode, then
+            dev = pMount->m_dev (fetch real device number)
+            inumber = FileSystem::ROOTINO (fetch real inode number)
+            continue in while
+        pInode->i_count++ (reference number increase)
+        lock
+        return pInode
+    else
+		GetFreeInode()
+        if allocate successfully
+        	set i_dev/i_number/i_flag/i_count/i_lastr
+        Bread() to read in DiskInode
+        if I/O error occurs, release buffer and IPut()
+        pInode->ICopy(pBuf, inumber) (copy to Inode)
+        release buffer
+        return pInode
+```
+
+We can have short look at `Inode::ICopy()`:
+
+{% highlight c %}
+void Inode::ICopy(Buf *bp, int inumber)
+{
+	DiskInode dInode;
+	DiskInode* pNode = &dInode;
+    unsigned char* p = bp->b_addr + (inumber % FileSystem::INODE_NUMBER_PER_SECTOR) * sizeof(DiskInode);
+    Utility::DWordCopy( (int *)p, (int *)pNode, sizeof(DiskInode)/sizeof(int) );
+    this->i_mode = dInode.d_mode;
+    this->i_nlink = dInode.d_nlink;
+    this->i_uid = dInode.d_uid;
+    this->i_gid = dInode.d_gid;
+    this->i_size = dInode.d_size;
+    for(int i = 0; i < 10; i++){
+        this->i_addr[i] = dInode.d_addr[i];
+    }
+}
+{% endhighlight %}
+
+Very easy, right?
+
+By the way, I want to show you the process of `IPut()`. When one file is `close()`, `IPut` will be invoked.
+
+```
+if pNode->i_count == 1 (only one reference)
+	lock
+    if i_nlink <=0 (no directory path points to it)
+    	ITrunc() (truncate data block)
+        i_mode = 0
+        IFree(pNode->i_dev, pNode->i_number) (free DiskInode)
+    IUpdate(Time::time) (update DiskInode)
+    Prele() (unlock Inode)
+    i_flag = 0
+    i_number = -1
+i_count--
+Prele() (unlock Inode)
+```
+
+So far, we have mapped `DiskInode` to `Inode`.
 
 #### Between OpenFileTable and InodeTable
 
@@ -184,6 +264,22 @@ pFile->f_flag = mode & (File::FREAD | File::FWRITE);
 pFile->f_inode = pInode;
 {% endhighlight %}
 
+**Note that `pFile->f_inode = pInode` connects `Inode` with `File`.**
+
+Here we are also interested in `OpenFileTable`. In *Unix v6pp* `m_File[NFILE]` in it has 100 `File` objects.
+
 #### Between ProcessOpenFileTable and OpenFileTable
 
 ![unixv6pp-File2FileStar]({{ site.url }}/resources/pictures/unixv6pp-File2FileStar.png)
+
+`File* FAlloc()` is to allocate one free `File`:
+
+```
+fd = u.u_ofiles.AllocFreeSlot() (find one free File* in Process)
+if fd < 0 return NULL (Process is unable to open more file)
+for(int i = 0; i < OpenFileTable::NFILE; i++)
+	if(this->m_File[i].f_count == 0)
+
+```
+
+`void CloseF(File* pFile)` is to decrease `f_count` or free one `File`:

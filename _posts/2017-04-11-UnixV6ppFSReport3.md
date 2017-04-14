@@ -19,3 +19,5 @@ Files below are related:
 To some extent, the picture above is enough to explain this part. But for completeness, some other explanations are added:
 
 Everything is a file, so is the directory. The data block of one directory file stores `inode-filename` entries. And follow this clue, you can find the inode of one specific file with a specific name.
+
+That's all, thank you :)

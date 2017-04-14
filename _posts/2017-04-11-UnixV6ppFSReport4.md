@@ -38,7 +38,39 @@ The relationship among these 4 methods is interesting! See the picture below:
 
 `NextChar()` is a method to return the next `char` in pathname. If `NameI` return NULL, then `Open` will directly return without calling `Open1`, while `Creat` will call `MakNode` to return a new `Inode` to `pInode` if no error occurs. And `Creat` will do `pInode->i_mode |= newACCMode`.
 
-Now dive into `NameI`.
+Now dive into `NameI`. This method is so important that it translates pathname to `Inode`. But this method is complex, so be patient :)
+
+![unixv6pp-NameI-structure]({{ site.url }}/resources/pictures/unixv6pp-NameI-structure.png)
+
+We will follow the picture above to explain it. And we will take a pathname example: `/home/temp`.
+
+The *out* part only has two statements:
+
+{% highlight c %}
+this->m_InodeTable->IPut(pInode);
+return NULL;
+{% endhighlight %}
+
+When error occurs, `goto out` will be done.
+
+In *preapre* part, it is very clear:
+
+{% highlight c %}
+pInode = u.u_cdir;
+if ( '/' == (curchar = (*func)()) )
+    pInode = this->rootDirInode;
+this->m_InodeTable->IGet(pInode->i_dev, pInode->i_number);
+while ( '/' == curchar )
+    curchar = (*func)();
+if ( '\0' == curchar && mode != FileManager::OPEN ){
+    u.u_error = User::ENOENT;
+    goto out;
+}
+{% endhighlight %}
+
+With pathname like `/home/temp`, `pInode` will be assigned `rootDirInode`; with `home/temp`, `pInode` will be current directory. With `///home/temp`, `//` is skipped. And if you want to modify the current directory, error occurs and `goto out`.
+
+Before program goes into `while`, `pInode` points to `Inode` of `/` and `curchar` is `h`.
 
 #### Seek
 

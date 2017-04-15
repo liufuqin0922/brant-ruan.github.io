@@ -38,11 +38,11 @@ The relationship among these 4 methods is interesting! See the picture below:
 
 `NextChar()` is a method to return the next `char` in pathname. If `NameI` return NULL, then `Open` will directly return without calling `Open1`, while `Creat` will call `MakNode` to return a new `Inode` to `pInode` if no error occurs. And `Creat` will do `pInode->i_mode |= newACCMode`.
 
+**NameI**
+
 Now dive into `NameI`. This method is so important that it translates pathname to `Inode`. But this method is complex, so be patient :)
 
 ![unixv6pp-NameI-structure]({{ site.url }}/resources/pictures/unixv6pp-NameI-structure.png)
-
-We will follow the picture above to explain it. And we will take a pathname example: `/home/temp`.
 
 The *out* part only has two statements:
 
@@ -70,10 +70,107 @@ if ( '\0' == curchar && mode != FileManager::OPEN ){
 
 With pathname like `/home/temp`, `pInode` will be assigned `rootDirInode`; with `home/temp`, `pInode` will be current directory. With `///home/temp`, `//` is skipped. And if you want to modify the current directory, error occurs and `goto out`.
 
+We will take a pathname example: `/home/temp`.
+
 Before program goes into `while`, `pInode` points to `Inode` of `/` and `curchar` is `h`.
+
+In `while`, first do some `pre-configure`:
+
+{% highlight c %}
+if (u.u_error != User::NOERROR)
+    break;	/* error, goto out; */
+if ('\0' == curchar)
+    return pInode; // succeed, return
+if ( (pInode->i_mode & Inode::IFMT) != Inode::IFDIR ){
+    u.u_error = User::ENOTDIR;
+    break;	/* not dir, goto out; */
+}
+if ( this->Access(pInode, Inode::IEXEC) ){
+    u.u_error = User::EACCES;
+    break; /* no search right, goto out; */
+}
+{% endhighlight %}
+
+Then copy `home` to `u.u_dbuf` and `curchar` now stores `t`.
+
+Before search:
+
+```
+u.u_IOParam.m_Offset = 0;
+u.u_IOParam.m_Count = pInode->i_size / (DirectoryEntry::DIRSIZ + 4);
+freeEntryOffset = 0;
+pBuf = NULL;
+```
+
+Now search `home` in `/`'s directory entry in a `sub-while`:
+
+**Open1**
+
+Now let's dive into `Open1`.
 
 #### Seek
 
 #### Read/Write/Rdwr
 
+`Read`:
+
+```
+this->Rdwr(File::FREAD);
+```
+
+`Write`:
+
+```
+this->Rdwr(File::FWRITE);
+```
+
+So let's see `Rdwr`:
+
+{% highlight c %}
+pFile = u.u_ofiles.GetF(u.u_arg[0]);	/* fd */
+if ( NULL == pFile )
+    return;
+if ( (pFile->f_flag & mode) == 0 ){
+    u.u_error = User::EACCES;
+    return;
+}
+u.u_IOParam.m_Base = (unsigned char *)u.u_arg[1];
+u.u_IOParam.m_Count = u.u_arg[2];
+u.u_segflg = 0;
+if(pFile->f_flag & File::FPIPE){
+    if ( File::FREAD == mode )
+        this->ReadP(pFile);
+    else
+        this->WriteP(pFile);
+}
+else{
+    pFile->f_inode->NFlock();
+    u.u_IOParam.m_Offset = pFile->f_offset;
+    if ( File::FREAD == mode )
+        pFile->f_inode->ReadI();
+    else
+        pFile->f_inode->WriteI();
+    pFile->f_offset += (u.u_arg[2] - u.u_IOParam.m_Count);
+    pFile->f_inode->NFrele();
+}
+u.u_ar0[User::EAX] = u.u_arg[2] - u.u_IOParam.m_Count;
+{% endhighlight %}
+
+
 #### Close
+
+{% highlight c %}
+void FileManager::Close()
+{
+	User& u = Kernel::Instance().GetUser();
+	int fd = u.u_arg[0];
+
+	File* pFile = u.u_ofiles.GetF(fd);
+	if ( NULL == pFile )
+		return;
+	u.u_ofiles.SetF(fd, NULL);
+	this->m_OpenFileTable->CloseF(pFile);
+}
+{% endhighlight %}
+
+Use `pFile` to fetch the `File` structure and set `File*` in `OpenFiles` to `NULL` then call `CloseF`.

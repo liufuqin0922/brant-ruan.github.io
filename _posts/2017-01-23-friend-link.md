@@ -6,13 +6,9 @@ title: Friend Links
 
 ## Friend Links
 
-### NON-SEC
-
 - [renqiuyu's blog](https://renqiuyu.github.io)
 - [pualus's blog](https://pualus.github.io/)
-
-### Sec
-
+- [xbj1108_25's blog](http://blog.csdn.net/xbj1108_25/)
 - [angelboy](http://angelboy.logdown.com/)
 - [angelboy(New blog)](http://blog.angelboy.tw/)
 - [o0xmuhe](http://o0xmuhe.me/)

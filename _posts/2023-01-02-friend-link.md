@@ -6,7 +6,7 @@ title: Friend Links
 ## Friend Links
 
 - [renqiuyu's blog](https://renqiuyu.github.io)
-- [pualus's blog](https://pualus.github.io/)
+- [pualus's blog](http://www.cnblogs.com/pualus/)
 - [xbj1108_25's blog](http://blog.csdn.net/xbj1108_25/)
 - [angelboy](http://angelboy.logdown.com/)
 - [angelboy(New blog)](http://blog.angelboy.tw/)

@@ -110,9 +110,30 @@ C 语言标准的官方名称：`ISO/IEC 9899:1990`，不妨找来标准读一�
 
 C 中的作用域：要么全局可见，要么对其他文件都不可见。全局可见性与`interpositioning`特性之间可能有冲突。
 
-关于优先级的建议：记住乘法和出哈优先于加法和减法，其他的一律带上括号。
+关于优先级的建议：记住乘法和除法优先于加法和减法，其他的一律带上括号。
 
 ### 0x03 Unscrambling Declarations in C
+
+下面这是个啥？
+
+```
+char * const *(*next)();
+```
+
+位域的使用：
+
+{% highlight c %}
+struct pid_tag{
+	unsigned int inactive : 1;
+	unsigned int : 1; // padding
+	unsigned int refcount : 6;
+	unsigned int  : 0; // padding
+	short pid_id;
+    struct pid_tag *link;
+}
+{% endhighlight %}
+
+不要为了方便而对结构体使用`typedef`，多写一个`struct`有时很有用。
 
 ### 0x04 The Shocking Truth: C Arrays and Pointers Are NOT the Same!
 

@@ -18,3 +18,5 @@ title: Android Experiments
 [pdf]({{ site.url }}/resources/pdf/apkEnsuclate.pdf)
 
 ### Apk Auto-Startup
+
+[pdf]({{ site.url }}/resources/pdf/AndroidExp-AutoStartup.pdf)

@@ -20,3 +20,7 @@ title: Android Experiments
 ### Apk Auto-Startup
 
 [pdf]({{ site.url }}/resources/pdf/AndroidExp-AutoStartup.pdf)
+
+### Wifi/DataNetwork On/Off
+
+[pdf]({{ site.url }}/resources/pdf/AndroidExp-OpenWifi3G4G.pdf)

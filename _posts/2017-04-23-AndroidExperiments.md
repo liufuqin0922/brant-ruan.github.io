@@ -24,3 +24,7 @@ title: Android Experiments
 ### Wifi/DataNetwork On/Off
 
 [pdf]({{ site.url }}/resources/pdf/AndroidExp-OpenWifi3G4G.pdf)
+
+### App Auto-Startup Manager
+
+[pdf]({{ site.url }}/resources/pdf/AndroidExp-StartupManager.pdf)

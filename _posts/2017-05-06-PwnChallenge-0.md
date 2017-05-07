@@ -87,7 +87,7 @@ ncat -l 10000 -e ./pwn_1
 
 ### 问题
 
-**一 | IDA Pro反编译出错**
+**一 IDA Pro反编译出错**
 
 IDA Pro在遇到这种`call eax`指令时会出错。报
 
@@ -98,7 +98,7 @@ Decompilation failure:
 
 想想也能想得通，相当于指令是运行时才确定的，它当然不能被静态分析了。
 
-**二 | 打开的shell直接退出**
+**二 打开的shell直接退出**
 
 这个问题发生在手动输入shellcode的时候。如下：
 

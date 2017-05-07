@@ -5,10 +5,6 @@ title: Linux Rootkit 实验 | 0000 LKM 的基础编写&隐藏
 
 ## Linux Rootkit 实验 | 0000 LKM 的基础编写&隐藏
 
-```
-日期 | 2017-05-07
-```
-
 ### 实验说明
 
 LKM 作为内核模块，动态加载，无需重新编译内核。
@@ -156,4 +152,4 @@ Module.symvers
 
 ### 参考资料
 
-- [FreeBuf | Linux Rootkit系列一：LKM的基础编写及隐藏](http://www.freebuf.com/articles/system/54263.html)
+- [Linux Rootkit系列一：LKM的基础编写及隐藏](http://www.freebuf.com/articles/system/54263.html)

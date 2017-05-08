@@ -257,7 +257,7 @@ Module.symvers
 
 ### 相关文章
 
-- [Linux Rootkit 实验 0001 基于修改sys_call_table的系统调用挂钩](https://brant-ruan.github.io/sec/2017/05/07/LinuxRootkitExp-0001.html)
+- [Linux Rootkit 实验 0001 基于修改sys_call_table的系统调用挂钩](https://brant-ruan.github.io/sec/2017/05/08/LinuxRootkitExp-0001.html)
 - [Proc&Sysfs 实验](https://brant-ruan.github.io/linux/2017/05/08/ProcSysfsExp.html)
 - [LKM 实验](https://brant-ruan.github.io/linux/2017/05/08/LKMExp.html)
 

@@ -72,7 +72,7 @@ KDIR    := /lib/modules/$(shell uname -r)/build
 PWD    := $(shell pwd)
  
 default:
-$(MAKE) -C $(KDIR) SUBDIRS=$(PWD) modules
+	$(MAKE) -C $(KDIR) SUBDIRS=$(PWD) modules
 ```
 
 然后`make`就好。生成的`lkm.ko`文件就是模块文件。输入`insmod lkm.ko`加载模块。
@@ -166,7 +166,7 @@ extern struct module __this_module;
 #define THIS_MODULE (&__this_module)
 {% endhighlight %}
 
-在`include/linux/module.h`中可以看到`module`结构体的部分定义：
+在`include/linux/module.h`中可以看到`module`结构体的成员`mkobj`：
 
 {% highlight c %}
 struct module_kobject mkobj;
@@ -246,7 +246,7 @@ Module.symvers
 
 【问题五】
 
-经过本次实验的操作，是否真的没有办法检测到这个模块了？
+经过本次实验的操作，是否真的没有办法检测到这个模块了？那些 Anti-Rootkit 工具的原理又是什么？
 
 ### 实验总结与思考
 
@@ -255,15 +255,10 @@ Module.symvers
 　　可以感受到，`Rootkit`和`Linux kernel`是两个很大的主题。一方面，要进行正向的基础知识学习；另一方面，也可以通过自顶向下的方法，从目标慢慢延伸到原理。  
 　　Just do it.
 
-### 拓展延伸
+### 相关文章
 
-关于 LKM 编写：
-
-- 《linux设备驱动程序》（第三版）第二章“构造和运行模块”
-
-关于 proc 和 sysfs 文件系统：
-
-- 《深入Linux内核架构》第十章“无持久存储的文件系统”
+- [Proc&Sysfs 实验](https://brant-ruan.github.io/linux/2017/05/08/ProcSysfsExp.html)
+- [LKM 实验](https://brant-ruan.github.io/linux/2017/05/08/LKMExp.html)
 
 ### 参考资料
 

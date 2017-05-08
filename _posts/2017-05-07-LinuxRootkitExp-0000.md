@@ -26,6 +26,8 @@ GCC version:6.1.1
 
 上述环境搭建于虚拟机，另外在没有特殊说明的情况下，均以 root 权限执行。
 
+**注：后面实验我参考的是4.10.10的源码，与FreeBuf上文章里的有些不同，但大体意思相同**
+
 ### 实验过程
 
 我们首先看一下一般的 LKM 编译加载的过程。
@@ -99,7 +101,117 @@ lkm 16384 0 - Live 0xffffffffc04a0000 (POE)
 
 **隐藏模块**
 
-下面我们开始隐藏实验。上面已经说过，`lsmod`是通过读取`/proc/modules`来发挥作用的，所以我们仅需要处理`/proc/modules`即可。另外，我们需要再处理掉`/sys/module/`。
+下面我们开始隐藏实验。上面已经说过，`lsmod`是通过读取`/proc/modules`来发挥作用的，所以我们仅需要处理`/proc/modules`即可。另外，我们需要再处理掉`/sys/module/`下的模块子目录。
+
+`/proc/modules`下的信息是内核利用`struct modules`结构体的表头去遍历内核模块链表，从所有模块的`struct module`结构体（这个结构体在内核中代表一个内核模块）中获得的。表头是一个全局变量`struct module *modules`。我们自己加载的新模块会被插入链表头部，所以可以通过`modules->next`引用。
+
+我们在初始化函数中加入从链表中删除模块：
+
+```
+list_del_init(&__this_module.list);
+```
+
+在内核源码`include/linux/list.h`中可以找到它的相关定义：
+
+{% highlight c %}
+static inline void list_del_init(struct list_head *entry)
+{
+	__list_del_entry(entry);
+	INIT_LIST_HEAD(entry);
+}
+
+static inline void __list_del_entry(struct list_head *entry)
+{
+	if (!__list_del_entry_valid(entry))
+		return;
+
+	__list_del(entry->prev, entry->next);
+}
+
+static inline void __list_del(struct list_head * prev, struct list_head * next)
+{
+	next->prev = prev;
+	WRITE_ONCE(prev->next, next);
+}
+
+static inline void INIT_LIST_HEAD(struct list_head *list)
+{
+	WRITE_ONCE(list->next, list);
+	list->prev = list;
+}
+{% endhighlight %}
+
+最后的`INIT_LIST_HEAD`让模块自身的前后指针指向自身。
+
+我们加入删除指令后重新编译，并插入，再测试一下（在插入前最好给虚拟机拍摄一个快照，一会儿内核模块无法通过`rmmod`卸载，要进行下面实验没有快照就只能重启了）：
+
+![linux-rkt-0]({{ site.url }}/resources/pictures/linux-rkt-0.png)
+
+没有了，但是在`/sys/module`下还是可以看到：
+
+![linux-rkt-0]({{ site.url }}/resources/pictures/linux-rkt-1.png)
+
+下面我们要让它在这里也消失，先恢复到加载模块之前的快照。
+
+只需要在初始化函数中加入
+
+{% highlight c %}
+kobject_del(&THIS_MODULE->mkobj.kobj);
+{% endhighlight %}
+
+`THIS_MODULE`定义在`include/linux/export.h`中：
+
+{% highlight c %}
+extern struct module __this_module;
+#define THIS_MODULE (&__this_module)
+{% endhighlight %}
+
+在`include/linux/module.h`中可以看到`module`结构体的部分定义：
+
+{% highlight c %}
+struct module_kobject mkobj;
+{% endhighlight %}
+
+`module_kobject`也在`include/linux/module.h`中：
+
+{% highlight c %}
+struct module_kobject {
+	struct kobject kobj;
+	struct module *mod;
+	struct kobject *drivers_dir;
+	struct module_param_attrs *mp;
+	struct completion *kobj_completion;
+};
+{% endhighlight %}
+
+`kobject`是组成设备模型的基本结构。`sysfs`是基于 RAM 的文件系统，它提供了用于向用户空间展示内核空间里对象、属性和链接的方法。`sysfs`和`kobject`层次紧密相连，将`kobject`层次关系展示出来，让用户层能够看到。一般`sysfs`挂载在`/sys/`，所以`/sys/module`就是`sysfs`的一个目录层次，包含当前加载的模块信息。所以，我们使用`kobject_del()`删除我们的模块的`kobject`，就可以达到隐藏的目的。
+
+看一下`lib/kobject.c`的源码，很清楚：
+
+{% highlight c %}
+void kobject_del(struct kobject *kobj)
+{
+	struct kernfs_node *sd;
+
+	if (!kobj)
+		return;
+
+	sd = kobj->sd;
+	sysfs_remove_dir(kobj);
+	sysfs_put(sd);
+
+	kobj->state_in_sysfs = 0;
+	kobj_kset_leave(kobj);
+	kobject_put(kobj->parent);
+	kobj->parent = NULL;
+}
+{% endhighlight %}
+
+好了，编译并加载模块，测试一下：
+
+![linux-rkt-0]({{ site.url }}/resources/pictures/linux-rkt-2.png)
+
+Bingo!
 
 ### 实验问题
 
@@ -138,7 +250,10 @@ Module.symvers
 
 ### 实验总结与思考
 
-本次实验是跟着 FreeBuf 上 arciryas 师傅的文章一步步操作的。这也是我借鉴“实验”的方法（做实验+写实验报告书）来整理学习相关零碎知识点并形成知识体系的第一次尝试。关于 Windows 上的 Rootkit 有一本《Rootkit:系统灰色地带的潜伏者》，最近张瑜先生出了一本《Rootkit隐遁攻击技术及其防范》。而 Linux Rootkit 的资料就比较零散了，多见于博客、论文和杂志（如 Phrack）中。它们往往是不成体系的，不断总结积累非常重要。初步想法是收集网络上的资料进行实验，再根据这些资料进行递归学习（如通过写拓展延伸积累基础知识），接着慢慢从整体的视角来把自己的实验成果进行整合，以此形成自己的知识技术网络。
+　　本次实验是跟着 FreeBuf 上 arciryas 师傅的文章一步步操作的。这也是我借鉴“实验”的方法（做实验+写实验报告书）来整理学习相关零碎知识点并形成知识体系的第一次尝试。关于 Windows 上的 Rootkit 有一本《Rootkit:系统灰色地带的潜伏者》，最近张瑜先生出了一本《Rootkit隐遁攻击技术及其防范》。而 Linux Rootkit 的资料就比较零散了，多见于博客、论文和杂志（如 Phrack）中。它们往往是不成体系的，不断总结积累非常重要。初步想法是收集网络上的资料进行实验，再根据这些资料进行递归学习（如通过写拓展延伸积累基础知识），接着慢慢从整体的视角来把自己的实验成果进行整合，以此形成自己的知识技术网络。
+
+　　可以感受到，`Rootkit`和`Linux kernel`是两个很大的主题。一方面，要进行正向的基础知识学习；另一方面，也可以通过自顶向下的方法，从目标慢慢延伸到原理。  
+　　Just do it.
 
 ### 拓展延伸
 

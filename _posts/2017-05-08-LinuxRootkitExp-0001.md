@@ -272,7 +272,7 @@ KERN_ALERT 是干嘛的？
 
 ### 相关文章
 
-- [Linux Rootkit 实验 | 0000 LKM 的基础编写&隐藏](https://brant-ruan.github.io/sec/2017/05/07/LinuxRootkitExp-0000.html)
+- [Linux Rootkit 实验 0000 LKM 的基础编写&隐藏](https://brant-ruan.github.io/sec/2017/05/07/LinuxRootkitExp-0000.html)
 
 ### 参考资料
 

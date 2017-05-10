@@ -111,7 +111,7 @@ To obtain an integratal view, we will take two examples with different sleep pri
 - `SystemCall::Sys_Read`
 - `SystemCall::Sys_Wait`
 
-**0 | Into SystemCall::SystemCallEntrance**
+**0 Into SystemCall::SystemCallEntrance**
 
 {% highlight c %}
 SaveContext();
@@ -123,7 +123,7 @@ Save almost all the registers.
 Then switch to kernel mode.  
 Finally call `SystemCall`'s `Trap`.
 
-**1 | Into SystemCall::Trap**
+**1 Into SystemCall::Trap**
 
 If process receives signal then response:
 
@@ -143,7 +143,7 @@ Then it calls `Trap1` to deal with signal:
 Trap1(callp->call);
 {% endhighlight %}
 
-**2 | Into SystemCall::Trap1**
+**2 Into SystemCall::Trap1**
 
 Set `u_intflg` to 1, assuming that the system call will be interrupted by signal.
 
@@ -167,37 +167,37 @@ func();
 
 Firstly, let's explore `SystemCall::Sys_Read`.
 
-**3 | Into SystemCall::Sys_Read**
+**3 Into SystemCall::Sys_Read**
 
 {% highlight c %}
 fileMgr.Read();
 {% endhighlight %}
 
-**4 | Into FileManager::Read**
+**4 Into FileManager::Read**
 
 {% highlight c %}
 this->Rdwr(File::FREAD);
 {% endhighlight %}
 
-**5 | Into FileManager::Rdwr**
+**5 Into FileManager::Rdwr**
 
 {% highlight c %}
 pFile->f_inode->ReadI();
 {% endhighlight %}
 
-**6 | Into Inode::ReadI**
+**6 Into Inode::ReadI**
 
 {% highlight c %}
 pBuf = bufMgr.Bread(dev, bn);
 {% endhighlight %}
 
-**7 | Into BufferManager::Bread**
+**7 Into BufferManager::Bread**
 
 {% highlight c %}
 this->IOWait(bp);
 {% endhighlight %}
 
-**8 | Into BufferManager::IOWait**
+**8 Into BufferManager::IOWait**
 
 {% highlight c %}
 u.u_procp->Sleep((unsigned long)bp, ProcessManager::PRIBIO);
@@ -205,7 +205,7 @@ u.u_procp->Sleep((unsigned long)bp, ProcessManager::PRIBIO);
 
 Note that `priority number < 0` means high priority sleep, and `priority number > 0` means low. Here it is `PRIBIO = -50`, so this is high priority sleep.
 
-**9 | Into Process::Sleep**
+**9 Into Process::Sleep**
 
 {% highlight c %}
 else // high priority sleep
@@ -223,13 +223,13 @@ You can see that high priority sleep will **not** be interrupted by signal.
 
 Now it's time to go back.
 
-**8 | Back to BufferManager::IOWait**  
-**7 | Back to BufferManger::Bread**  
-**6 | Back to Inode::ReadI**  
-**5 | Back to FileManager::Rdwr**  
-**4 | Back to FileManager::Read**  
-**3 | Back to SystemCall::Sys_Read**  
-**2 | Back to SystemCall::Trap1**
+**8 Back to BufferManager::IOWait**  
+**7 Back to BufferManger::Bread**  
+**6 Back to Inode::ReadI**  
+**5 Back to FileManager::Rdwr**  
+**4 Back to FileManager::Read**  
+**3 Back to SystemCall::Sys_Read**  
+**2 Back to SystemCall::Trap1**
 
 Remember that we set `u_intflg` to 1 before? If logic stream goes here, it means the system call finished successfully. So we should reset this flag variable.
 
@@ -237,7 +237,7 @@ Remember that we set `u_intflg` to 1 before? If logic stream goes here, it means
 u.u_intflg = 0;
 {% endhighlight %}
 
-**1 | Back to SystemCall::Trap**
+**1 Back to SystemCall::Trap**
 
 {% highlight c %}
 if ( u.u_intflg != 0 )
@@ -262,7 +262,7 @@ if ( u.u_procp->IsSig() )
     u.u_procp->PSig(context);
 {% endhighlight %}
 
-**0 | Back to SystemCall::SystemCallEntrance**
+**0 Back to SystemCall::SystemCallEntrance**
 
 At last, the entrance method will do some process schedule operation, which has little thing to do with signal:
 
@@ -287,13 +287,13 @@ InterruptReturn();
 
 Second, let's explore `SystemCall::Sys_Wait`. We will directly go from **function layer 3**.
 
-**3 | Into SystemCall::Sys_Wait**
+**3 Into SystemCall::Sys_Wait**
 
 {% highlight c %}
 procMgr.Wait();
 {% endhighlight %}
 
-**4 | Into ProcessManager::Wait**
+**4 Into ProcessManager::Wait**
 
 {% highlight c %}
 if (true == hasChild)
@@ -305,7 +305,7 @@ if (true == hasChild)
 
 Note that `PWAIT` is 40 > 0, so this is a low priority sleep.
 
-**5 | Into Process:Sleep**
+**5 Into Process:Sleep**
 
 {% highlight c %}
 if ( pri > 0 ) // low priority
@@ -360,7 +360,7 @@ Because `Trap1` is skipped, so `u.u_intflg` is 1.
 
 **If no signal received during system call:**
 
-**4 | Back to ProcessManager::Wait**  
-**3 | Back to SystemCall::Sys_Wait**
+**4 Back to ProcessManager::Wait**  
+**3 Back to SystemCall::Sys_Wait**
 
 And then back to 2,1 as the description of `Sys_Read`.

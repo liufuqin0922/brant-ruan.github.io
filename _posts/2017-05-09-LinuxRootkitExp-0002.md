@@ -101,13 +101,56 @@ GCC version:6.1.1
 
 #### 隐藏端口
 
+测试结果如下：
 
+我们使用`ncat -4 -l 10000`以`IPv4`形式`TCP`监听`10000`端口，在没有加载模块时，可以查看到端口监听信息：
+
+![]({{ site.url }}/resources/pictures/linux-rkt-20.png)
+
+在加载模块后，发现端口已经被隐藏：
+
+![]({{ site.url }}/resources/pictures/linux-rkt-21.png)
+
+同样，此时执行`netstat -tuln`也是看不到的：
+
+![]({{ site.url }}/resources/pictures/linux-rkt-22.png)
+
+卸载模块后，端口可以被看到：
+
+![]({{ site.url }}/resources/pictures/linux-rkt-23.png)
 
 #### 隐藏内核模块
 
 个人以为隐藏内核模块应该是 rootkit 加载后要做的第二件事情。但是由于它的方法依赖于“隐藏文件”和“隐藏端口”的方法，所以放在这里实验。
 
+0000 实验中通过删除链表结点的形式达到了隐藏模块的目的，但是那种方法有一些弊端，如无法卸载模块等。
+
+测试结果如下：
+
+可以看到，完美地“消失”了：
+
+![]({{ site.url }}/resources/pictures/linux-rkt-24.png)
+
+最后，我们可以进行`rmmod modHid`操作顺利卸载模块，而不像 0000 实验中卸载出错。毕竟，这里并没有把模块从`kobject`层中删去，仅仅是在被要求显示时过滤掉了相应的信息而已。
+
+#### All In One
+
+最后，我们把所有功能聚合到一个程序中进行过如下测试：
+
+- 自身加载后禁止其他模块加载
+- 隐藏自身模块
+- 隐藏自身的`.ko`文件
+- 隐藏当前 shell 进程
+- 隐藏 10000 端口（需要 ncat 配合开启端口）
+- 提供一个 root 后门
+
+测试结果如下：
+
 #### 未来展望
+
+这一部分并不是动手操作的实验，而是
+
+
 
 ### 实验问题
 
@@ -123,17 +166,21 @@ GCC version:6.1.1
 
 师傅的代码：
 
-![](./{{ site.url }}/resources/pictures/linux-rkt-7-err3.png)
+![]({{ site.url }}/resources/pictures/linux-rkt-7-err3.png)
 
 我的代码：
 
-![](./{{ site.url }}/resources/pictures/linux-rkt-7-err4.png)
+![]({{ site.url }}/resources/pictures/linux-rkt-7-err4.png)
 
 粗心了。
 
 【问题二】
 
 隐藏进程的实验中，我们是把进程号写死在代码里，这样十分不方便。很明显，在实际渗透过程中，我们需要隐藏的进程的进程号只有在运行时才知道。一种可以借鉴的改进思路是：新设定一个信号，模块运行时，我们给哪个进程发该信号，那个进程就被隐藏起来。这是 [m0nad/Diamorphine](https://github.com/m0nad/Diamorphine) 这个 rootkit 的设计。未来我会写一篇文章专门分析这个 rootkit，它的其他思路也是很有意思的。
+
+【问题三】
+
+隐藏端口的实验中，端口号也是写死在代码里的。当然，端口号写死的影响不是很大，我们可以预设一些要使用的端口，让它们被过滤掉。但是，考虑改进这一设计，能否在运行时动态选择要隐藏的端口？
 
 ### 实验总结与思考
 

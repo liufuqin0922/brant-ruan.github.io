@@ -43,17 +43,17 @@ GCC version:6.1.1
 
 首先我们在正常情况下加载以及清除`lamb`模块：
 
-![]({{ site.url }}/resources/pictures/linux-rkt-9.png)
+![](images/linux-rkt-9.png)
 
 接着我们加载`guard`模块，再测试`lamb`模块。可以看到，我们先加载`guard`模块，再加载`lamb`模块，它的入口和出口函数已经被`Fake`替换。我们卸载`lamb`和`guard`，再次加载`lamb`模块，发现加载和卸载又恢复正常。
 
-![]({{ site.url }}/resources/pictures/linux-rkt-10.png)
+![](images/linux-rkt-10.png)
 
 #### 提供 root 后门
 
 测试结果如下：
 
-![]({{ site.url }}/resources/pictures/linux-rkt-8.png)
+![](images/linux-rkt-8.png)
 
 #### 隐藏文件
 
@@ -63,27 +63,27 @@ GCC version:6.1.1
 
 首先，我们加载`fileHid`模块：
 
-![]({{ site.url }}/resources/pictures/linux-rkt-11.png)
+![](images/linux-rkt-11.png)
 
 接着创建`hello`文件，可以看到，`hello`文件正常显示。我们把`hello`更名为`QTDS_hello`，这时再`ls`，发现文件消失，且`dmesg`中有我们设定的打印语句：
 
-![]({{ site.url }}/resources/pictures/linux-rkt-12.png)
+![](images/linux-rkt-12.png)
 
-![]({{ site.url }}/resources/pictures/linux-rkt-13.png)
+![](images/linux-rkt-13.png)
 
 此时只是用户看不到文件而已，但如果知道文件名，还是可以对它操作：
 
-![]({{ site.url }}/resources/pictures/linux-rkt-14.png)
+![](images/linux-rkt-14.png)
 
 这时如果卸载模块，则文件又会显现出来：
 
-![]({{ site.url }}/resources/pictures/linux-rkt-15.png)
+![](images/linux-rkt-15.png)
 
-![]({{ site.url }}/resources/pictures/linux-rkt-16.png)
+![](images/linux-rkt-16.png)
 
 日志则会记录`iterate`的改变：
 
-![]({{ site.url }}/resources/pictures/linux-rkt-17.png)
+![](images/linux-rkt-17.png)
 
 **将“提供 root 后门”环节和本环节的方法结合，就可以做出隐藏的 root 后门。**
 
@@ -93,11 +93,11 @@ GCC version:6.1.1
 
 图片中一个 shell 的`PID`是`3033`。在没有加载模块之前，`ps`可以看到该进程。在加载模块之后，`ps`中无该进程：
 
-![]({{ site.url }}/resources/pictures/linux-rkt-18.png)
+![](images/linux-rkt-18.png)
 
 卸载模块后，进程重新在`ps`中出现：
 
-![]({{ site.url }}/resources/pictures/linux-rkt-19.png)
+![](images/linux-rkt-19.png)
 
 #### 隐藏端口
 
@@ -105,19 +105,19 @@ GCC version:6.1.1
 
 我们使用`ncat -4 -l 10000`以`IPv4`形式`TCP`监听`10000`端口，在没有加载模块时，可以查看到端口监听信息：
 
-![]({{ site.url }}/resources/pictures/linux-rkt-20.png)
+![](images/linux-rkt-20.png)
 
 在加载模块后，发现端口已经被隐藏：
 
-![]({{ site.url }}/resources/pictures/linux-rkt-21.png)
+![](images/linux-rkt-21.png)
 
 同样，此时执行`netstat -tuln`也是看不到的：
 
-![]({{ site.url }}/resources/pictures/linux-rkt-22.png)
+![](images/linux-rkt-22.png)
 
 卸载模块后，端口可以被看到：
 
-![]({{ site.url }}/resources/pictures/linux-rkt-23.png)
+![](images/linux-rkt-23.png)
 
 #### 隐藏内核模块
 
@@ -129,7 +129,7 @@ GCC version:6.1.1
 
 可以看到，完美地“消失”了：
 
-![]({{ site.url }}/resources/pictures/linux-rkt-24.png)
+![](images/linux-rkt-24.png)
 
 最后，我们可以进行`rmmod modHid`操作顺利卸载模块，而不像 0000 实验中卸载出错。毕竟，这里并没有把模块从`kobject`层中删去，仅仅是在被要求显示时过滤掉了相应的信息而已。
 
@@ -148,7 +148,7 @@ GCC version:6.1.1
 
 测试结果如下：
 
-![]({{ site.url }}/resources/pictures/linux-rkt-25.png)
+![](images/linux-rkt-25.png)
 
 自己把各个组件拼装到一起并最终实现各种功能的那种感觉无疑是非常愉快的，它让我想到了第一次用 MS08-067 打到一台虚拟 Windows 上的那种快乐。
 
@@ -158,19 +158,19 @@ GCC version:6.1.1
 
 一开始写代码有问题，即使是错误的认证也能提权到 root。然后在`dmesg`中报错，并且`rmmod`出错。错误信息如下：
 
-![]({{ site.url }}/resources/pictures/linux-rkt-7-err.png)
+![](images/linux-rkt-7-err.png)
 
-![]({{ site.url }}/resources/pictures/linux-rkt-7-err2.png)
+![](images/linux-rkt-7-err2.png)
 
 和 novice 师傅的代码对比后，并控制变量进行部分改动又通过虚拟机不断恢复快照测试，终于确定问题出在我的`write_handler`上。终于发现问题，在最后部分：
 
 师傅的代码：
 
-![]({{ site.url }}/resources/pictures/linux-rkt-7-err3.png)
+![](images/linux-rkt-7-err3.png)
 
 我的代码：
 
-![]({{ site.url }}/resources/pictures/linux-rkt-7-err4.png)
+![](images/linux-rkt-7-err4.png)
 
 粗心了。
 

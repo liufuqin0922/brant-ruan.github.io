@@ -1,9 +1,9 @@
 ---
 category: Sec
-title: Linux Rootkit 实验 | 0002 Rootkit 基本功能实现
+title: Linux Rootkit 实验 | 00020 Rootkit 基本功能实现x阻止其他模块
 ---
 
-## Linux Rootkit 实验 | 0002 Rootkit 基本功能实现
+## Linux Rootkit 实验 | 00020 Rootkit 基本功能实现x阻止其他模块
 
 ### 实验说明
 
@@ -226,5 +226,13 @@ struct seq_operations {
 
 ### 参考资料
 
+**已参考**
+
 - [Linux Rootkit系列三：实例详解 Rootkit 必备的基本功能](http://www.freebuf.com/articles/system/107829.html)
 - [Github: research-rootkit](https://github.com/NoviceLive/research-rootkit)
+
+**拓展阅读**
+
+- [mncoppola/suterusu: An LKM rootkit targeting Linux 2.6/3.x on x86(_64), and ARM ](https://github.com/mncoppola/suterusu)
+- [This is what a root debug backdoor in a Linux kernel looks like](http://www.theregister.co.uk/2016/05/09/allwinners_allloser_custom_kernel_has_a_nasty_root_backdoor/)
+- [Suterusu Rootkit: Inline Kernel Function Hooking on x86 and ARM](https://poppopret.org/2013/01/07/suterusu-rootkit-inline-kernel-function-hooking-on-x86-and-arm/)

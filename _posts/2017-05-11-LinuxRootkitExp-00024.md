@@ -46,7 +46,7 @@ GCC version:6.1.1
 |TCP/IPv4|/proc/net/tcp|net/ipv4/tcp_ipv4.c|tcp4_seq_show|
 |TCP/IPv6|/proc/net/tcp6|net/ipv6/tcp_ipv6.c|tcp6_seq_show|
 |UDP/IPv4|/proc/net/udp|net/ipv4/udp.c|udp4_seq_show|
-|UDP/IPv6|/proc/net/udp6|net/ipv6/udp.c|udp4_seq_show|
+|UDP/IPv6|/proc/net/udp6|net/ipv6/udp.c|udp6_seq_show|
 
 可以看一下`net/ipv4/tcp.c`和`net/ipv4/tcp_ipv4.c`的开头注释，列举了 TCP/IP 协议栈的开发者们。
 

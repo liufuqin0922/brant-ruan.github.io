@@ -20,7 +20,7 @@ category: CS
 
 简单的 PE 格式如下图所示：
 
-![]({{ site.url }}/resources/pictures/unixv6pp-exec-0.png)
+![unixv6pp-exec-0.png]({{ site.url }}/resources/pictures/unixv6pp-exec-0.png)
 
 上图中没有出现`bss`，因为只有进入内存中时才为它分配空间。
 

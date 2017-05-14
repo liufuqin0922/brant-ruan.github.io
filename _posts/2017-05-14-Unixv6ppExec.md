@@ -20,7 +20,7 @@ category: CS
 
 简单的 PE 格式如下图所示：
 
-![unixv6pp-exec-0.png]({{ site.url }}/resources/pictures/unixv6pp-exec-0.png)
+![unixv6pp-exec-0.png]({{ site.url }}/resources/pictures/unixv6pp-exec-0.PNG)
 
 上图中没有出现`bss`，因为只有进入内存中时才为它分配空间。
 
@@ -216,7 +216,7 @@ Utility::MemCopy((unsigned long)&argc, desAddress, sizeof(int));
 
 至此，参数保存到了核心态页表区，结构如下：
 
-![]({{ site.url }}/resources/pictures/unixv6pp-exec-1.png)
+![]({{ site.url }}/resources/pictures/unixv6pp-exec-1.PNG)
 
 可以进行下一步释放空间的操作了。
 

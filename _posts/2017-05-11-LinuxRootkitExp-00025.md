@@ -230,7 +230,7 @@ if(real_seq_show){
 
 #### All In One
 
-最后，我们把所有功能聚合到一个程序中进行过如下测试。源代码可以从[这里]({{ site.url }}/resources/code/AllInOne.tar.bz2)下载。代码主要来自 novice 师傅的 Github，经过我的修改和整理，共学习研究参考使用。
+最后，我们把所有功能聚合到一个程序中进行过如下测试。源代码可以从[这里]({{ site.url }}/resources/code/AllInOne.tar.bz2)下载。代码主要来自 novice 师傅的 Github，经过我的修改和整理，供学习研究参考使用。
 
 1. 自身加载后禁止其他模块加载
 2. 隐藏自身模块

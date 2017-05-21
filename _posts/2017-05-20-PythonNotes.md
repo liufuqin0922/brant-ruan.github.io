@@ -45,5 +45,5 @@ category: CS
 ### 参考
 
 - [Should I use Python 2 or Python 3 for my development activity?](https://wiki.python.org/moin/Python2orPython3)
-- [6. Modules](https://docs.python.org/3/tutorial/modules.html)
-- [9. Classes](https://docs.python.org/3/tutorial/classes.html)
+- [Python Tutorial](https://docs.python.org/3/tutorial)
+- [开源软件架构](http://www.ituring.com.cn/book/miniarticle/5486)

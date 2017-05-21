@@ -40,6 +40,8 @@ category: CS
 
 `CTRL + /` | 快速注释当前行
 
+搭配上 Github 用，编程体验真是棒极了。我看，要培养普通人的编程能力，首先给他们一个优雅的 IDE，配置流畅的 build 过程，再搭配上 VCS 如 Github 或 Gitlab，这分明就是另一种艺术形式嘛！
+
 ### 参考
 
 - [Should I use Python 2 or Python 3 for my development activity?](https://wiki.python.org/moin/Python2orPython3)

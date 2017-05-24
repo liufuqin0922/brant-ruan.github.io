@@ -307,6 +307,8 @@ unsigned int newSize = ProcessManager::USIZE + u.u_MemoryDescriptor.m_DataSize +
 u.u_procp->Expand(newSize);
 {% endhighlight %}
 
+这里为什么需要加上一个`USIZE`？这是为了保证在数据段与栈之间有一个页大小的安全间隙。由于数据段的读写属性与栈相同，所以，在没有安全间隙的情况下即使越界了，也无从得知。如果加一个安全间隙，给它设置不同的属性，那么在越界时就会发生异常，进而调整栈底地址。
+
 然后，建立相对地址映射表：
 
 {% highlight c %}
@@ -394,6 +396,21 @@ pContext->eflags = 0x200;
 pContext->esp = esp;
 pContext->xss = Machine::USER_DATA_SEGMENT_SELECTOR;
 {% endhighlight %}
+
+`runtime`是一个 C 语言函数，所以前两条指令是编译器添加的栈帧构造指令：
+
+```
+pushl %ebp
+movl %esp, %ebp
+```
+
+之后进入内联汇编的第一条指令：
+
+```
+leave
+```
+
+这就清除了之前形成的栈帧。
 
 让我们再回顾一下`runtime`中的一条指令：
 

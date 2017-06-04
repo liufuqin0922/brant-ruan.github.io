@@ -28,3 +28,7 @@ title: Android Experiments
 ### App Auto-Startup Manager
 
 [pdf]({{ site.url }}/resources/pdf/AndroidExp-StartupManager.pdf)
+
+### QR-Code Scan For Web Log In
+
+[pdf]({{ site.url }}/resoureces/pdf/AndroidExp-APP0.pdf)

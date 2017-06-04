@@ -31,4 +31,4 @@ title: Android Experiments
 
 ### QR-Code Scan For Web Log In
 
-[pdf]({{ site.url }}/resoureces/pdf/AndroidExp-APP0.pdf)
+[pdf]({{ site.url }}/resources/pdf/AndroidExp-APP0.pdf)

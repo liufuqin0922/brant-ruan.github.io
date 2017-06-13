@@ -436,10 +436,6 @@ else {
 
 ![]({{ site.url }}/images/sql-injection/blind0.png)
 
-输入`1' and ascii(substr(database(), 1, 1)) < ascii('z') #`，返回如下所示：
-
-![]({{ site.url }}/images/sql-injection/blind0.png)
-
 输入`1' and ascii(substr(database(), 1, 1)) < ascii('m') #`，返回如下所示：
 
 ![]({{ site.url }}/images/sql-injection/blind0.png)

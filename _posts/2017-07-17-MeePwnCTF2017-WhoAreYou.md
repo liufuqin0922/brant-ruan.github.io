@@ -139,7 +139,7 @@ Input it in the uncompressed binary, it seems correct:
 
 But in the original binary, it is wrong:
 
-![]({{ site.url }}/resources/pictures/MeePwnCTF2017-fake-wrong.jpg)
+![]({{ site.url }}/resources/pictures/MeePwnCTF2017-wrong.jpg)
 
 In my opinion, the organizers play tricks that they modify the UPX compress algorithm's implementation on their binary.
 

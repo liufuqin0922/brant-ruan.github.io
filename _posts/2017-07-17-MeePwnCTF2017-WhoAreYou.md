@@ -185,7 +185,7 @@ Finally you get:
 
 *tonix0114* wrote a simple Python script to simulate the assembly language interpreter:
 
-{% highlight %}
+{% highlight python %}
 with open("instruction") as f:
 	data = f.readlines()[::-1] # decrypt
 

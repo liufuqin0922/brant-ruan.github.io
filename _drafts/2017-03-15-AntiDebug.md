@@ -5,6 +5,8 @@ category: Sec
 
 ## Anti-Debug
 
+### on Linux
+
 参考文章[ELF反调试初探](http://www.freebuf.com/sectool/83509.html)。
 
 这篇文章让我想起了入门者应该知道的整体架构：逆向总的来说分为静态代码分析和动态调试（还有patch）。为了对抗逆向，就有了代码混淆技术和反调试技术，比如加壳和检测某些标志位，另外还有校赛CTF中接触到的[movfuscator](https://recon.cx/2015/slides/recon2015-14-christopher-domas-The-movfuscator.pdf)，更多混淆技术介绍可以参考[

@@ -7,17 +7,6 @@ category: CS
 
 ### Overview and Preparation
 
-Goals:
-
-- Better design
-- Better implementation
-- Better assurance
-
-Views:
-
-- Black hat
-- White hat
-
 Low-level Vulnerabilities:
 
 - Programs written in C and C++
@@ -46,13 +35,6 @@ Ensuring Memory Safety:
     + Memory-safety enforcement (e.g. SoftBound)
     + Control-flow Integrity (CFI)
 
-Web vulnerabilities and attacks:
-
-- SQL injection
-- Cross-site scripting (XSS)
-- Cross-site request forgery (CSRF)
-- Session hijacking
-
 Secure Software development:
 
 - Apply coding rules
@@ -60,22 +42,11 @@ Secure Software development:
     + Static analysis and symbolic execution (whitebox fuzz testing)
 - Apply penetration testing
 
-Lessons Content:
-
-- Memory attacks
-- Memory defenses
-- Web security
-- Security design/development
-- Automated code review
-- Penetration testing
+**Notes come from both videos and my learning from websites in references.**
 
 ### Week 1 | Memory-based Attacks
 
 > Analyzing security requires a whole-systems view.
-
-terminology:
-
-This class use **buffer overflow** to mean any access of a buffer outside of its allotted bounds.
 
 ##### Memory Layout
 
@@ -149,7 +120,7 @@ The code injection attack we have just considered is call **stack smashing** att
 
 Now let's see some other types of attack:
 
-###### Heap overflow
+###### Heap Overflow
 
 ```c
 typedef struct _vulnerable_struct{
@@ -175,7 +146,7 @@ Variants:
     + Hidden header just before the pointer returned by malloc
     + Flow into that header to corrupt the heap itself
 
-###### Integer overflow
+###### Integer Overflow
 
 ```c
 void vulnerable()
@@ -225,7 +196,7 @@ If `len > sizeof(buf)` then read overflow occurs.
 
 Heartbleed is just a read overflow.
 
-###### Stale memory
+###### Stale Memory
 
 A dangling pointer bug occurs when a pointer is freed, but the program continues to use it.
 
@@ -270,20 +241,40 @@ void vulnerable()
 
 ##### Project 1
 
+Tasks are easy. But the `runbin.sh` is useful even when you do actual exploits, which allows you inputing hex value directly:
 
+```sh
+#!/bin/bash
+
+while read -r line; do echo -e $line; done | ./wisdom-alt
+```
 
 ##### References
 
 - [Common vulnerabilities guide for C programmers](https://security.web.cern.ch/security/recommendations/en/codetools/c.shtml)
-
 - [How to Open a File and Not Get Hacked](http://research.cs.wisc.edu/mist/presentations/kupsch_miller_secse08.pdf)
-
 - [Memory Layout of C Programs](http://www.geeksforgeeks.org/memory-layout-of-c-program/)
-
 - [How security flaws work: The buffer overflow](https://arstechnica.com/security/2015/08/how-security-flaws-work-the-buffer-overflow/)
-
 - [Smashing the Stack for Fun and Profit](http://insecure.org/stf/smashstack.html)
-
 - [Exploiting Format String Vulnerabilities](https://crypto.stanford.edu/cs155/papers/formatstring-1.2.pdf)
-
 - [Basic Integer Overflows](http://phrack.org/issues/60/10.html)
+
+### Week 2 | Defenses Against Low-level Attacks
+
+##### References
+
+- [What is memory safety?](http://www.pl-enthusiast.net/2014/07/21/memory-safety/)
+- [What is type safety?](www.pl-enthusiast.net/2014/08/05/type-safety/)
+- [On the Effectiveness of Address-Space Randomization](http://cseweb.ucsd.edu/~hovav/papers/sppgmb04.html)
+- [Smashing the Stack in 2011](https://paulmakowski.wordpress.com/2011/01/25/smashing-the-stack-in-2011/)
+- [Low-Level Software Security by Example](https://courses.cs.washington.edu/courses/cse484/14au/reading/low-level-security-by-example.pdf)
+- [Geometry of Innocent Flesh on the Bone: Return to libc without Function Calls (on the x86)](https://cseweb.ucsd.edu/~hovav/dist/geometry.pdf)
+- [Exploit Hardening Made Easy](https://www.usenix.org/legacy/event/sec11/tech/full_papers/Schwartz.pdf)
+- [Blind ROP](http://www.scs.stanford.edu/brop/)
+- [Control-Flow Integrity](https://www.microsoft.com/en-us/research/publication/control-flow-integrity/?from=http%3A%2F%2Fresearch.microsoft.com%2Fpubs%2F64250%2Fccs05.pdf#)
+- [Enforcing Forward-Edge Control Flow Integrity](https://www.usenix.org/conference/usenixsecurity14/technical-sessions/presentation/tice)
+- [MoCFI](www.cse.lehigh.edu/~gtan/paper/mcfi.pdf)
+- [Secure Programming HOWTO](https://www.dwheeler.com/secure-programs/Secure-Programs-HOWTO/internals.html)
+- [Robust Programming](http://nob.cs.ucdavis.edu/bishop/secprog/robust.html)
+- [CERT C coding standard](https://www.securecoding.cert.org/confluence/display/c/SEI+CERT+C+Coding+Standard)
+- [DieHard project](http://plasma.cs.umass.edu/emery/diehard.html)

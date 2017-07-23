@@ -114,6 +114,8 @@ push ebx
 
 ![]({{ site.url }}/resources/pictures/SoftwareSecurityNotes-1.jpg)
 
+##### Dive Into Stack Overflow
+
 ##### Other Memory Exploits
 
 The code injection attack we have just considered is call **stack smashing** attack.
@@ -222,8 +224,6 @@ q = malloc(...); // reuses memory
 
 p->cmp("hello", "hello"); // reuses dangling ptr
 ```
-
-#### 
 
 ##### Format String Vulnerabilities
 
@@ -346,7 +346,7 @@ int main(int argc, char* argv[])
 
 ###### Hard Link Attack
 
-I do not understand that case. On RedHat 7 I fail to creat a hard link to the file to which I am inaccessible.
+I do not understand that case. On RedHat 7 I fail to create a hard link to the file to which I am inaccessible.
 
 ##### References
 

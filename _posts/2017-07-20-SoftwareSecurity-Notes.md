@@ -223,6 +223,8 @@ q = malloc(...); // reuses memory
 p->cmp("hello", "hello"); // reuses dangling ptr
 ```
 
+#### 
+
 ##### Format String Vulnerabilities
 
 ```c
@@ -265,11 +267,15 @@ Strategies for safe open:
 
 ###### Untrusted File
 
+Case: Program assumes only trusted user can modify the file while attacker can also do that.
 
+###### Untrusted Directory
+
+Case: Program assumes only trusted user can modify the directory entry (e.g. delete the trusted file) while attacker can also do that.
 
 ###### Symbolic Link Attack
 
-Checking whether a files exists or not before creating it is good, but cracker may create a file between your check and the moment you actually use the file (race condition).
+Checking whether a files exists or not before creating it is good, but cracker may create a file between your check and the moment you actually use the file (race condition). It sounds like mutex issue.
 
 ```c
 #include <stdio.h>
@@ -280,7 +286,7 @@ Checking whether a files exists or not before creating it is good, but cracker m
 
 int main(int argc, char **argv)
 {
-    FILE *f;
+    FILE *tmpFile;
     if(!access(MY_TMP_FILE, F_OK)){
         printf("File exists!\n");
         return EXIT_FAILURE;
@@ -319,7 +325,8 @@ int main(int argc, char* argv[])
     /* Remove possible symlinks */
     unlink(MY_TMP_FILE);
     /* Open, but fail if someone raced us and restored the symlink (secure version of fopen(path, "w") */
-    fd = open(MY_TMP_FILE, O_WRONLY|O_CREAT|O_EXCL, FILE_MODE);
+    /* if successfully, then the file must be created by this program with its privilege (e.g. root). So attacker can not overwrite or delete this file unless he is with equal or greater than that privilege. If he is, there's no need for him to do this attack. */ 
+    fd = open(MY_TMP_FILE, O_WRONLY | O_CREAT | O_EXCL, FILE_MODE);
     if (fd == -1) {
         perror("Failed to open the file");
         return EXIT_FAILURE;
@@ -337,13 +344,17 @@ int main(int argc, char* argv[])
 }
 ```
 
+###### Hard Link Attack
+
+I do not understand that case. On RedHat 7 I fail to creat a hard link to the file to which I am inaccessible.
+
 ##### References
 
 - [Common vulnerabilities guide for C programmers √](https://security.web.cern.ch/security/recommendations/en/codetools/c.shtml)
 - [How to Open a File and Not Get Hacked √](http://research.cs.wisc.edu/mist/presentations/kupsch_miller_secse08.pdf)
-- [Memory Layout of C Programs](http://www.geeksforgeeks.org/memory-layout-of-c-program/)
-- [How security flaws work: The buffer overflow](https://arstechnica.com/security/2015/08/how-security-flaws-work-the-buffer-overflow/)
-- [Smashing the Stack for Fun and Profit](http://insecure.org/stf/smashstack.html)
+- [Memory Layout of C Programs √](http://www.geeksforgeeks.org/memory-layout-of-c-program/)
+- [How security flaws work: The buffer overflow √](https://arstechnica.com/security/2015/08/how-security-flaws-work-the-buffer-overflow/)
+- [Smashing the Stack for Fun and Profit √](http://insecure.org/stf/smashstack.html)
 - [Exploiting Format String Vulnerabilities](https://crypto.stanford.edu/cs155/papers/formatstring-1.2.pdf)
 - [Basic Integer Overflows](http://phrack.org/issues/60/10.html)
 

@@ -116,6 +116,56 @@ push ebx
 
 ##### Dive Into Stack Overflow
 
+##### Integer Overflow
+
+**Example 1**
+
+```c
+/* width1.c - exploiting a trivial widthness bug */
+#include <stdio.h>
+#include <string.h>
+
+int main(int argc, char *argv[]){
+    unsigned short s;
+    int i;
+    char buf[80];
+    if(argc < 3)
+        return -1;
+    i = atoi(argv[1]);
+    s = i;
+    if(s >= 80){            /* [w1] */
+        printf("Oh no you don't!\n");
+        return -1;
+    }
+    printf("s = %d\n", s);
+    memcpy(buf, argv[2], i);
+    buf[i] = '\0';
+    printf("%s\n", buf);
+    return 0;
+}
+```
+
+If `i=65536`, what will happen? And stack overflow will follow.
+
+**Example 2**
+
+```c
+int copy_something(char *buf, int len){
+    char kbuf[800];
+
+    if(len > sizeof(kbuf)){         /* [1] */
+        return -1;
+    }
+
+    return memcpy(kbuf, buf, len);  /* [2] */
+}
+```
+
+- `len > sizeof(kbuf)` uses `signed` comparation
+- `memcpy(kbuf, buf, len)` takes `len` as `unsigned`
+
+Integer overflows can be extremely dangerous, partly because it is impossible to detect them after they have happened.
+
 ##### Other Memory Exploits
 
 The code injection attack we have just considered is call **stack smashing** attack.
@@ -354,9 +404,9 @@ I do not understand that case. On RedHat 7 I fail to create a hard link to the f
 - [How to Open a File and Not Get Hacked √](http://research.cs.wisc.edu/mist/presentations/kupsch_miller_secse08.pdf)
 - [Memory Layout of C Programs √](http://www.geeksforgeeks.org/memory-layout-of-c-program/)
 - [How security flaws work: The buffer overflow √](https://arstechnica.com/security/2015/08/how-security-flaws-work-the-buffer-overflow/)
-- [Smashing the Stack for Fun and Profit √](http://insecure.org/stf/smashstack.html)
+- [Smashing the Stack for Fun and Profit ](http://insecure.org/stf/smashstack.html)
 - [Exploiting Format String Vulnerabilities](https://crypto.stanford.edu/cs155/papers/formatstring-1.2.pdf)
-- [Basic Integer Overflows](http://phrack.org/issues/60/10.html)
+- [Basic Integer Overflows √](http://phrack.org/issues/60/10.html)
 
 ### Week 2 | Defenses Against Low-level Attacks
 

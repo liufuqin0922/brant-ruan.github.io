@@ -398,7 +398,7 @@ int main(int argc, char* argv[])
 
 I do not understand that case. On RedHat 7 I fail to create a hard link to the file to which I am inaccessible.
 
-##### References
+##### Learn More
 
 - [Common vulnerabilities guide for C programmers √](https://security.web.cern.ch/security/recommendations/en/codetools/c.shtml)
 - [How to Open a File and Not Get Hacked √](http://research.cs.wisc.edu/mist/presentations/kupsch_miller_secse08.pdf)
@@ -410,7 +410,75 @@ I do not understand that case. On RedHat 7 I fail to create a hard link to the f
 
 ### Week 2 | Defenses Against Low-level Attacks
 
-##### References
+##### Canaries
+
+- Terminator canaries (CR/LF/NUL)
+- Random canaries
+- Random XOR canaries
+
+##### N^X
+
+But ret2libc can bypass it.
+
+##### ASLR
+
+Available on Linux in 2004.  
+May not apply to program code.
+
+##### ROP
+
+> by Hovav Shacham in 2007
+
+- find gadgets
+- string them together
+
+pop ret
+
+https://github.com/0vercl0k/rp
+
+##### Blind ROP
+
+Attack ASLR
+
+If server restarts on a crash, but does not re-randomize:
+
+1. Read the stack to leak canaries and a return address
+2. Find gadgets (at run-time) to effect call to write
+3. Dump binary to find gadgets for shellcode
+
+The exploit was carried out on a 64-bit executable with full stack canaries and randomization.
+
+##### Control Flow Integrity
+
+Idea: observe the program's behavior; is it doing what we expect it to? If not, it might be compromised
+
+- Define "expected behavior"
+
+Control flow graph (CFG)
+
+- Detect deviations from expection efficiently
+
+In-line reference monitor (IRM)
+
+- Avoid compromise of the detector
+
+Sufficient randomness, immutability
+
+Monitor only indirect calls: jmp, call, ret
+
+##### Cat and Mourse
+
+```
+Defense: N^X
+Attack: ret2libc
+Defense: ASLR
+Attack: Brute force search (for 32-bit)
+Attack: Information leak (format string vulnerability)
+Defense: Avoid using libc code entirely
+Attack: ROP
+```
+
+##### Learn More
 
 - [What is memory safety?](http://www.pl-enthusiast.net/2014/07/21/memory-safety/)
 - [What is type safety?](www.pl-enthusiast.net/2014/08/05/type-safety/)
@@ -427,3 +495,14 @@ I do not understand that case. On RedHat 7 I fail to create a hard link to the f
 - [Robust Programming](http://nob.cs.ucdavis.edu/bishop/secprog/robust.html)
 - [CERT C coding standard](https://www.securecoding.cert.org/confluence/display/c/SEI+CERT+C+Coding+Standard)
 - [DieHard project](http://plasma.cs.umass.edu/emery/diehard.html)
+
+### Week 3 | Web Security
+
+##### Learn More
+
+- [OWASP's guide to SQL injection](https://www.owasp.org/index.php/SQL_Injection)
+- [SQL injection cheat sheet](http://ferruh.mavituna.com/sql-injection-cheatsheet-oku/)
+- [OWASP's guide to cross-site scripting (XSS))](https://www.owasp.org/index.php/Cross-site_Scripting_(XSS)
+- [OWASP's guide to session hijacking](https://www.owasp.org/index.php/Session_hijacking_attack)
+- [OWASP's guide to cross-site request forgery (CSRF))](https://www.owasp.org/index.php/Cross-Site_Request_Forgery_(CSRF)
+- [CWE/SANS top 25 most dangerous software errors](https://cwe.mitre.org/top25/)

@@ -502,7 +502,5 @@ Attack: ROP
 
 - [OWASP's guide to SQL injection](https://www.owasp.org/index.php/SQL_Injection)
 - [SQL injection cheat sheet](http://ferruh.mavituna.com/sql-injection-cheatsheet-oku/)
-- [OWASP's guide to cross-site scripting (XSS))](https://www.owasp.org/index.php/Cross-site_Scripting_(XSS)
 - [OWASP's guide to session hijacking](https://www.owasp.org/index.php/Session_hijacking_attack)
-- [OWASP's guide to cross-site request forgery (CSRF))](https://www.owasp.org/index.php/Cross-Site_Request_Forgery_(CSRF)
 - [CWE/SANS top 25 most dangerous software errors](https://cwe.mitre.org/top25/)

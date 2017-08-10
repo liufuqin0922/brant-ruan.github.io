@@ -504,3 +504,11 @@ Attack: ROP
 - [SQL injection cheat sheet](http://ferruh.mavituna.com/sql-injection-cheatsheet-oku/)
 - [OWASP's guide to session hijacking](https://www.owasp.org/index.php/Session_hijacking_attack)
 - [CWE/SANS top 25 most dangerous software errors](https://cwe.mitre.org/top25/)
+
+### Week 5 | Static Analysis and Symbolic Execution for Security
+
+##### Learn More
+
+- [What is noninteference, and how do we enforce it?](http://www.pl-enthusiast.net/2015/03/03/noninterference/)
+- [A Few Billion Lines of Code Later: Using Static Analysis to Find Bugs in the Real World](cacm.acm.org/magazines/2010/2/69354-a-few-billion-lines-of-code-later/fulltext)
+- [All You Ever Wanted to Know About Dynamic Taint Analysis and Forward Symbolic Execution (but might have been afraid to ask)](https://edmcman.github.io/papers/oakland10.pdf)

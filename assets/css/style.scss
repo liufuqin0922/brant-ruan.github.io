@@ -6,3 +6,10 @@
 h1,h2,h3,h4,h5,h6 {
 	font-family: 'Times New Roman', 'Calibri', Helvetica, Arial, sans-serif;
 }
+
+#main_content .inner {
+	position: relative;
+	max-width: 900px;
+	padding: 20px 10px;
+	margin: 0 auto
+}

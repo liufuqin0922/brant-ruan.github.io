@@ -7,11 +7,22 @@ h1,h2,h3,h4,h5,h6 {
 	font-family: 'Times New Roman', 'Calibri', Helvetica, Arial, sans-serif;
 }
 
+html, body {
+	height: 100%;
+	width: 100%;
+}
+
 #main_content {
-	max-width: 900px;
+	max-width: 800px;
 }
 
 #header_wrap {
 	width: 100%;
 	height: 100%;
 }
+
+#header_wrap .inner {
+	top:40%;
+	padding: 0px 10px 0px 10px
+}
+

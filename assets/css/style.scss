@@ -16,16 +16,16 @@ html, body {
 	max-width: 800px;
 }
 
-.mainpage{
+.outer.mainpage {
 	width: 100%;
 	height: 100%;
 }
 
-.mainpage.inner{
+.inner.mainpagesub {
 	top:40%;
 	padding: 0px 10px 0px 10px
 }
 
-.postpage.inner{
+.inner.postpagesub {
 	padding: 30px 10px 30px 10px
 }

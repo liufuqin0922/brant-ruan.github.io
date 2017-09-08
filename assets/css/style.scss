@@ -30,19 +30,23 @@ html, body {
 	padding: 30px 10px 30px 10px
 }
 
-a.soyoufindme:link{
+a.soyoufindme {
+	cursor: default;
+}
+
+a.soyoufindme:link {
 	color: white;
 }
 
-a.soyoufindme:visited{
+a.soyoufindme:visited {
 	color: white;
 }
 
-a.soyoufindme:hover{
+a.soyoufindme:hover {
 	color: white;
 }
 
-a.soyoufindme:active{
+a.soyoufindme:active {
 	color: white;
 }
 

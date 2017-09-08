@@ -30,8 +30,20 @@ html, body {
 	padding: 30px 10px 30px 10px
 }
 
-#soyoufindme {
+a.soyoufindme:link{
+	color: white;
+}
 
+a.soyoufindme:visited{
+	color: white;
+}
+
+a.soyoufindme:hover{
+	color: white;
+}
+
+a.soyoufindme:active{
+	color: white;
 }
 
 a:link {

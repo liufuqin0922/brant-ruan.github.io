@@ -1,5 +1,5 @@
 ---
-category: CTF
+category: mutter
 title: Pwn Challenge 0
 ---
 
@@ -241,6 +241,8 @@ if self.mode() == SOCKET: # socket
 ```
 nasm -f elf shell.asm
 ld -o shell shell.o
+# for 32 bit file
+ld -m elf_i386 shell.o -o shell
 ```
 
 执行一下，看看能否打开shell。

@@ -18,8 +18,31 @@ html, body {
 
 .outer.mainpage {
 	width: 100%;
-	height: 100%;
+	height: 200%;
 }
+
+#my_header_wrap {
+	background: #212121;
+	background: -moz-linear-gradient(top, #373737, #212121);
+	background: -webkit-linear-gradient(top, #373737, #212121);
+	background: -ms-linear-gradient(top, #373737, #212121);
+	background: -o-linear-gradient(top, #373737, #212121);
+	background: linear-gradient(top, #373737, #212121)
+}
+
+#my_header_wrap {
+    background: url({{ site.url }}/images/poem-background/qinyuanchunchangsha.png) no-repeat center;
+}
+
+#my_header_wrap .inner.mainpagesub {
+	top: 40%;
+	padding: 0px 10px 0px 10px
+}
+
+#my_header_wrap .inner {
+	padding: 50px 10px 30px 10px
+}
+
 
 #header_wrap .inner.mainpagesub {
 	top:40%;

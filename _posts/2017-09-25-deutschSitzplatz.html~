@@ -228,7 +228,7 @@ category: Other
    font-size: 25px;
   }
   #title{
-   margin-bottom: 50px;
+   margin-bottom: 20px;
   }
  </style>
 

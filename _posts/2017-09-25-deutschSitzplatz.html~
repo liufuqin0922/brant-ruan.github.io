@@ -58,7 +58,7 @@ category: Other
      <td class="body" id="seat_18">X</td> 
      <td class="body" id="seat_19">X</td> 
     </tr> 
- <!--   <tr> 
+    <tr> 
      <td class="body">X</td> 
      <td class="body">X</td> 
      <td class="aisle">&nbsp;&nbsp;&nbsp;&nbsp;</td> 
@@ -70,7 +70,7 @@ category: Other
      <td class="aisle">&nbsp;&nbsp;&nbsp;&nbsp;</td> 
      <td class="body">X</td> 
      <td class="body">X</td> 
-    </tr> -->
+    </tr> 
    </tbody>
   </table>
   

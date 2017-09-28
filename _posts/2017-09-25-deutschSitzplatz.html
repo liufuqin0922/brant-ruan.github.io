@@ -8,7 +8,7 @@ category: Other
   <meta charset="utf-8" />
   <title>Sitzplatz</title>
  </head>
- <body>
+ <body>  
   <br>
   <br>
   <br>
@@ -16,6 +16,7 @@ category: Other
   <br>  
   <br>
   <br>
+  <a href="javascript:void(0)" onclick="changeSeats()">
   <h1 align="center" id="title">Sitzplatz</h1> 
   <table align="center"> 
    <tbody>
@@ -73,11 +74,10 @@ category: Other
     </tr> -->
    </tbody>
   </table>
-  
-  <div align="center">
+  </a>
+<!--  <div align="center">
    <button type="button" id="changeSeat" onclick="changeSeats()">anordnen</button>
-  </div>
-  
+  </div> -->
   <!-- Javascript -->
   <script type="text/javascript">
     // part0 initialization
@@ -245,12 +245,19 @@ category: Other
     }
   </script>
  </body>
+ 
  <!-- CSS -->
  <style type="text/css">
 /*  body{
     background: url({{ site.url }}/images/deutsch-cover.jpg) no-repeat;
     background-size: cover;
   }*/
+  a{
+    cursor: default;
+    color: black;
+    text-decoration: none;
+    outline: none;
+  }
   td {
    font-size: 30px;
    text-align: center;

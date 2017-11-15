@@ -7,11 +7,11 @@ category: lernen
 
 |Infinitiv|du|er/sie/es|G|+D/+A|
 |:-:|:-:|:-:|:-:|:-:|
-|abfahren|||||
+|abfahren|||abgefahren (s)||
 |abholen|||||
 |ablehnen|||||
 |absolvieren|||||
-|aufstehen|||||
+|aufstehen|||aufgestanden (s)||
 |annehmen|||annommen||
 |anrufen|||||
 |antworten||||(+D)|
@@ -29,7 +29,7 @@ category: lernen
 |bestellen|||||
 |besuchen|||||
 |betrachten|||||
-|bleiben|||||
+|bleiben|||geblieben (s)||
 |buchstabieren|||||
 |chatten|||||
 |danken||||+D|
@@ -40,7 +40,7 @@ category: lernen
 |empfehlen||empfiehlt|||
 |entschuldigen|||||
 |essen|||gegessen||
-|fahren||fährt|||
+|fahren||fährt|gefahren (s)||
 |finanzieren|||||
 |finden|||||
 |fotografieren|||||
@@ -48,7 +48,7 @@ category: lernen
 |frühstücken|||||
 |geben||gibt|||
 |gefallen||gefällt||+D|
-|gehen|||gegangen||
+|gehen|||gegangen (s)||
 |gehören||||+D|
 |genießen|||genossen||
 |gucken|||||
@@ -57,17 +57,18 @@ category: lernen
 |halten||hält|||
 |heißen|||geheißen||
 |helfen||hilft||+D|
-|hingehen|||hingegangen||
+|hierherkommen|||hierhergekommen (s)||
+|hingehen|||hingegangen (s)||
 |hören|||||
 |jobben|||||
 |kaufen|||||
 |kennen|||gekannt||
 |klingeln|||||
 |kochen|||||
-|kommen|||gekommen||
+|kommen|||gekommen (s)||
 |können|||gekonnt||
 |kosten|||||
-|laufen|||||
+|laufen|||gelaufen (s)||
 |leben|||||
 |legen|||||
 |lernen|||||
@@ -78,7 +79,7 @@ category: lernen
 |meinen|||||
 |mieten|||||
 |mitmachen|||||
-|mitkommen|||||
+|mitkommen|||mitgekommen (s)||
 |nachsehen|||nachgesehen||
 |nehmen||nimmt|genommen||
 |öffnen|||||
@@ -87,7 +88,7 @@ category: lernen
 |probieren|||||
 |passen||||+D|
 |rauchen|||||
-|reisen|||||
+|reisen|||gereist (s)||
 |sagen|||gesagt||
 |schauen|||||
 |schenken|||||
@@ -99,9 +100,9 @@ category: lernen
 |sein|bist||gewesen||
 |sitzen|||gesessen||
 |spielen|||||
-|spazieren|||||
+|spazieren|||spaziert (s)||
 |sprechen||spricht|||
-|springen|||||
+|springen|||gesprungen (s)||
 |stecken|||||
 |stehen|||standen|+D|
 |stellen|||||
@@ -122,7 +123,7 @@ category: lernen
 |verstehen|||verstanden||
 |vorhaben|||||
 |vorschlagen||schlägt vor|||
-|wandern|||||
+|wandern|||gewandert (s)||
 |warten|||||
 |wissen||weiß|gewusst||
 |wohnen|||||
@@ -137,4 +138,4 @@ category: lernen
 
 - 这个表格是根据新编大学德语教材学习进度逐渐增长的
 - `+A/+D` 有时会根据动词在语境中表现出的具体意思决定，`+D`并不一定意味着什么情况下该动词都支配第三格，如`stehen`和`passen`在表示`衣服等适合`的意思时支配第三格，其余时间并不一定
-- `(+D)`意思是这个动词可以不接宾语，但一旦接，就接第三格
+- `(+D)`意思是这个动词可以不接宾语，但一旦接，就接第三格（这一条不是很确定）

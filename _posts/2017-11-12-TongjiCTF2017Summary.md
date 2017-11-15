@@ -55,6 +55,10 @@ category: Essay
 
 　　比赛结束了，我知道我依然在路上。
 
+---
+
+关于本次比赛的详细内容，见：https://github.com/brant-ruan/TongjiCTF-2017。
+
 ## 附录一：Pwn500 Dockerfile
 
 ```dockerfile

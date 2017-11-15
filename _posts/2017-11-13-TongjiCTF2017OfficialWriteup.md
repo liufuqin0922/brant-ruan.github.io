@@ -7,6 +7,8 @@ category: CTF
 
 by Remind, oblivi0n and brant-ruan
 
+关于本次比赛的详细内容，见：https://github.com/brant-ruan/TongjiCTF-2017。
+
 ### 0x00 前言
 
 比赛期间有一些同学来问为什么`Web`题这么少，后面还有没有`Web`的，向这些同学表示歉意。本次比赛偏向于二进制，这是因为我们的出题人搞二进制的(bu)多(hui)一(wai)些(bu)。这里我们祝愿下一届比赛的出题人们把题目出的全面一些。

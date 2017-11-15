@@ -61,6 +61,8 @@ category: Essay
 
 - 关于本次比赛的详细内容，参见[这里](https://github.com/brant-ruan/TongjiCTF-2017)
 - 网上关于举办CTF比赛的文章不多，[这里](http://bobao.360.cn/ctf/learning/171.html)附一篇`L-CTF 2016`组织者的心得体会；文章原发于他们的[官网](http://www.l-team.org/archives/lctf2016_fun.html)
+- 搞完比赛后突然搜到[上届学长自己写的第一届比赛的平台](https://github.com/bwbwbwbw/DummyCTFPlatform)，看吧这就是少用Google的坏处:)
+
 
 ## 附录一：Pwn500 Dockerfile
 

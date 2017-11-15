@@ -7,7 +7,7 @@ category: CTF
 
 by Remind, oblivi0n and brant-ruan
 
-关于本次比赛的详细内容，见：https://github.com/brant-ruan/TongjiCTF-2017。
+关于本次比赛的详细内容，参见[这里](https://github.com/brant-ruan/TongjiCTF-2017)。
 
 ### 0x00 前言
 

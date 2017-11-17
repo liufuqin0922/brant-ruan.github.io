@@ -7,7 +7,7 @@ category: Sec
 
 ### 0x00 前述
 
-最近出比赛题用到Docker，于是就想到了脏牛火的那段时间有一个利用它做Docker逃逸的PoC。再一看，发现和`vdso`有关，恰好最近研究溢出也遇到了这个东西（在我的[另一篇博文](aptx4869.me/ctf/2017/09/08/Overflow.html)中）。
+最近出比赛题用到Docker，于是就想到了脏牛火的那段时间有一个利用它做Docker逃逸的PoC。再一看，发现和`vdso`有关，恰好最近研究溢出也遇到了这个东西（在我的[另一篇博文](http://aptx4869.me/ctf/2017/09/08/Overflow.html)中）。
 
 ### 0x01 环境搭建
 
@@ -41,7 +41,7 @@ sudo apt-get install -y docker-ce
 
 之后似乎非root用户不能用`docker ps`，解决一下：
 
-```
+```bash
 sudo groupadd docker
 sudo gpasswd -a ${USER} docker
 sudo service docker restart

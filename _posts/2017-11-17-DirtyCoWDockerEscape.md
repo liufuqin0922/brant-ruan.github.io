@@ -13,7 +13,7 @@ category: Sec
 
 **VM**
 
-手头有一个`ubuntu-14.04.4-desktop-amd64.iso`就直接拿来开新的VM了（我用`PoC`验证过是存在脏牛漏洞的）。之前也一直想过这个问题：研究漏洞需要老的内核，官网上好像不好直接下老的。如果恰好没有旧的VM或者镜像，可以考虑装一个新的VM然后做一下内核降级（我没有做），可以参考[这里](http://blog.csdn.net/hsluoyc/article/details/51075230)。
+手头有一个`ubuntu-14.04.4-desktop-amd64.iso`就直接拿来开新的VM了（我用`PoC`验证过是存在脏牛漏洞的）。之前也一直想过这个问题：研究漏洞需要老的内核，官网上好像不好直接下老的。如果恰好没有旧的VM或者镜像，可以考虑装一个新的VM然后做一下内核降级（我没有做），可以参考[这里](http://blog.csdn.net/dl_chenbo/article/details/52400044)。
 
 另外就是更新源的问题。我把`sources.list`换成了上交的源，否则可能会很慢。
 

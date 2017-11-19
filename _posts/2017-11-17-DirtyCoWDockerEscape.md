@@ -104,6 +104,8 @@ docker-compose -v
 
 ### 0x02 实验
 
+#### 0x020 子实验：本地Docker逃逸
+
 **创建镜像/运行容器**
 
 由于我们使用了国内的Docker仓库，所以也许需要在`Dockerfile`下稍微改动一下。这里同样涉及到更新源的问题。同样地，我在`Dockerfile`把源先给更换成了上海交通大学的源。
@@ -168,7 +170,114 @@ flag{Welcome_2_the_real_world}
 
 ![]({{ site.url }}/images/dirtycow/dirtycow-docker-2.png)
 
-下一步可以考虑把逃逸实验和`Pwn`的实验套在一起进行测试。即，模拟外界攻击者，先通过缓冲区溢出获得容器的普通用户`shell`。然而经过`Docker环境检测`，攻击者发现自己处在一个容器中。于是，攻击者再通过Docker逃逸获取模拟真实服务器的`root shell`。
+至此，完成了本地Docker逃逸。
+
+#### 0x021 子实验：远程先Pwn后逃逸
+
+这里的环境设置是这样的：
+
+`Tongji CTF 2017`中的`pwn300`与`0x01 环境搭建`中的配置组合。
+
+能够被缓冲区溢出取得shell的`pwn300`可以从[这里](https://github.com/brant-ruan/TongjiCTF-2017/tree/master/Challenges/docker4pwn/docker4pwn300)获得。
+
+修改后的`Dockerfile`如下：
+
+```dockerfile
+FROM registry.docker-cn.com/library/ubuntu:14.04
+
+RUN mv /etc/apt/sources.list /etc/apt/sources.list.bak
+ADD ./sources.list /etc/apt/
+
+RUN dpkg --add-architecture i386
+RUN apt-get update
+RUN apt-get install -y apt-utils libc6-i386 socat build-essential nasm git
+
+RUN useradd --create-home ubuntu
+WORKDIR /home/ubuntu/
+RUN git clone https://github.com/scumjr/dirtycow-vdso.git
+RUN chown -R ubuntu:ubuntu /home/ubuntu/dirtycow-vdso
+
+COPY ./bin/pwn300 ./bin/flag /home/ubuntu/
+RUN chown ubuntu:ubuntu /home/ubuntu/pwn300
+RUN chmod u+x /home/ubuntu/pwn300
+
+EXPOSE 1234 10000
+
+CMD ["/bin/bash"]
+
+ENTRYPOINT su -c "nohup socat tcp-listen:10000,reuseaddr,fork exec:./pwn300" ubuntu
+```
+
+本子实验涉及到两台VM，分别是作为`靶机`的`Ubuntu14.04`（即前文所述VM）和作为`攻击者`的`kali 2017.01`。
+
+网络环境如下：
+
+```bash
+Attacker IP: 192.168.246.22
+Victim IP: 192.168.246.135
+```
+
+靶机上的Docker网络环境如下：
+
+```
+Host IP (Victim): 172.17.0.1
+Container IP: 172.17.0.2
+```
+
+在靶机上线容器：
+
+```bash
+docker build -t mydirtycow .
+docker run -p 10001:10000 -d mydirtycow
+```
+
+注意到`kali`上没有`pwntools`，直接从官方源下载又很慢，所以找了清华的源：
+
+```bash
+pip install pwntools -i https://pypi.tuna.tsinghua.edu.cn/simple
+```
+
+OK.万事俱备，开始搞事。
+
+① 编写攻击脚本
+
+![]({{ site.url }}/images/dirtycow/inkali-0.PNG)
+
+② 执行脚本，获取普通shell，检测后发现处于容器环境
+
+![]({{ site.url }}/images/dirtycow/inkali-4.PNG)
+
+还有更多的检测方法，可以参考[这里](http://blog.csdn.net/hsluoyc/article/details/51075230)。另外，事实上容器内可以做很好的反检测机制，本次实验暂未涉及这些反检测机制。
+
+③ 在容器内编译逃逸程序
+
+![]({{ site.url }}/images/dirtycow/inkali-1.PNG)
+
+这里省略了`git clone`的过程（在上面的`Dockerfile`中做过了。严格来说这一步也应该是攻击者自己完成的）。
+
+在编译过程中遇到一个问题，无论怎么编译，都生成不了`0xdeadbeef.o`和后续的`0xdeadbeef`，可是我在靶机内的容器中直接操作是可以编译的：
+
+![]({{ site.url }}/images/dirtycow/inubuntu-0.PNG)
+
+缓冲区溢出获得的shell又没有`stderr`，所以只好通过`2>`来重定向到文件中来查明问题。
+
+发现是环境变量的问题。获得shell里除了`PWD`和`OLDPWD`外没有其他任何变量了，没有`PATH`。于是我用`/usr/bin/gcc`代替了`Makefile`中的`$(CC)`，这次`.o`文件有了，但是最终的可执行程序依然出不来。手动在选项里添加了`-I`和`-L`指定头文件和库路径也不行，查标准错误输出发现是`ld`的相关问题，不太好解决。于是把简单地设置了`PATH`（可以根据经验简单地罗列）：
+
+```bash
+export PATH=/bin/:/sbin:/usr/bin:/usr/local/bin:/usr/sbin:/usr/local/sbin
+```
+
+之后就可以正常`make`了。
+
+④ 发起攻击，逃逸成功
+
+![]({{ site.url }}/images/dirtycow/inkali-2.PNG)
+
+![]({{ site.url }}/images/dirtycow/inkali-3.PNG)
+
+至此，完成了从简单的远程栈溢出获得容器内普通权限shell到逃逸获得宿主机内root权限shell的过程。中间也踩了一些坑，如环境变量问题等。
+
+#### 0x022 子实验：远程Pwn并逃逸后在宿主机上的POST-PENETRATION
 
 再下一步，可以做一些`post penetration`工作。在模拟真实服务器上安装后门，维持访问。这一阶段的实验可以分为两个子实验：一是安装简单的后门，如“一句话后门等”；二是安装`rootkit`，这一子实验中又可以对`用户层rootkit`安装和`内核层rootkit`安装分别进行测试。
 

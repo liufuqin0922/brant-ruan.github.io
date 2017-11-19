@@ -15,7 +15,7 @@ I find international CTF games very interesting that you can learn from other CT
 
 Thanks.
 
-Binary can be downloaded [here]({{ site.url }}/resources/Binary/MeePwnCTF2017-WhoAreYou.exe).
+Binary can be downloaded [here]({{ site.url }}/resources/Binary/MeePwnCTF2017-WhoAreYou.rar).
 
 ### Failures
 

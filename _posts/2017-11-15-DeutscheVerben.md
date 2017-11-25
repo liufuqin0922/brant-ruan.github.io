@@ -5,7 +5,7 @@ category: lernen
 
 ## Die Verben
 
-|Infinitiv|du|er/sie/es|G|+D/+A|Beispiel|
+|Infinitiv|du|er/sie/es|Partizip II|+D/+A|Beispiel|
 |:-:|:-:|:-:|:-:|:-:|:-:|
 |ab/biegen|||ab/gebogen|||
 |ab/fahren||fährt ab|ab/gefahren (s)|||
@@ -62,6 +62,7 @@ category: lernen
 |erzählen||||||
 |essen|isst|isst|gegessen|||
 |fahren||fährt|gefahren (s)|||
+|fehlen||||||
 |fest/stellen||||+A||
 |finanzieren||||+A||
 |finden|||gefunden|+A||

@@ -16,6 +16,7 @@ category: lernen
 |an/fangen||fängt an|an/gefangen|||
 |an/kommen|||an/gekommen|||
 |an/nehmen||nimmt an|an/genommen|||
+|an/probieren||||||
 |an/rufen|||an/gerufen|||
 |an/sehen||sieht an|an/gesehen|||
 |antworten||||(+D) auf +A||
@@ -25,9 +26,11 @@ category: lernen
 |auf/nehmen||nimmt auf|auf/genommen|+A||
 |auf/stehen|||auf/gestanden (s)|||
 |aus/atmen|||aus/geatmet|||
+|aus/geben|||aus/gegeben|||
 |aus/packen||||+A||
 |aus/ruhen||||||
 |aus/sehen||sieht aus|aus/gesehen|||
+|aus/tauschen||||||
 |aus/ziehen|||aus/gezogen|||
 |baden||||||
 |beantworten||||+A||
@@ -53,6 +56,7 @@ category: lernen
 |ein/halten||hält ein|ein/gehalten|+A||
 |ein/kaufen||||+A||
 |ein/laden||lädt ein|ein/geladen|+A||
+|ein/schlafen|||ein/geschlafen (s)|||
 |ein/steigen|||ein/gestiegen (s)|||
 |empfehlen||empfiehlt|empfohlen|(+D) +A||
 |entschuldigen||||||
@@ -111,8 +115,9 @@ category: lernen
 |mailen||||||
 |meinen||||+A||
 |mieten||||||
-|mit/kommen|||mitgekommen (s)|||
+|mit/kommen|||mit/gekommen (s)|||
 |mit/machen||||||
+|mit/nehmen|||mit/genommen|||
 |nach/sehen||sieht nach|nach/gesehen|||
 |nehmen||nimmt|genommen|||
 |öffnen||||+A||
@@ -155,8 +160,8 @@ category: lernen
 |trinken|||getrunken|+A||
 |tun||tut|getan|+A||
 |übersetzen||||+A||
-|um/steigen|||umstiegen (s)|||
-|um/ziehen|||umgezogen|||
+|um/steigen|||um/gestiegen (s)|||
+|um/ziehen|||um/gezogen|||
 |unterhalten sich|||unterhalten|+über A||
 |untersuchen||||+A||
 |verabschieden||||+A||
@@ -173,6 +178,7 @@ category: lernen
 |warten||||||
 |waschen (sich)||wäscht|gewaschen +A|||
 |weh/tun||tut weh|weh/getan|||
+|werden|||geworden (s)|||
 |wissen|weißt|weiß|gewusst|||
 |wohnen||||||
 |wollen||will||||

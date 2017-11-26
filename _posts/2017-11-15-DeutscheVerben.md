@@ -69,7 +69,7 @@ category: lernen
 |erzählen||||||
 |essen|isst|isst|gegessen|||
 |fahren||fährt|gefahren (s)|||
-|fallen||fällt|gefallen|||
+|fallen||fällt|gefallen (s)|||
 |fehlen||||||
 |fest/stellen||||+A||
 |finanzieren||||+A||

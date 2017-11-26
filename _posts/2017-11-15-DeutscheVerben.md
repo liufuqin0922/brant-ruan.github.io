@@ -52,10 +52,13 @@ category: lernen
 |chatten||||||
 |danken||||+D||
 |dauern||||||
+|denken|||gedacht|||
+|dürfen||darf|gedurft|||
 |ein/atmen|||ein/geatmet|||
 |ein/halten||hält ein|ein/gehalten|+A||
 |ein/kaufen||||+A||
 |ein/laden||lädt ein|ein/geladen|+A||
+|ein/nehmen||nimmt ein|ein/genommen|||
 |ein/schlafen|||ein/geschlafen (s)|||
 |ein/steigen|||ein/gestiegen (s)|||
 |empfehlen||empfiehlt|empfohlen|(+D) +A||
@@ -66,11 +69,12 @@ category: lernen
 |erzählen||||||
 |essen|isst|isst|gegessen|||
 |fahren||fährt|gefahren (s)|||
+|fallen||fällt|gefallen|||
 |fehlen||||||
 |fest/stellen||||+A||
 |finanzieren||||+A||
 |finden|||gefunden|+A||
-|fliegen|||geflogen|||
+|fliegen|||geflogen (s)|||
 |fotografieren||||||
 |fragen||||+A (+nach)||
 |freuen||||||
@@ -99,7 +103,7 @@ category: lernen
 |klingeln||||||
 |kochen||||||
 |kommen|||gekommen (s)|||
-|können|||gekonnt|||
+|können||kann|gekonnt|||
 |kosten||||||
 |krank/schreiben|||krank/geschrieben|||
 |kümmern sich um||||+A||
@@ -118,6 +122,8 @@ category: lernen
 |mit/kommen|||mit/gekommen (s)|||
 |mit/machen||||||
 |mit/nehmen|||mit/genommen|||
+|mögen||mag|gemocht|||
+|müssen||muss|gemusst|||
 |nach/sehen||sieht nach|nach/gesehen|||
 |nehmen||nimmt|genommen|||
 |öffnen||||+A||
@@ -137,7 +143,8 @@ category: lernen
 |schmecken||||+D||
 |schreiben|||geschrieben|+A||
 |sehen||sieht|gesehen|+A||
-|sein|bist||gewesen|||
+|sein|bist|ist|gewesen (s)|||
+|singen|||gesungen|||
 |sitzen|||gesessen|||
 |spazieren|||(s)|||
 |spielen||||+A||
@@ -158,7 +165,7 @@ category: lernen
 |treffen sich||trifft|getroffen|||
 |treiben|||getrieben|+A||
 |trinken|||getrunken|+A||
-|tun||tut|getan|+A||
+|tun|tust|tut|getan|+A||
 |übersetzen||||+A||
 |um/steigen|||um/gestiegen (s)|||
 |um/ziehen|||um/gezogen|||

@@ -14,7 +14,7 @@ category: lernen
 |ab/lehnen||||+A||
 |absolvieren||||+A||
 |an/fangen||fängt an|an/gefangen|||
-|an/kommen|||an/gekommen|||
+|an/kommen|||an/gekommen (s)|||
 |an/nehmen||nimmt an|an/genommen|||
 |an/probieren||||||
 |an/rufen|||an/gerufen|||
@@ -183,7 +183,7 @@ category: lernen
 |vor/stellen||||+D +A||
 |wandern|||(s)|||
 |warten||||||
-|waschen (sich)||wäscht|gewaschen +A|||
+|waschen (sich)||wäscht|gewaschen|+A||
 |weh/tun||tut weh|weh/getan|||
 |werden|||geworden (s)|||
 |wissen|weißt|weiß|gewusst|||

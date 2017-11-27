@@ -14,7 +14,7 @@ category: lernen
 |ab/lehnen||||+A||
 |absolvieren||||+A||
 |an/fangen||fängt an|an/gefangen|||
-|an/kommen|||an/gekommen (s)|||
+|an/kommen|||an/gekommen (s)|(in +D)||
 |an/nehmen||nimmt an|an/genommen|||
 |an/probieren||||||
 |an/rufen|||an/gerufen|||
@@ -31,7 +31,7 @@ category: lernen
 |aus/ruhen||||||
 |aus/sehen||sieht aus|aus/gesehen|||
 |aus/tauschen||||||
-|aus/ziehen|||aus/gezogen|||
+|aus/ziehen|||aus/gezogen (s:搬出 h:(给)脱衣服)|||
 |baden||||||
 |beantworten||||+A||
 |beeilen||||||
@@ -168,7 +168,7 @@ category: lernen
 |tun|tust|tut|getan|+A||
 |übersetzen||||+A||
 |um/steigen|||um/gestiegen (s)|||
-|um/ziehen|||um/gezogen|||
+|um/ziehen|||um/gezogen (s:搬家 h:给换衣服)|||
 |unterhalten sich|||unterhalten|+über A||
 |untersuchen||||+A||
 |verabschieden||||+A||

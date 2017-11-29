@@ -30,6 +30,7 @@ category: lernen
 |aus/packen||||+A||
 |aus/ruhen||||||
 |aus/sehen||sieht aus|aus/gesehen|||
+|aus/steigen|||aus/gestiegen (s)|||
 |aus/tauschen||||||
 |aus/ziehen|||aus/gezogen (s:搬出 h:(给)脱衣服)|||
 |baden||||||
@@ -185,7 +186,7 @@ category: lernen
 |warten||||||
 |waschen (sich)||wäscht|gewaschen|+A||
 |weh/tun||tut weh|weh/getan|||
-|werden|||geworden (s)|||
+|werden|wirst|wird|geworden (s)|||
 |wissen|weißt|weiß|gewusst|||
 |wohnen||||||
 |wollen||will||||

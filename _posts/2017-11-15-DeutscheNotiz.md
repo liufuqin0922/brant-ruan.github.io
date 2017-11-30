@@ -55,3 +55,64 @@ neu`en`/neu`es`/neu`e`
 **当形容词前无冠词时：**
 
 待补。
+
+## das Personalpronomen
+
+|N|ich|du|er|sie|es|wir|ihr|sie|Sie|
+|:-:|:-:|:-:|:-:|:-:|:-:|:-:|:-:|:-:|:-:|
+|D|mir|dir|ihm|ihr|ihm|uns|euch|ihnen|Ihnen|
+|A|mich|dich|ihn|sie|es|uns|euch|sie|Sie|
+
+对上表的注释：
+
+- N -> D -> A / wer -> wem -> wen
+
+## das Possessivpronomen
+
+|Personalpronomen|Kasus|m|f|n|Pl.|
+|:-:|:-:|:-:|:-:|:-:|:-:|
+|ich|N|mein|meine|mein|meine|
+|- |G|meines|meiner|meines|meiner|
+|- |D|meinem|meiner|meinem|meinen|
+|- |A|meinen|meine|mein|meine|
+|du|N|dein|deine|dein|deine|
+|-|G|deines|deiner|deines|deiner|
+|-|D|deinem|deiner|deinem|deinen|
+|-|A|deinen|deine|dein|deine|
+|er|N|sein|seine|sein|seine|
+|-|G|seines|seiner|seines|seiner|
+|-|D|seinem|seiner|seinem|seinen|
+|-|A|seinen|seine|sein|seine|
+|sie|N|ihr|ihre|ihr|ihre|
+|-|G|ihres|ihrer|ihres|ihrer|
+|-|D|ihrem|ihrer|ihrem|ihren|
+|-|A|ihren|ihre|ihr|ihre|
+|es|N|sein|seine|sein|seine|
+|-|G|seines|seiner|seines|seiner|
+|-|D|seinem|seiner|seinem|seinen|
+|-|A|seinen|seine|sein|seine|
+|wir|N|unser|unsere|unser|unsere|
+|-|G|unseres|unserer|unseres|unserer|
+|-|D|unserem|unserer|unserem|unseren|
+|-|A|unseren|unsere|unser|unsere|
+|**ihr**|N|euer|eure|euer|eure|
+|-|G|eures|eurer|eures|eurer|
+|-|D|eurem|eurer|eurem|euren|
+|-|A|euren|eure|euer|eure|
+|sie|N|ihr|ihre|ihr|ihre|
+|-|G|ihres|ihrer|ihres|ihrer|
+|-|D|ihrem|ihrer|ihrem|ihren|
+|-|A|ihren|ihre|ihr|ihre|
+|Sie|N|Ihr|Ihre|Ihr|Ihre|
+|-|G|Ihres|Ihrer|Ihres|Ihrer|
+|-|D|Ihrem|Ihrer|Ihrem|Ihren|
+|-|A|Ihren|Ihre|Ihr|Ihr|
+
+对上表的注释：
+
+- 对物主代词提问用`wessen`
+- 弱变化名词第三格加`-n/-en`
+- 复数不是以`-n`结尾的名词复数第三格加`-n`（复数词尾为`-s`的外来词除外）
+- 强变化阳性和中性名词单数第二格词尾加`-s`
+- 单音节词和以`-s/-ß/-x/-z/-sch`等结尾名词第二格加`-es`
+- 弱变化杨性名词单数词尾加`-n/-en`

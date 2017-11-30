@@ -19,7 +19,7 @@ category: lernen
 |an/probieren||||||
 |an/rufen|||an/gerufen|||
 |an/sehen||sieht an|an/gesehen|||
-|antworten||||(+D) auf +A||
+|antworten||||(+D) (auf +A)||
 |an/ziehen|||an/gezogen|||
 |arbeiten||||||
 |auf/machen||||+A||
@@ -47,6 +47,7 @@ category: lernen
 |besuchen||||+A||
 |betrachten||||+A||
 |bezahlen||||+A||
+|bitten|||gebeten|(+um A)||
 |bleiben|||geblieben (s)|||
 |brauchen||||||
 |buchstabieren||||+A||
@@ -77,7 +78,7 @@ category: lernen
 |finden|||gefunden|+A||
 |fliegen|||geflogen (s)|||
 |fotografieren||||||
-|fragen||||+A (+nach)||
+|fragen||||(+A) (+nach D)||
 |freuen||||||
 |frühstücken||||||
 |fühlen sich||||||
@@ -93,7 +94,7 @@ category: lernen
 |halten||hält|gehalten|||
 |hängen|||gehangen|+A/D||
 |heißen|||geheißen|||
-|helfen||hilft|geholfen|+D||
+|helfen||hilft|geholfen|(+D) (+bei D)||
 |hierher/kommen|||hierher/gekommen (s)|||
 |hin/gehen|||hin/gegangen (s)|||
 |holen||||(D) +A||
@@ -183,7 +184,7 @@ category: lernen
 |vor/schlagen||schlägt vor|vor/geschlagen|||
 |vor/stellen||||+D +A||
 |wandern|||(s)|||
-|warten||||||
+|warten||||(+auf A)||
 |waschen (sich)||wäscht|gewaschen|+A||
 |weh/tun||tut weh|weh/getan|||
 |werden|wirst|wird|geworden (s)|||

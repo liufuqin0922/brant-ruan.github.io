@@ -146,6 +146,7 @@ category: lernen
 |schreiben|||geschrieben|+A||
 |sehen||sieht|gesehen|+A||
 |sein|bist|ist|gewesen (s)|||
+|setzen|setzt|||||
 |singen|||gesungen|||
 |sitzen|||gesessen|||
 |spazieren|||(s)|||

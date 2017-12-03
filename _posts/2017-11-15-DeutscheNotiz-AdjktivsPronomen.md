@@ -1,5 +1,5 @@
 ---
-title: Deutsche Notiz
+title: Deutsche Notiz | Adjktivs&Pronomen
 category: lernen
 ---
 

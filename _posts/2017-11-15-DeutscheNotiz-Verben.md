@@ -1,5 +1,5 @@
 ---
-title: Deutsche Verben
+title: Deutsche Notiz | Verben
 category: lernen
 ---
 

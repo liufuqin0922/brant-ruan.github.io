@@ -13,7 +13,9 @@ category: lernen
 |ab/horchen||||+A||
 |ab/lehnen||||+A||
 |absolvieren||||+A||
+|achten||||+auf A||
 |an/fangen||fängt an|an/gefangen|||
+|an/haben||||+A||
 |an/kommen|||an/gekommen (s)|(in +D)||
 |an/nehmen||nimmt an|an/genommen|||
 |an/probieren||||||
@@ -22,6 +24,7 @@ category: lernen
 |antworten||||(+D) (auf +A)||
 |an/ziehen|||an/gezogen|||
 |arbeiten||||||
+|auf/geben||gibt auf|auf/gegeben|+A||
 |auf/machen||||+A||
 |auf/nehmen||nimmt auf|auf/genommen|+A||
 |auf/stehen|||auf/gestanden (s)|||
@@ -35,6 +38,7 @@ category: lernen
 |aus/ziehen|||aus/gezogen (s:搬出 h:(给)脱衣服)|||
 |baden||||||
 |beantworten||||+A||
+|beschreiben|||beschrieben|||
 |beeilen||||||
 |beginnen|||begonnen|||
 |begleiten||||+A||
@@ -63,6 +67,7 @@ category: lernen
 |ein/nehmen||nimmt ein|ein/genommen|||
 |ein/schlafen|||ein/geschlafen (s)|||
 |ein/steigen|||ein/gestiegen (s)|||
+|ein/tragen||trägt ein|ein/getragen|+A||
 |empfehlen||empfiehlt|empfohlen|(+D) +A||
 |entschuldigen||||||
 |erkälten||||||
@@ -87,12 +92,13 @@ category: lernen
 |gehen|||gegangen (s)|||
 |gehören||||+D||
 |genießen|||genossen|||
+|glauben||||(+A)||
 |gratulieren||||+D (+zu)||
 |grüßen||||+A||
 |gucken||||||
 |haben||hat||||
 |halten||hält|gehalten|||
-|hängen|||gehangen|+A/D||
+|hängen|||vi:gehangen, vt:gehängt|+A/D||
 |heißen|||geheißen|||
 |helfen||hilft|geholfen|(+D) (+bei D)||
 |hierher/kommen|||hierher/gekommen (s)|||
@@ -109,6 +115,8 @@ category: lernen
 |kosten||||||
 |krank/schreiben|||krank/geschrieben|||
 |kümmern sich um||||+A||
+|lächeln||||||
+|lachen||||||
 |laufen||läuft|gelaufen (s)|||
 |leben||||||
 |legen||||||
@@ -117,10 +125,12 @@ category: lernen
 |lesen|liest|liest|gelesen|||
 |lieben||||+A||
 |liegen|||gelegen|||
+|lösen|löst|löst||+A||
 |machen||||+A||
 |mailen||||||
 |meinen||||+A||
 |mieten||||||
+|mit/bringen|||gebracht|+A||
 |mit/kommen|||mit/gekommen (s)|||
 |mit/machen||||||
 |mit/nehmen|||mit/genommen|||
@@ -135,6 +145,7 @@ category: lernen
 |probieren||||+A||
 |putzen||||+A||
 |rauchen||||||
+|reden||||+von/über A||
 |reisen|||(s)|||
 |riechen|||gerochen|||
 |sagen||||+A||
@@ -178,17 +189,20 @@ category: lernen
 |verbringen|||verbracht|+A||
 |verdienen||||+A||
 |vergessen||vergisst|vergessen|||
+|sich verlassen|verlässt|verlässt|verlassen|+auf A||
 |verschreiben|||verschrieben|||
 |verstehen|||verstanden|+A||
 |vorbei/kommen|||vorbei/gekommen (s)|||
 |vor/haben||||+A||
 |vor/schlagen||schlägt vor|vor/geschlagen|||
 |vor/stellen||||+D +A||
+|wählen||||||
 |wandern|||(s)|||
 |warten||||(+auf A)||
 |waschen (sich)||wäscht|gewaschen|+A||
 |weh/tun||tut weh|weh/getan|||
 |werden|wirst|wird|geworden (s)|||
+|wiegen|||gewogen(称重),gewiegt(摇动)|(+A)||
 |wissen|weißt|weiß|gewusst|||
 |wohnen||||||
 |wollen||will||||
@@ -197,6 +211,7 @@ category: lernen
 |zeichnen||||||
 |zeigen||||||
 |zu/machen||||||
+|zu/nehmen||nimmt zu|zu/genommen|||
 |zu/stimmen||||(+D)||
 
 注：

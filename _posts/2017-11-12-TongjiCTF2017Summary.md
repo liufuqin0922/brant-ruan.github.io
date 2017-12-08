@@ -90,3 +90,9 @@ CMD ["/bin/bash"]
 
 ENTRYPOINT su -c "nohup socat tcp-listen:10000,reuseaddr,fork exec:./pwn500" ubuntu
 ```
+
+注：后来发现为了在64位系统上运行32位程序，需要安装：
+
+```bash
+sudo apt-get install libc6-dev-i386 
+```

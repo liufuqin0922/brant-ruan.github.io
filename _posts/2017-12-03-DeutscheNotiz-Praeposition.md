@@ -15,7 +15,7 @@ category: lernen
 |mit|Tim fährt **mit** dem Zug nach Hamburg.|
 |-|Monika schreibt **mit** einem Computer.|
 |-|Heute Abend gehe ich **mit** meinem Freund ins Kino.|
-|-|**Mit** 19 Jahren machte sie das Abitur.|
+|-|**Mit** 19 Jahren machtet sie das Abitur.|
 |seit|**Seit** drei Monaten sucht er eine Wohnung.|
 |nach|**Nach** dem Abendessen gehe ich oft spazieren.|
 |-|Morgen fliegen wir **nach** Deutschland.|

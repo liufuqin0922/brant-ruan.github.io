@@ -5,6 +5,8 @@ category: lernen
 
 ## Deklination des Adjktivs
 
+**当形容词前有冠词/物主代词/`kein`时：**
+
 |Kasus|m|n|f|Pl.|
 |:-:|:-:|:-:|:-:|:-:|
 |N|der neu`e` Hut|das neu`e` Kleid|die neu`e` Hose|die neu`en` Hüte|
@@ -25,8 +27,6 @@ category: lernen
 ||meinen neu`en`|mein neu`es`|meine neu`e`|meine neu`en`|
 
 从上表可以做以下总结：
-
-**当形容词前有冠词时：**
 
 - 第二格/第三格时，形容词词尾加`-en`即可，忽视其他
 - 修饰复数名词时，形容词词尾加`-en`即可，忽视其他
@@ -54,7 +54,17 @@ neu`en`/neu`es`/neu`e`
 
 **当形容词前无冠词时：**
 
-待补。
+|Kasus|m|n|f|Pl.|
+|:-:|:-:|:-:|:-:|:-:|
+|N|grün`er` Tee|neu`es` Buch|schwarz`e` Brille|rot`e` Schuhe|
+|G|grün`en` Tees|neu`en` Buchs|schwarz`er` Brille|rot`er` Schuhe|
+|D|grün`em` Tee|neu`em` Buch|schwar`er` Brille|rot`en` Schuhen|
+|A|grün`en` Tee|neu`es` Buch|schwar`e` Brille|rot`e` Schuhe|
+
+从上表可以做以下总结：
+
+- 除阳/中性第二格外，其他均与定冠词词尾变化相同
+- 第二格阳/中性定冠词为`dem`，但此处形容词词尾变化均为`-en`，记住这个例外就好
 
 ## das Personalpronomen
 
@@ -116,3 +126,17 @@ neu`en`/neu`es`/neu`e`
 - 强变化阳性和中性名词单数第二格词尾加`-s`
 - 单音节词和以`-s/-ß/-x/-z/-sch`等结尾名词第二格加`-es`
 - 弱变化杨性名词单数词尾加`-n/-en`
+
+## Anderes
+
+`jed-`/`welch-`/`dies-`
+
+以上词词尾按冠词方式变化（由于冠词在后方名词省略后可做代词，所以上面几个也可做代词）。
+
+`all-`/`beid-`/`viel-`/`wenig-`/`einig-`/`mehrer-`/`manch-`/`solch-`
+
+以上词词尾按形容词方式变化（可做代词）。
+
+`all-`/`jed-`/`dies-`/`beid-`
+
+以上词对后方的形容词词尾以定冠词方式影响；其余词对后方形容词词尾以零冠词方式影响。

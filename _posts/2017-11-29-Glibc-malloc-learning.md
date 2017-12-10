@@ -767,11 +767,11 @@ ptmalloc_init (void)
 
 - 《Glibc内存管理：Ptmalloc2源代码分析》 华庭（庄明强）著
 - [Linux堆内存管理深入分析(上)](https://jaq.alibaba.com/community/art/show?articleid=315)
-- [Linux堆内存管理深入分析（下）](https://jaq.alibaba.com/community/art/show?articleid=334)
+- [Linux堆内存管理深入分析(下)](https://jaq.alibaba.com/community/art/show?articleid=334)
 - [malloc和free](http://blog.csdn.net/yejing_utopia/article/details/42676093)
 
 ### 暂未参考
 
 - [Understanding glibc malloc](https://sploitfun.wordpress.com/2015/02/10/understanding-glibc-malloc/comment-page-1/?spm=a313e.7916648.0.0.557d5a73mNDPCv)
 - [Syscalls used by malloc.](https://sploitfun.wordpress.com/2015/02/11/syscalls-used-by-malloc/?spm=a313e.7916648.0.0.557d5a73mNDPCv)
-- CSAPP | Chapter 9, 12
+- CSAPP Chapter 9, 12

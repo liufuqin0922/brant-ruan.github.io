@@ -5,7 +5,7 @@ category: lernen
 
 ## Die Verben
 
-|Infinitiv|du|er/sie/es|Partizip II|+D/+A|Beispiel|
+|Infinitiv|du|er/sie/es|Partizip II|+D/+A|Bedeutung|
 |:-:|:-:|:-:|:-:|:-:|:-:|
 |ab/biegen|||ab/gebogen|||
 |ab/fahren||fährt ab|ab/gefahren (s)|||
@@ -29,6 +29,7 @@ category: lernen
 |auf/nehmen||nimmt auf|auf/genommen|+A||
 |auf/stehen|||auf/gestanden (s)|||
 |aus/atmen|||aus/geatmet|||
+|aus/dehnen|||||延伸|
 |aus/geben|||aus/gegeben|||
 |aus/packen||||+A||
 |aus/ruhen||||||
@@ -37,6 +38,7 @@ category: lernen
 |aus/tauschen||||||
 |aus/ziehen|||aus/gezogen (s:搬出 h:(给)脱衣服)|||
 |baden||||||
+|bauen|||||建造|
 |beantworten||||+A||
 |beschreiben|||beschrieben|||
 |beeilen||||||
@@ -47,6 +49,7 @@ category: lernen
 |bemerken||||+A||
 |berichten||||+A||
 |besichtigen||||+A||
+|bestehen|||bestanden|(+aus/+auf D)|存在/由...组成/通过（考试）/坚持|
 |bestellen||||+A||
 |besuchen||||+A||
 |betrachten||||+A||
@@ -70,6 +73,7 @@ category: lernen
 |ein/tragen||trägt ein|ein/getragen|+A||
 |empfehlen||empfiehlt|empfohlen|(+D) +A||
 |entschuldigen||||||
+|entspringen|||entsprungen||来源于/发源于|
 |erkälten||||||
 |erklären||||(+D) +A||
 |erleben||||+A||
@@ -99,6 +103,7 @@ category: lernen
 |haben||hat||||
 |halten||hält|gehalten|||
 |hängen|||vi:gehangen, vt:gehängt|+A/D||
+|heiraten||||||
 |heißen|||geheißen|||
 |helfen||hilft|geholfen|(+D) (+bei D)||
 |hierher/kommen|||hierher/gekommen (s)|||
@@ -108,6 +113,7 @@ category: lernen
 |jobben||||||
 |kaufen||||+A||
 |kennen|||gekannt|+A||
+|sich kreuzen|||||相交错/相遇|
 |klingeln||||||
 |kochen||||||
 |kommen|||gekommen (s)|||
@@ -146,10 +152,12 @@ category: lernen
 |putzen||||+A||
 |rauchen||||||
 |reden||||+von/über A||
+|regnen||||||
 |reisen|||(s)|||
 |riechen|||gerochen|||
 |sagen||||+A||
 |schauen||||||
+|scheinen|||geschienen||照耀/看来|
 |schenken||||(+D) +A||
 |schlafen||schläft|geschlafen|||
 |schließen|schließt|schließt|geschlossen|||
@@ -189,6 +197,7 @@ category: lernen
 |verbringen|||verbracht|+A||
 |verdienen||||+A||
 |vergessen||vergisst|vergessen|||
+|vergleichen|||verglichen|+A (+mit)|比较|
 |sich verlassen|verlässt|verlässt|verlassen|+auf A||
 |verschreiben|||verschrieben|||
 |verstehen|||verstanden|+A||
@@ -200,6 +209,7 @@ category: lernen
 |wandern|||(s)|||
 |warten||||(+auf A)||
 |waschen (sich)||wäscht|gewaschen|+A||
+|wechseln||||+A||
 |weh/tun||tut weh|weh/getan|||
 |werden|wirst|wird|geworden (s)|||
 |wiegen|||gewogen(称重),gewiegt(摇动)|(+A)||

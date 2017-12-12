@@ -53,6 +53,7 @@ category: lernen
 |bestellen||||+A||
 |besuchen||||+A||
 |betrachten||||+A||
+|betragen||beträgt|betragen|+A||
 |bezahlen||||+A||
 |bitten|||gebeten|(+um A)||
 |bleiben|||geblieben (s)|||

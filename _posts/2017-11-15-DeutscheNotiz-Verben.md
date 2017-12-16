@@ -87,6 +87,7 @@ category: lernen
 |finanzieren||||+A||
 |finden|||gefunden|+A||
 |fliegen|||geflogen (s)|||
+|fließen|fließt|fließt|geflossen (s)|||
 |fotografieren||||||
 |fragen||||(+A) (+nach D)||
 |freuen||||||
@@ -163,6 +164,7 @@ category: lernen
 |schlafen||schläft|geschlafen|||
 |schließen|schließt|schließt|geschlossen|||
 |schmecken||||+D||
+|schneien||||||
 |schreiben|||geschrieben|+A||
 |sehen||sieht|gesehen|+A||
 |sein|bist|ist|gewesen (s)|||

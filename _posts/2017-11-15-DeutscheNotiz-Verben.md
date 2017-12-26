@@ -176,78 +176,78 @@ category: lernen
 |schmecken||||+D|||
 |schneien|||||||
 |schreiben|||geschrieben|+A||schrieb|
-|schwimmen|||geschwommen||||
-|sehen||sieht|gesehen|+A|||
-|sein|bist|ist|gewesen (s)||||
+|schwimmen|||geschwommen|||schwamm|
+|sehen||sieht|gesehen|+A||sah|
+|sein|bist|ist|gewesen (s)|||war|
 |setzen|setzt||||||
-|singen|||gesungen||||
-|sitzen|||gesessen||||
+|singen|||gesungen|||sang|
+|sitzen|||gesessen|||saß|
 |spazieren|||(s)||||
 |spielen||||+A|||
-|sprechen||spricht|gesprochen||||
-|springen|||gesprungen (s)||||
-|statt/finden|||statt/gefunden||发生(vi)||
+|sprechen||spricht|gesprochen|||sprch|
+|springen|||gesprungen (s)|||sprang|
+|statt/finden|||statt/gefunden||发生(vi)|fand|
 |stecken||||+A/D|||
-|stehen|||gestanden|+D 适合|||
-|steigen|||gestiegen (s)||||
+|stehen|||gestanden|+D 适合||stand|
+|steigen|||gestiegen (s)|||stieg|
 |stellen||||+A|||
 |stimmen|||||||
 |stören||||+A|影响，打搅||
-|streiten sich|||gestritten||||
+|streiten sich|||gestritten|||stritt|
 |studieren||||+A|||
 |suchen|||||||
 |surfen|||||||
 |tauschen||||+A|||
 |tippen|||||||
-|tragen||trägt|getragen|+A|||
-|treffen sich||trifft|getroffen||||
-|treiben|||getrieben|+A|||
-|trinken|||getrunken|+A|||
-|tun|tust|tut|getan|+A|||
+|tragen||trägt|getragen|+A||trug|
+|treffen sich||trifft|getroffen|||traf|
+|treiben|||getrieben|+A||trieb|
+|trinken|||getrunken|+A||trank|
+|tun|tust|tut|getan|+A||tat|
 |übersetzen||||+A|||
-|um/steigen|||um/gestiegen (s)||||
-|um/ziehen|||um/gezogen (s:搬家 h:给换衣服)||||
-|unterhalten sich|||unterhalten|+über A|||
+|um/steigen|||um/gestiegen (s)|||stieg um|
+|um/ziehen|||um/gezogen (s:搬家 h:给换衣服)|||zog um|
+|unterhalten sich||unterhält|unterhalten|+über A||unterhielt|
 |untersuchen||||+A|||
 |verabschieden||||+A|||
 |sich verändern||||+A|变化||
 |verbessern||||+A|提高，改善||
-|verbringen|||verbracht|+A|||
+|verbringen|||verbracht|+A||verbrachte|
 |verdienen||||+A|||
-|vergessen||vergisst|vergessen||||
-|vergleichen|||verglichen|+A (+mit)|比较||
-|sich verlassen|verlässt|verlässt|verlassen|+auf A|||
-|verschreiben|||verschrieben||||
+|vergessen||vergisst|vergessen|||vergaß|
+|vergleichen|||verglichen|+A (+mit)|比较|verglich|
+|sich verlassen|verlässt|verlässt|verlassen|+auf A||verließ|
+|verschreiben|||verschrieben|||verschrieb|
 |sich verspäten|||||迟到||
-|verstehen|||verstanden|+A|||
+|verstehen|||verstanden|+A||verstand|
 |versuchen||||+A|尝试||
-|vorbei/kommen|||vorbei/gekommen (s)||||
+|vorbei/kommen|||vorbei/gekommen (s)|||kam vorbei|
 |sich vor/bereiten||||+auf A|对...做准备||
-|vor/haben||||+A|||
-|sich D vor/nehmen||nimmt vor|vor/genommen|+A|打算做||
-|vor/schlagen||schlägt vor|vor/geschlagen||||
+|vor/haben||hat vor||+A||hatte vor|
+|sich D vor/nehmen||nimmt vor|vor/genommen|+A|打算做|nahm vor|
+|vor/schlagen||schlägt vor|vor/geschlagen|||schlug vor|
 |vor/stellen||||+D +A|||
 |wählen|||||||
 |wandern|||(s)||||
 |warten||||(+auf A)|||
-|waschen (sich)||wäscht|gewaschen|+A|||
+|waschen (sich)||wäscht|gewaschen|+A||wusch|
 |wechseln||||+A|||
-|weg/nehmen||nimmt weg|weg/genommen|+A|夺走，拿走||
-|weh/tun||tut weh|weh/getan||||
-|werden|wirst|wird|geworden (s)||||
+|weg/nehmen||nimmt weg|weg/genommen|+A|夺走，拿走|nahm weg|
+|weh/tun||tut weh|weh/getan|||tat weh|
+|werden|wirst|wird|geworden (s)|||wurde|
 |wiederholen||||+A|复习||
-|wiegen|||gewogen(称重),gewiegt(摇动)|(+A)|||
-|wissen|weißt|weiß|gewusst||||
+|wiegen|||gewogen(称重),gewiegt(摇动)|(+A)||wog|
+|wissen|weißt|weiß|gewusst|||wusst|
 |wohnen|||||||
-|wollen||will|||||
+|wollen||will||||wollte|
 |wünschen||||+(D) +A|||
 |zahlen|||||||
 |zeichnen|||||||
 |zeigen|||||||
-|ziehen|||gezogen (h,s)||拉，吸取，移动||
+|ziehen|||gezogen (h,s)||拉，吸取，移动|zog|
 |zu/machen|||||||
-|zu/nehmen||nimmt zu|zu/genommen||||
-|zurück/geben||gibt zurück|zurück/gegeben|+A|归还||
+|zu/nehmen||nimmt zu|zu/genommen|||nahm zu|
+|zurück/geben||gibt zurück|zurück/gegeben|+A|归还|gab zurück|
 |zu/stimmen||||(+D)|||
 
 注：

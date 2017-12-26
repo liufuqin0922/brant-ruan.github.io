@@ -73,89 +73,89 @@ category: lernen
 |ein/atmen|||ein/geatmet|||atmete ein|
 |ein/halten||hält ein|ein/gehalten|+A|遵守|hielt ein|
 |ein/kaufen||||+A|||
-|ein/laden||lädt ein|ein/geladen|+A|||
-|ein/nehmen||nimmt ein|ein/genommen||||
-|ein/schlafen|||ein/geschlafen (s)||||
-|ein/steigen|||ein/gestiegen (s)||||
-|ein/tragen||trägt ein|ein/getragen|+A|||
-|empfehlen||empfiehlt|empfohlen|(+D) +A|||
+|ein/laden||lädt ein|ein/geladen|+A|邀请|lud ein|
+|ein/nehmen||nimmt ein|ein/genommen||服用|nahm ein|
+|ein/schlafen|||ein/geschlafen (s)|||schlief ein|
+|ein/steigen|||ein/gestiegen (s)||登上，参与|stieg ein|
+|ein/tragen||trägt ein|ein/getragen|+A||trug ein|
+|empfehlen||empfiehlt|empfohlen|(+D) +A||empfahlst|
 |entschuldigen|||||||
-|entspringen|||entsprungen||来源于/发源于||
+|entspringen|||entsprungen (s)||来源于/发源于|entsprang|
 |entstehen|||entstanden (s)||出现，产生(vi)||
-|erfahren||erfährt|erfahren|+A (von D/ über A)|经历到，听到||
-|erkälten|||||||
-|erklären||||(+D) +A|||
-|erleben||||+A|||
+|erfahren||erfährt|erfahren|+A (von D/ über A)|经历到，听到|erfuhr|
+|sich erkälten|||||感冒||
+|erklären||||(+D) +A|解释，声明||
+|erleben||||+A|经历，遇到||
 |erledigen||||+A|办好，完成||
-|erzählen|||||||
-|essen|isst|isst|gegessen||||
-|fahren||fährt|gefahren (s)||||
-|fallen||fällt|gefallen (s)||||
+|erzählen|||||叙述，告知||
+|essen|isst|isst|gegessen|||aß|
+|fahren||fährt|gefahren (s)|||fuhr|
+|fallen||fällt|gefallen (s)|||fiel|
 |fehlen|||||||
-|fest/stellen||||+A|||
-|finanzieren||||+A|||
-|finden|||gefunden|+A|||
-|fliegen|||geflogen (s)||||
-|fließen|fließt|fließt|geflossen (s)||||
+|fest/stellen||||+A|固定，发觉||
+|finanzieren||||+A||为...提供资金|
+|finden|||gefunden|+A||fand|
+|fliegen|||geflogen (s)|||flog|
+|fließen|fließt|fließt|geflossen (s)||流|floss|
 |fotografieren|||||||
 |fragen||||(+A) (+nach D)|||
 |freuen|||||||
 |frühstücken|||||||
 |fühlen sich|||||||
-|geben||gibt|gegeben|+A|||
-|gefallen||gefällt|gefallen|+D|||
-|gehen|||gegangen (s)||||
+|geben||gibt|gegeben|+A||gab|
+|gefallen||gefällt|gefallen|+D||gefielen|
+|gehen|||gegangen (s)|||ging|
 |gehören||||+D|||
-|genießen|||genossen||||
+|genießen|||genossen|||genoss|
 |glauben||||(+A)|||
 |gratulieren||||+D (+zu)|||
 |grüßen||||+A|||
 |gucken|||||||
-|haben||hat|||||
-|halten||hält|gehalten||||
-|hängen|||vi:gehangen, vt:gehängt|+A/D|||
+|haben||hat||||hatte|
+|halten||hält|gehalten|||hielt|
+|hängen|||vi:gehangen, vt:gehängt|+A/D||hing|
 |heiraten|||||||
-|heißen|||geheißen||||
-|helfen||hilft|geholfen|(+D) (+bei D)|||
-|hierher/kommen|||hierher/gekommen (s)||||
-|hin/gehen|||hin/gegangen (s)||||
+|heißen|||geheißen|||hieß|
+|helfen||hilft|geholfen|(+D) (+bei D)||half|
+|hierher/kommen|||hierher/gekommen (s)||到这来|kam hierher|
+|hin/gehen|||hin/gegangen (s)||离去|ging hin|
 |holen||||(D) +A|||
 |hören|||||||
 |jobben|||||||
 |kaufen||||+A|||
-|kennen|||gekannt|+A|||
+|kennen|||gekannt|+A||kannte|
 |sich kreuzen|||||相交错/相遇||
 |klingeln|||||||
 |kochen|||||||
-|kommen|||gekommen (s)||||
-|können||kann|gekonnt||||
+|kommen|||gekommen (s)|||kam|
+|können||kann|gekonnt|||konnte|
 |korrigieren||||+A|纠正||
 |kosten|||||||
-|krank/schreiben|||krank/geschrieben||||
-|kümmern sich um||||+A|||
+|krank/schreiben|||krank/geschrieben|||schrieb krank|
+|kümmern sich||||+um A|||
 |lächeln|||||||
 |lachen|||||||
-|laufen||läuft|gelaufen (s)||||
+|laufen||läuft|gelaufen (s)|||lief|
 |leben|||||||
 |legen|||||||
-|leid/tun||tut|leid/getan||||
+|leid/tun||tut|leid/getan|||tat leid|
 |lernen||||+A/von|||
-|lesen|liest|liest|gelesen||||
+|lesen|liest|liest|gelesen|||las|
 |lieben||||+A|||
-|liegen|||gelegen||||
-|lösen|löst|löst||+A|||
+|liegen|||gelegen|||lag|
+|lösen|löst|löst||+A|解答，解开||
 |machen||||+A|||
 |mailen|||||||
 |meinen||||+A|||
 |mieten|||||||
-|mit/bringen|||gebracht|+A|||
-|mit/kommen|||mit/gekommen (s)||||
+|mit/bringen|||gebracht|+A||brachte mit|
+|mit/kommen|||mit/gekommen (s)|||kam mit|
 |mit/machen|||||||
-|mit/nehmen|||mit/genommen||||
-|mögen||mag|gemocht||||
-|müssen||muss|gemusst||||
-|nach/sehen||sieht nach|nach/gesehen||||
-|nehmen||nimmt|genommen||||
+|mit/nehmen|||mit/genommen||携带|nahm mit|
+|mögen||mag|gemocht|||mochte|
+|müssen||muss|gemusst|||musste|
+|nach/sehen||sieht nach|nach/gesehen||检查|sah nach|
+|nehmen||nimmt|genommen|||nahm|
 |öffnen||||+A|||
 |parken|||||||
 |passen||||+D 适合|||
@@ -166,16 +166,16 @@ category: lernen
 |reden||||+von/über A|||
 |regnen|||||||
 |reisen|||(s)||||
-|riechen|||gerochen||||
+|riechen|||gerochen||闻到，有气味(vi)|roch|
 |sagen||||+A|||
 |schauen|||||||
-|scheinen|||geschienen||照耀/看来||
+|scheinen|||geschienen||照耀/看来|schien|
 |schenken||||(+D) +A|||
-|schlafen||schläft|geschlafen||||
-|schließen|schließt|schließt|geschlossen||||
+|schlafen||schläft|geschlafen|||schlief|
+|schließen|schließt|schließt|geschlossen|||schloss|
 |schmecken||||+D|||
 |schneien|||||||
-|schreiben|||geschrieben|+A|||
+|schreiben|||geschrieben|+A||schrieb|
 |schwimmen|||geschwommen||||
 |sehen||sieht|gesehen|+A|||
 |sein|bist|ist|gewesen (s)||||
@@ -261,5 +261,5 @@ category: lernen
     + 带有非重读前缀及`-ieren`结尾的不加`ge-`但加`-t`的
     + 与上述动词构成可分动词的
 - 可分动词中间以`/`标识，无`/`说明该动词不可分（但是有的动词既可分又不可分）
-- 规则变化的动词的过去时由`词干`和`词尾`之间加`t`(如果词干最后是`t`则似乎要加入`et`)构成；大部分不规则变化动词的词干元音在过去时中发生变换，其中`第一人称`和`第三人称``单数`无词尾；上表列出的过去时为第一人称`ich`对应的词
+- 规则变化的动词的过去时由`词干`和`词尾`之间加`t`(如果词干最后是`t`/`d`/`ffn`/`chn`/`gn`等则似乎要加入`et`)构成；大部分不规则变化动词的词干元音在过去时中发生变换，其中`第一人称`和`第三人称``单数`无词尾；上表列出的过去时为第一人称`ich`对应的词
 - 互相交流，欢迎指正

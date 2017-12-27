@@ -172,7 +172,7 @@ category: lernen
 |scheinen|||geschienen||照耀/看来|schien|
 |schenken||||(+D) +A|||
 |schlafen||schläft|geschlafen|||schlief|
-|schließen|schließt|schließt|geschlossen|||schloss|
+|schließen|||geschlossen|||schloss|
 |schmecken||||+D|||
 |schneien|||||||
 |schreiben|||geschrieben|+A||schrieb|

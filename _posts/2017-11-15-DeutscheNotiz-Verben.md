@@ -50,7 +50,7 @@ category: lernen
 |beginnen|||begonnen|||begann|
 |begleiten||||+A|陪伴，伴随||
 |begrüßen||||+A|||
-|bei/tragen||trägst bei|bei/getragen|+zu|为...贡献|trug bei|
+|bei/tragen||trägt bei|bei/getragen|+zu|为...贡献|trug bei|
 |bekommen|||bekommen|||bekam|
 |bemerken||||+A|察觉||
 |berichten||||+A|报告，报道||
@@ -78,7 +78,7 @@ category: lernen
 |ein/schlafen|||ein/geschlafen (s)|||schlief ein|
 |ein/steigen|||ein/gestiegen (s)||登上，参与|stieg ein|
 |ein/tragen||trägt ein|ein/getragen|+A||trug ein|
-|empfehlen||empfiehlt|empfohlen|(+D) +A||empfahlst|
+|empfehlen||empfiehlt|empfohlen|(+D) +A||empfahl|
 |entschuldigen|||||||
 |entspringen|||entsprungen (s)||来源于/发源于|entsprang|
 |entstehen|||entstanden (s)||出现，产生(vi)||
@@ -93,7 +93,7 @@ category: lernen
 |fallen||fällt|gefallen (s)|||fiel|
 |fehlen|||||||
 |fest/stellen||||+A|固定，发觉||
-|finanzieren||||+A||为...提供资金|
+|finanzieren||||+A|为...提供资金||
 |finden|||gefunden|+A||fand|
 |fliegen|||geflogen (s)|||flog|
 |fließen|fließt|fließt|geflossen (s)||流|floss|
@@ -148,7 +148,7 @@ category: lernen
 |mailen|||||||
 |meinen||||+A|||
 |mieten|||||||
-|mit/bringen|||gebracht|+A||brachte mit|
+|mit/bringen|||mit/gebracht|+A||brachte mit|
 |mit/kommen|||mit/gekommen (s)|||kam mit|
 |mit/machen|||||||
 |mit/nehmen|||mit/genommen||携带|nahm mit|
@@ -184,9 +184,9 @@ category: lernen
 |sitzen|||gesessen|||saß|
 |spazieren|||(s)||||
 |spielen||||+A|||
-|sprechen||spricht|gesprochen|||sprch|
+|sprechen||spricht|gesprochen|||sprach|
 |springen|||gesprungen (s)|||sprang|
-|statt/finden|||statt/gefunden||发生(vi)|fand|
+|statt/finden|||statt/gefunden||发生(vi)|fand statt|
 |stecken||||+A/D|||
 |stehen|||gestanden|+D 适合||stand|
 |steigen|||gestiegen (s)|||stieg|
@@ -239,7 +239,7 @@ category: lernen
 |wiegen|||gewogen(称重),gewiegt(摇动)|(+A)||wog|
 |wissen|weißt|weiß|gewusst|||wusst|
 |wohnen|||||||
-|wollen||will||||wollte|
+|wollen||will|||||
 |wünschen||||+(D) +A|||
 |zahlen|||||||
 |zeichnen|||||||

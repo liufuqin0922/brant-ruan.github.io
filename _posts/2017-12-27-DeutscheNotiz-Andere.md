@@ -1,5 +1,5 @@
 ---
-title: Deutsche Notiz | Verben
+title: Deutsche Notiz | Andere
 category: lernen
 ---
 
@@ -16,13 +16,14 @@ category: lernen
 |Quelle|Wiedersehen|Unterricht|
 |Phonetik|Beispiel|Unterschied|
 |Physik|Italien|Brief|
-|Wirtschaft|Welt|Beruf|
+|Wirtschaft||Beruf|
 |Wissenschaft||Text|
 |Wirtschaftswissenschaft||Fußball|
 |Einführung||Dialog|
 |Einheit||Satz|
 |Chemie|||
 |Elektrotechnik|||
+|Welt|||
 
 Ich möchte mich von Innen verabschieden.
 

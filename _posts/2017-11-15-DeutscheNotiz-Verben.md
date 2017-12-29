@@ -81,7 +81,7 @@ category: lernen
 |empfehlen||empfiehlt|empfohlen|(+D) +A||empfahl|
 |entschuldigen|||||||
 |entspringen|||entsprungen (s)||来源于/发源于|entsprang|
-|entstehen|||entstanden (s)||出现，产生(vi)||
+|entstehen|||entstanden (s)||出现，产生(vi)|entstand|
 |erfahren||erfährt|erfahren|+A (von D/ über A)|经历到，听到|erfuhr|
 |sich erkälten|||||感冒||
 |erklären||||(+D) +A|解释，声明||
@@ -262,4 +262,5 @@ category: lernen
     + 与上述动词构成可分动词的
 - 可分动词中间以`/`标识，无`/`说明该动词不可分（但是有的动词既可分又不可分）
 - 规则变化的动词的过去时由`词干`和`词尾`之间加`t`(如果词干最后是`t`/`d`/`ffn`/`chn`/`gn`等则似乎要加入`et`)构成；大部分不规则变化动词的词干元音在过去时中发生变换，其中`第一人称`和`第三人称``单数`无词尾；上表列出的过去时为第一人称`ich`对应的词
+- `möchten`没有过去时变化，可以直接在过去时中使用，或者可以借用`wollen`的过去时表达
 - 互相交流，欢迎指正

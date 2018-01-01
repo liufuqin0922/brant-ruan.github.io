@@ -12,8 +12,10 @@ category: lernen
 |ab/holen|||||||
 |ab/horchen||||+A|||
 |ab/lehnen||||+A|拒绝||
+|ab/schicken||||+A|寄出||
 |absolvieren||||+A|||
 |achten||||+auf A|||
+|an/bieten|||beboten|+D +A|供应|bot|
 |an/fangen||fängt an|an/gefangen||开始|fing an|
 |an/haben||hat an||+A||hatte an|
 |an/kommen|||an/gekommen (s)|(in +D)||kam an|
@@ -24,10 +26,14 @@ category: lernen
 |antworten||||(+D) (auf +A)|||
 |an/ziehen|||an/gezogen|||zog an|
 |arbeiten|||||||
+|auf/bewahren||||+A|保存，收藏||
 |auf/fallen||fällt|auf/gefallen (s)|+D|引人注目|fiel auf|
 |auf/geben||gibt auf|auf/gegeben|+A||gab auf|
 |auf/machen||||+A|||
 |auf/nehmen||nimmt auf|auf/genommen|+A||nahm auf|
+|auf/räumen||||+A|整理，收拾干净||
+|auf/schneiden|||geschnitten|+A|剪，裁|schnitt|
+|auf/setzen||||+A|戴上||
 |auf/stehen|||auf/gestanden (s)|||stand auf|
 |aus/atmen|||aus/geatmet|||atmete aus|
 |aus/dehnen|||||延伸||
@@ -36,6 +42,7 @@ category: lernen
 |aus/kommen|||aus/gekommen (s)|+mit|与xx和睦相处|kam aus|
 |aus/packen||||+A|解开；取出||
 |aus/ruhen|||||休息||
+|aus/schlafen||schläft aus|aus/geschlafen||睡醒|schlief aus|
 |aus/sehen||sieht aus|aus/gesehen||看起来|sah aus|
 |aus/steigen|||aus/gestiegen (s)||下车；下船|stieg aus|
 |aus/tauschen|||||交换||
@@ -45,21 +52,27 @@ category: lernen
 |beabsichtigen||||+A|打算||
 |beachten||||+A|注意，重视||
 |beantworten||||+A|||
-|beschreiben|||beschrieben|||beschrieb|
 |sich beeilen|||||赶快||
+|beenden||||+A|结束||
+|befehlen||befiehlt|befohlen|+D +A|命令，吩咐|befahl|
+|begegnen|||(s)|+D|遇到||
 |beginnen|||begonnen|||begann|
 |begleiten||||+A|陪伴，伴随||
 |begrüßen||||+A|||
+|behalten||behält|behalten|+A|留下，保持，记住|behielt|
 |bei/tragen||trägt bei|bei/getragen|+zu|为...贡献|trug bei|
 |bekommen|||bekommen|||bekam|
 |bemerken||||+A|察觉||
 |berichten||||+A|报告，报道||
+|beschreiben|||beschrieben|||beschrieb|
 |besichtigen||||+A|参观||
 |bestehen|||bestanden|(+aus/+auf D)|存在/由...组成/通过（考试）/坚持|bestand|
 |bestellen||||+A|订购||
 |besuchen||||+A|||
 |betrachten||||+A|观察，认为||
 |betragen||beträgt|betragen|+A||betrug|
+|beugen|||||弯，屈||
+|sich bewegen|||||移动||
 |bezahlen||||+A|||
 |bitten|||gebeten|(+A +um A)|请求|bat|
 |bleiben|||geblieben (s)|||blieb|
@@ -68,6 +81,7 @@ category: lernen
 |chatten|||||||
 |danken||||+D|||
 |dauern|||||持续||
+|davon/fliegen|||davon/geflogen (s)||飞走|flog davon|
 |denken|||gedacht||思考，认为|dachte|
 |dürfen||darf|gedurft|||durfte|
 |ein/atmen|||ein/geatmet|||atmete ein|
@@ -76,6 +90,7 @@ category: lernen
 |ein/laden||lädt ein|ein/geladen|+A|邀请|lud ein|
 |ein/nehmen||nimmt ein|ein/genommen||服用|nahm ein|
 |ein/schlafen|||ein/geschlafen (s)|||schlief ein|
+|ein/stecken||||+A|把...放进衣袋||
 |ein/steigen|||ein/gestiegen (s)||登上，参与|stieg ein|
 |ein/tragen||trägt ein|ein/getragen|+A||trug ein|
 |empfehlen||empfiehlt|empfohlen|(+D) +A||empfahl|
@@ -83,10 +98,13 @@ category: lernen
 |entspringen|||entsprungen (s)||来源于/发源于|entsprang|
 |entstehen|||entstanden (s)||出现，产生(vi)|entstand|
 |erfahren||erfährt|erfahren|+A (von D/ über A)|经历到，听到|erfuhr|
+|ergreifen|||griffen|+A|抓住|ergriff|
 |sich erkälten|||||感冒||
+|erkennen|||erkannt|+A (+an D)|认出|erkannte|
 |erklären||||(+D) +A|解释，声明||
 |erleben||||+A|经历，遇到||
 |erledigen||||+A|办好，完成||
+|ertrinken|||ertrunken (s)||淹死|ertrank|
 |erzählen|||||叙述，告知||
 |essen|isst|isst|gegessen|||aß|
 |fahren||fährt|gefahren (s)|||fuhr|
@@ -99,6 +117,7 @@ category: lernen
 |fließen|fließt|fließt|geflossen (s)||流|floss|
 |fotografieren|||||||
 |fragen||||(+A) (+nach D)|||
+|fressen||frisst|fressen|+A|(动物)吃|fraß|
 |freuen|||||||
 |frühstücken|||||||
 |fühlen sich|||||||
@@ -107,6 +126,8 @@ category: lernen
 |gehen|||gegangen (s)|||ging|
 |gehören||||+D|||
 |genießen|||genossen|||genoss|
+|genügen||||+D (für/zu)|足够||
+|geschehen||geschieht|geschehen (s)||发生|geschlah|
 |glauben||||(+A)|||
 |gratulieren||||+D (+zu)|||
 |grüßen||||+A|||
@@ -117,15 +138,21 @@ category: lernen
 |heiraten|||||||
 |heißen|||geheißen|||hieß|
 |helfen||hilft|geholfen|(+D) (+bei D)||half|
+|heraus/kommen|||gekommen heraus (s)|走出来||kam heraus|
+|herein/springen|||gesprungen herein (s)||跳进来|sprang herein|
+|herum/tanzen|||||跳来跳去||
 |hierher/kommen|||hierher/gekommen (s)||到这来|kam hierher|
 |hin/gehen|||hin/gegangen (s)||离去|ging hin|
+|hinweg/fliegen|||hinweg/geflogen (s)||飞走|flog hinweg|
 |holen||||(D) +A|||
 |hören|||||||
+|jagen||||+A|打猎||
 |jobben|||||||
 |kaufen||||+A|||
 |kennen|||gekannt|+A||kannte|
 |sich kreuzen|||||相交错/相遇||
 |klingeln|||||||
+|klopfen|||||敲门||
 |kochen|||||||
 |kommen|||gekommen (s)|||kam|
 |können||kann|gekonnt|||konnte|
@@ -135,6 +162,7 @@ category: lernen
 |kümmern sich||||+um A|||
 |lächeln|||||||
 |lachen|||||||
+|lassen||lässt|gelassen|+Inf.|让，使|ließ|
 |laufen||läuft|gelaufen (s)|||lief|
 |leben|||||||
 |legen|||||||
@@ -151,26 +179,34 @@ category: lernen
 |mit/bringen|||mit/gebracht|+A||brachte mit|
 |mit/kommen|||mit/gekommen (s)|||kam mit|
 |mit/machen|||||||
-|mit/nehmen|||mit/genommen||携带|nahm mit|
+|mit/nehmen|||mit/genommen|+A|随身携带|nahm mit|
 |mögen||mag|gemocht|||mochte|
 |müssen||muss|gemusst|||musste|
 |nach/sehen||sieht nach|nach/gesehen||检查|sah nach|
 |nehmen||nimmt|genommen|||nahm|
+|nennen|||genannt|+A|把...叫做|nannte|
 |öffnen||||+A|||
 |parken|||||||
 |passen||||+D 适合|||
+|passieren|||||发生||
+|pflücken||||+A|采，摘||
 |planen||||+A|||
 |probieren||||+A|||
 |putzen||||+A|||
 |rauchen|||||||
+|reagieren||||+auf A|对...作出反应||
 |reden||||+von/über A|||
 |regnen|||||||
 |reisen|||(s)||||
+|retten||||+A|拯救||
 |riechen|||gerochen||闻到，有气味(vi)|roch|
+|rufen|||gerufen|+A|喊，叫|rief|
 |sagen||||+A|||
+|sammeln||||+A|收集||
 |schauen|||||||
 |scheinen|||geschienen||照耀/看来|schien|
 |schenken||||(+D) +A|||
+|schießen|||geschossen|+auf A|射击|schoss|
 |schlafen||schläft|geschlafen|||schlief|
 |schließen|||geschlossen|||schloss|
 |schmecken||||+D|||
@@ -214,13 +250,16 @@ category: lernen
 |verbessern||||+A|提高，改善||
 |verbringen|||verbracht|+A||verbrachte|
 |verdienen||||+A|||
+|verfeinern||||+A|使优美||
 |vergessen||vergisst|vergessen|||vergaß|
 |vergleichen|||verglichen|+A (+mit)|比较|verglich|
 |sich verlassen|verlässt|verlässt|verlassen|+auf A||verließ|
 |verschreiben|||verschrieben|||verschrieb|
 |sich verspäten|||||迟到||
+|sich verstecken|||||躲藏||
 |verstehen|||verstanden|+A||verstand|
 |versuchen||||+A|尝试||
+|sich verwandeln|||||变成||
 |vorbei/kommen|||vorbei/gekommen (s)|||kam vorbei|
 |sich vor/bereiten||||+auf A|对...做准备||
 |vor/haben||hat vor||+A||hatte vor|
@@ -232,6 +271,7 @@ category: lernen
 |warten||||(+auf A)|||
 |waschen (sich)||wäscht|gewaschen|+A||wusch|
 |wechseln||||+A|||
+|sich wenden||||+an A|转向||
 |weg/nehmen||nimmt weg|weg/genommen|+A|夺走，拿走|nahm weg|
 |weh/tun||tut weh|weh/getan|||tat weh|
 |werden|wirst|wird|geworden (s)|||wurde|
@@ -246,8 +286,10 @@ category: lernen
 |zeigen|||||||
 |ziehen|||gezogen (h,s)||拉，吸取，移动|zog|
 |zu/machen|||||||
+|zu/nähen||||+A|缝上||
 |zu/nehmen||nimmt zu|zu/genommen|||nahm zu|
 |zurück/geben||gibt zurück|zurück/gegeben|+A|归还|gab zurück|
+|sich zusammen/schlagen||schlägt zusammen|zusammen/geschlagen|+A|拍，击|schlief zusammen|
 |zu/stimmen||||(+D)|||
 
 注：

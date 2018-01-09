@@ -5,43 +5,53 @@ category: lernen
 
 ## Andere
 
-|die|das|der|
-|:-:|:-:|:-:|
-|Waage|Huhn|Pass|
-|Mappe|Gas|Ofen|
-|Kanne|Eis|Hut|
-|Banane|Boot|Mais|
-|Faust|Licht|Stuhl|
-|Vase|Griechenland|Champagner|
-|Quelle|Wiedersehen|Unterricht|
-|Phonetik|Beispiel|Unterschied|
-|Physik|Italien|Brief|
-|Wirtschaft|Wochenende|Beruf|
-|Wissenschaft|Gespräch|Text|
-|Wirtschaftswissenschaft|Mitglied|Fußball|
-|Einführung||Dialog|
-|Einheit||Satz|
-|Chemie||Lebensgefährte|
-|Elektrotechnik||Spiegel|
-|Welt||Dieb|
-|Telefonnummer||Vorschlag|
-|Zahr||Tofu|
-|Million||Ausländer|
-|Kunst||Hund|
-|Lust||m,f Verwandte|
-|Fachhochschule||Blumentopf|
-|Geburtstagsfeier|||
-|Torte|||
-|Verabredung|||
+|           die           |     das      |      der       |
+| :---------------------: | :----------: | :------------: |
+|          Waage          |     Huhn     |      Pass      |
+|          Mappe          |     Gas      |      Ofen      |
+|          Kanne          |     Eis      |      Hut       |
+|         Banane          |     Boot     |      Mais      |
+|          Faust          |    Licht     |     Stuhl      |
+|          Vase           | Griechenland |   Champagner   |
+|         Quelle          | Wiedersehen  |   Unterricht   |
+|        Phonetik         |   Beispiel   |  Unterschied   |
+|         Physik          |   Italien    |     Brief      |
+|       Wirtschaft        |  Wochenende  |     Beruf      |
+|      Wissenschaft       |   Gespräch   |      Text      |
+| Wirtschaftswissenschaft |   Mitglied   |    Fußball     |
+|       Einführung        |Enkelkind|     Dialog     |
+|         Einheit         | Lied |      Satz      |
+|         Chemie          |Tier| Lebensgefährte |
+|     Elektrotechnik      |              |    Spiegel     |
+|          Welt           |              |      Dieb      |
+|      Telefonnummer      |              |   Vorschlag    |
+|          Zahr           |              |      Tofu      |
+|         Million         |              |   Ausländer    |
+|          Kunst          |              |      Hund      |
+|          Lust           |              | m,f Verwandte  |
+|     Fachhochschule      |              |   Blumentopf   |
+|    Geburtstagsfeier     |              |Fehler          |
+|          Torte          |              | Sekretär     |
+|       Verabredung       |              | Kaufman, Kaufleute pl. |
+|Nichte||Neffe|
+|Generation||Hund|
+|Form||Geldschein|
+|Rolle||Ober|
+|Rollenverteilung|||
+|Polizei|Getränk||
+|Vorspeise|Hauptgericht|Nachtisch|
+|Speisekarte|||
+|Zitrone|||
 
-|eigentlich|insgesamt|abgemacht|
-|:-:|:-:|:-:|
-|geschieden|verheiratet|ledig|
-|hoffen|fertig||
+| eigentlich |  insgesamt  | abgemacht |
+| :--------: | :---------: | :-------: |
+| geschieden | verheiratet |   ledig   |
+|   hoffen   |   fertig    |   sonst   |
+|   lecker   |alleinstehend| wunderbar |
 
 
-- Ich möchte mich von Innen verabschieden.
 - Er war dick, aber er ist jetzt dünn.
+- Ich möchte mich von Innen verabschieden.
 - an der Universität
 - zu Mittag essen
 - nach Hause gehen
@@ -85,3 +95,15 @@ category: lernen
 - entweder ... oder ... 或者...或者...
 - weder ... noch ... 既不...又不...
 - zwar ... aber ...
+- zur Vorlesung
+- zum China-Restaurant
+- Was sehen Sie auf dem Bild?
+- zu dem Lehrer
+- zum Wohl!
+- Prost!
+- Gleichfalls!
+- Getrennt oder zusammen?
+- Fahrrad fahren
+- Stimmt so.
+- Bitte, gern geschehen.
+- Schwarywälder Kischtorte

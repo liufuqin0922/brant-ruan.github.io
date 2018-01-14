@@ -15,7 +15,7 @@ category: lernen
 |ab/schicken||||+A|寄出||
 |absolvieren||||+A|||
 |achten||||+auf A|||
-|an/bieten|||beboten|+D +A|供应|bot|
+|an/bieten|||geboten|+D +A|供应|bot|
 |an/fangen||fängt an|an/gefangen||开始|fing an|
 |an/haben||hat an||+A||hatte an|
 |an/kommen|||an/gekommen (s)|(in +D)||kam an|
@@ -122,12 +122,12 @@ category: lernen
 |frühstücken|||||||
 |fühlen sich|||||||
 |geben||gibt|gegeben|+A||gab|
-|gefallen||gefällt|gefallen|+D||gefielen|
+|gefallen||gefällt|gefallen|+D||gefiel|
 |gehen|||gegangen (s)|||ging|
 |gehören||||+D|||
 |genießen|||genossen|||genoss|
 |genügen||||+D (für/zu)|足够||
-|geschehen||geschieht|geschehen (s)||发生|geschlah|
+|geschehen||geschieht|geschehen (s)||发生|geschah|
 |glauben||||(+A)|||
 |gratulieren||||+D (+zu)|||
 |grüßen||||+A|||

@@ -71,59 +71,59 @@ category: Essay
 
 3号下午去家乐福买些旅行用品，在赤峰路密云路交叉口等红绿灯时随手拍的。我一抬头，觉得蛮有意思。
 
-<img src="images/2018-04-06/581523022425_.pic_hd.jpg" style="zoom:15%" />
+<img src="{{ site.url }}/images/2018-04-06/581523022425_.pic_hd.jpg" style="zoom:15%" />
 
-<img src="images/2018-04-06/571523022419_.pic_hd.jpg" style="zoom:15%" />
+<img src="{{ site.url }}/images/2018-04-06/571523022419_.pic_hd.jpg" style="zoom:15%" />
 
 苏州站出站后即可看到的城楼。
 
-![611523022438_.pic_hd](images/2018-04-06/611523022438_.pic_hd.jpg)
+![611523022438_.pic_hd]({{ site.url }}/images/2018-04-06/611523022438_.pic_hd.jpg)
 
 诚品书店附近见到的高楼。一看到它，我们就想起之前去嘉定图书馆时，看到过一座同样带有神秘感的高楼。记得那栋高楼还有一个特点——它是一个被从当中横劈开后错位摆放的立式长方体。
 
-![601523022432_.pic_hd](images/2018-04-06/601523022432_.pic_hd.jpg)
+![601523022432_.pic_hd]({{ site.url }}/images/2018-04-06/601523022432_.pic_hd.jpg)
 
 苏州中心的“秋裤楼”和“金鸡湖”景区。4号晚在金鸡湖附近散步。
 
-![631523022447_.pic_hd](images/2018-04-06/631523022447_.pic_hd.jpg)
+![631523022447_.pic_hd]({{ site.url }}/images/2018-04-06/631523022447_.pic_hd.jpg)
 
-![591523022429_.pic_hd](images/2018-04-06/591523022429_.pic_hd.jpg)
+![591523022429_.pic_hd]({{ site.url }}/images/2018-04-06/591523022429_.pic_hd.jpg)
 
 “秋裤楼”附近的一栋住宅楼，它像另一条肥大的秋裤。
 
-![621523022442_.pic_hd](images/2018-04-06/621523022442_.pic_hd.jpg)
+![621523022442_.pic_hd]({{ site.url }}/images/2018-04-06/621523022442_.pic_hd.jpg)
 
 5号上午，沧浪亭。庭园、木船、古树、石台。
 
-![491523022368_.pic_hd](images/2018-04-06/491523022368_.pic_hd.jpg)
+![491523022368_.pic_hd]({{ site.url }}/images/2018-04-06/491523022368_.pic_hd.jpg)
 
-![511523022382_.pic_hd](images/2018-04-06/511523022382_.pic_hd.jpg)
+![511523022382_.pic_hd]({{ site.url }}/images/2018-04-06/511523022382_.pic_hd.jpg)
 
-![521523022389_.pic_hd](images/2018-04-06/521523022389_.pic_hd.jpg)
+![521523022389_.pic_hd]({{ site.url }}/images/2018-04-06/521523022389_.pic_hd.jpg)
 
-<img src="images/2018-04-06/531523022396_.pic_hd.jpg" style="zoom:15%" />
+<img src="{{ site.url }}/images/2018-04-06/531523022396_.pic_hd.jpg" style="zoom:15%" />
 
-![501523022376_.pic_hd](images/2018-04-06/501523022376_.pic_hd.jpg)
+![501523022376_.pic_hd]({{ site.url }}/images/2018-04-06/501523022376_.pic_hd.jpg)
 
-![461523022352_.pic_hd](images/2018-04-06/461523022352_.pic_hd.jpg)
+![461523022352_.pic_hd]({{ site.url }}/images/2018-04-06/461523022352_.pic_hd.jpg)
 
-<img src="images/2018-04-06/471523022357_.pic_hd.jpg" style="zoom:15%" />
+<img src="{{ site.url }}/images/2018-04-06/471523022357_.pic_hd.jpg" style="zoom:15%" />
 
 往观前街走时经过的一个巷子。因果巷。这名字让人琢磨。
 
-<img src="images/2018-04-06/541523022400_.pic_hd.jpg" style="zoom:20%" />
+<img src="{{ site.url }}/images/2018-04-06/541523022400_.pic_hd.jpg" style="zoom:20%" />
 
 苏州地铁。我们从苏州站出发，要赶往苏州北乘高铁到嘉兴。这个把手设计得很有心。我记得上海、北京、南京和香港的地铁上，这种柱子都是只有一根立在那里。
 
-<img src="images/2018-04-06/551523022405_.pic_hd.jpg" style="zoom:15%" />
+<img src="{{ site.url }}/images/2018-04-06/551523022405_.pic_hd.jpg" style="zoom:15%" />
 
 今天下午回上海，在复旦旁吃饭。之后他们乘北安跨回嘉定，我穿过北门回宿舍。
 
-<img src="images/2018-04-06/661523023328_.pic_hd.jpg" style="zoom:15%" />
+<img src="{{ site.url }}/images/2018-04-06/661523023328_.pic_hd.jpg" style="zoom:15%" />
 
 本次旅行的路线图：上海到苏州，苏州北到嘉兴南，嘉兴南回到上海。
 
-<img src="images/2018-04-06/641523022930_.pic_hd.jpg" style="zoom:50%" />
+<img src="{{ site.url }}/images/2018-04-06/641523022930_.pic_hd.jpg" style="zoom:50%" />
 
 ### 五
 

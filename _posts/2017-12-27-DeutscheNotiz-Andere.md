@@ -5,6 +5,8 @@ category: lernen
 
 ## Andere
 
+[Refarat]({{ site.url }}/resources/pdf/Refarat.pdf)
+
 |           die           |     das      |      der       |
 | :---------------------: | :----------: | :------------: |
 |          Waage          |     Huhn     |      Pass      |
